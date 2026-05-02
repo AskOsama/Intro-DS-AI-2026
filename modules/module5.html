@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Module 5: AI Opportunity Workshop. Identify one process in your work where AI can help, draft a one-page proposal, share, present, and cluster.">
-    <title>Day 5 — AI Opportunity Workshop (Capstone) | AI for Leaders</title>
+    <title>Day 5 — AI Opportunity Workshop (Capstone) | Introduction to DS &amp; AI</title>
     <link rel="stylesheet" href="../styles.css">
     <link rel="stylesheet" href="../landing.css">
 </head>
@@ -36,6 +36,7 @@
             <h4>On this page</h4>
             <ol>
                 <li><a href="#recap">The four threads, recap</a></li>
+                <li><a href="#anatomy">Anatomy of a composed agent</a></li>
                 <li><a href="#workshop-frame">Workshop framing</a></li>
                 <li><a href="#template">The proposal template</a></li>
                 <li><a href="#worked-example">A worked example</a></li>
@@ -82,6 +83,107 @@
                     </tr>
                 </tbody>
             </table>
+        </section>
+
+        <section id="anatomy" class="module-section">
+            <h2>Anatomy of a composed agent</h2>
+
+            <p>
+                The four days behind you each delivered one piece of a working agent. Today is where they snap
+                together. The simplest useful definition:
+            </p>
+
+            <blockquote>
+                <strong>Agent = an LLM (Day 4) + tools (Day 4 building blocks) + memory (Day 2) + a safety
+                wrapper (Day 3) + a loop that runs them (Day 2).</strong>
+            </blockquote>
+
+            <p>
+                That's it. Every agent your team will build, buy, or be sold &mdash; from the simplest workflow
+                bot to the most ambitious computer-use agent &mdash; is a composition of those five ingredients.
+                When you understand which ingredient does what, you can read any agent proposal as a parts list,
+                not magic.
+            </p>
+
+            <h3>The five parts, mapped to the days</h3>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Part</th>
+                        <th>What it does</th>
+                        <th>Where you met it</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>The LLM</strong></td>
+                        <td>The "brain". Reads context, proposes the next action, drafts language. Hallucinates if not constrained.</td>
+                        <td>Day 4 &mdash; generative AI segment</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Tools</strong></td>
+                        <td>What the LLM can <em>do</em>. Each tool is a capability the agent can call.</td>
+                        <td>Day 4 building blocks (see four common ones below)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Memory / context</strong></td>
+                        <td>What the agent remembers across turns. Short-term in the context window; longer-term in files, databases, MCP servers.</td>
+                        <td>Day 2 (context window) + Day 3 (where memory physically lives)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Safety wrapper</strong></td>
+                        <td>Autonomy level, action approval, action log, kill-switch, identity.</td>
+                        <td>Day 2 (responsibility checklist) + Day 3 (agent-specific security)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>The loop</strong></td>
+                        <td>The runtime that drives Read &rarr; Plan &rarr; Act &rarr; Observe &rarr; Repeat.</td>
+                        <td>Day 2 (the agent loop)</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Four common tools an agent can have</h3>
+
+            <p>The "tools" slot is where your Day-4 building blocks plug in. Four that recur in real agents:</p>
+
+            <ol>
+                <li><strong>An optimization tool.</strong> The agent calls it with constraints and an objective; it returns the best feasible plan. Use case: "schedule six inspectors across twelve sites this week, minimize travel time, no inspector visits the same site twice." Day-4 root: search &amp; optimization.</li>
+                <li><strong>A database / KBS tool.</strong> The agent looks up facts (what does the policy say about X?) or applies rules (does this case meet the eligibility conditions?). Use case: a procurement agent that checks each proposed clause against your data-classification rule book. Day-4 root: knowledge-based systems.</li>
+                <li><strong>A reasoning / ML tool.</strong> A specialised model the agent can call when its general LLM isn't precise enough &mdash; e.g., a fraud-classifier, a forecast model, a sentiment scorer. Use case: an inbound-letters agent that asks a fine-tuned classifier "is this a compliance complaint?" before drafting a response. Day-4 root: machine learning.</li>
+                <li><strong>A safe action tool.</strong> The agent's <em>fingers</em> &mdash; what it can change in the world. Wrapped so every call is logged, every above-threshold call is gated by human approval, and every action below the autonomy line is allowed to happen automatically. Use case: "send the drafted reply" is a safe action; "transfer money" almost never is. Days 2 and 3 between them.</li>
+            </ol>
+
+            <h3>Worked example: a Procurement Review Agent</h3>
+
+            <div class="callout">
+                <h4>How the parts compose on a real task</h4>
+                <p><strong>The job.</strong> Your team receives ~30 vendor proposals per month for AI tooling. Each one needs a rapid review against three things: NDMO classification fit, total cost of ownership compared to the current incumbent, and a written summary for the director.</p>
+
+                <p><strong>The agent.</strong></p>
+                <ul>
+                    <li><strong>LLM:</strong> Claude Opus (hosted) or a Qwen-class model (on-prem) &mdash; chosen based on the highest classification level any proposal will contain.</li>
+                    <li><strong>KBS tool:</strong> the NDMO classification rules + your organisation's PDPL playbook, exposed as a local MCP server. The agent asks: "Given this proposal mentions [X], what classification level applies, and what tools are permitted?"</li>
+                    <li><strong>Optimization tool:</strong> a small TCO solver. The agent feeds in proposal numbers vs. incumbent; the solver returns the Pareto front of cost/capability trade-offs and identifies the dominated proposals.</li>
+                    <li><strong>Reasoning / ML tool:</strong> a small classifier you trained once on past procurement decisions, returning "approve / refer / reject" with a confidence. Used as a sanity check on the LLM's draft recommendation.</li>
+                    <li><strong>Memory:</strong> the proposal text + every previous review of the same vendor, fetched on the fly via an MCP server pointed at your procurement archive.</li>
+                    <li><strong>Safety wrapper:</strong> autonomy level <em>supervised</em> &mdash; the agent drafts everything, but a human procurement officer must click "Send" before the recommendation reaches the director. Action log records every tool call (which classification rule fired, which TCO assumption used, which classifier confidence). Kill-switch: disabling the MCP server stops all activity within seconds.</li>
+                    <li><strong>The loop:</strong> Read the proposal &rarr; Plan (which tools to call in what order) &rarr; Act (call the tools, draft the summary) &rarr; Observe (results, classifier disagreement, missing fields) &rarr; Repeat until the draft is complete and ready for human review.</li>
+                </ul>
+
+                <p><strong>What you, the leader, do.</strong> You don't write any of the code. You do specify the proposal that says <em>which</em> LLM, <em>which</em> tools, <em>which</em> autonomy level, and <em>which</em> classification level the system handles. That specification is a one-page document &mdash; the same one you're about to draft below.</p>
+            </div>
+
+            <h3>The whole point</h3>
+            <p>
+                The fields in the §template section that follows are not arbitrary &mdash; each one names one of
+                the parts above. <em>AI Approach</em> picks the LLM. <em>Data Needed</em> determines the memory.
+                <em>Classification &amp; Sovereignty</em> chooses where the LLM and tools physically run.
+                <em>Autonomy Level</em> sets the safety wrapper's strictness. <em>Privacy &amp; Risk</em> names the
+                threats that wrapper has to defend against. <em>Success Metric</em> tells the loop when it's done.
+                You are spec-ing an agent. The template is the schema.
+            </p>
         </section>
 
         <section id="workshop-frame" class="module-section">
@@ -285,13 +387,14 @@
 
         <section id="closing" class="module-section">
             <h2>Closing &mdash; what you can do now</h2>
-            <p>You came in able to use AI as a consumer. You leave able to direct it as a leader. Concretely:</p>
+            <p>You came in able to use AI as a consumer. You leave able to direct it deliberately. Concretely:</p>
             <ul>
                 <li>You can <strong>evaluate AI proposals</strong> from your technical teams. You know which questions the proposal must answer and which silences are red flags.</li>
                 <li>You can <strong>ask the right procurement questions</strong>. Where the data goes, who has access to logs, what the retention policy is, what runs on-premises, what the cost difference is.</li>
                 <li>You can <strong>identify opportunities in your own work</strong>. The capstone you just wrote is one. There will be others as the methodology becomes a habit.</li>
                 <li>You can <strong>make data-classification-aware decisions</strong> about which AI tools to deploy where. Public, Confidential, Secret, Top Secret &mdash; each level constrains the toolbox, and you know how.</li>
                 <li>You can <strong>tell good AI from bad AI</strong> across the four perspectives, the eight subfields, and the eras. You know when "AI" is hype and when it's substance.</li>
+                <li>You can <strong>sketch what a composed agent looks like for your problem</strong>: which LLM, which tools (optimization, KBS, classifier, action), what memory it needs, what safety wrapper it sits inside. You're not just naming the type of AI &mdash; you're spec-ing the parts list.</li>
             </ul>
 
             <div class="callout">
@@ -360,7 +463,7 @@
         <div class="footer-content">
             <div>
                 <h3>About this module</h3>
-                <p>Day 5 of <a href="../index.html">AI for Leaders</a>. Materials adapted and condensed from the open DS-AI course under CC BY 4.0.</p>
+                <p>Day 5 of <a href="../index.html">Introduction to DS &amp; AI</a>. Materials adapted and condensed from the open DS-AI course under CC BY 4.0.</p>
             </div>
             <div class="footer-links">
                 <h3>The 5 days</h3>

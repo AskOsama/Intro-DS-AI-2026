@@ -1,6 +1,6 @@
-# DS-AI 2026 — AI for Leaders
+# DS-AI 2026 — Introduction to Data Science &amp; Artificial Intelligence
 
-A self-contained 5-day intensive course on AI for public-sector leaders. Bilingual (English + Modern Standard Arabic), no coding required, includes interactive demos.
+A self-contained 5-day intensive course on AI for practitioners and decision-makers. Bilingual (English + Modern Standard Arabic), no coding required, includes interactive demos.
 
 This directory is independent — you can zip it and upload it as a single static site.
 
@@ -57,7 +57,7 @@ Drop the entire directory on any static web host (or open `index.html` in a brow
 
 ## Audience
 
-Government and enterprise leaders who must evaluate AI proposals, ask the right procurement questions, classify data correctly under PDPL & NDMO, and identify AI opportunities in their own work. **No prior programming or technical background required.**
+Anyone who must evaluate AI proposals, ask the right procurement questions, classify data correctly under PDPL & NDMO, and identify AI opportunities in their own work. **No prior programming or technical background required.**
 
 ## License
 
