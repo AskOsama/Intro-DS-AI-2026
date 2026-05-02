@@ -1,0 +1,23 @@
+{
+  "name": "ds-ai-2026",
+  "version": "1.0.0",
+  "description": "A self-contained 5-module intensive course on AI for practitioners and decision-makers. Bilingual (English + Modern Standard Arabic), no coding required, includes interactive demos.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/askosama/Intro-DS-AI-2026.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/askosama/Intro-DS-AI-2026/issues"
+  },
+  "homepage": "https://github.com/askosama/Intro-DS-AI-2026#readme",
+  "dependencies": {
+    "puppeteer-core": "^22.15.0"
+  }
+}

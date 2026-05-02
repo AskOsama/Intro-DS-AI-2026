@@ -15,3 +15,7 @@ desktop.ini
 *.bak
 *.tmp
 node_modules/
+
+# Capture intermediates (committed GIFs, not the per-frame PNGs)
+images/previews/frames/
+package-lock.json
