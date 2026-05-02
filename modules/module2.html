@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Module 2: Directing AI — the four-phase methodology, the agent loop, natural-language data work, pandas vocabulary as prompt vocabulary.">
+    <title>Day 2 — Directing AI: From Chatbots to Agents | AI for Leaders</title>
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="../landing.css">
+</head>
+<body class="module module-2">
+    <div class="language-switcher">
+        <a href="module2_ar.html" class="lang-button" title="Switch to Arabic">العربية</a>
+    </div>
+
+    <nav class="module-breadcrumb">
+        <div class="crumbs">
+            <a href="../index.html">Home</a><span class="sep">›</span>
+            <span>Day 2 — Directing AI: From Chatbots to Agents</span>
+        </div>
+    </nav>
+
+    <header class="module-header">
+        <div class="module-eyebrow">Day 2 · Module 2</div>
+        <h1>Directing AI: From Chatbots to Agents</h1>
+        <p class="module-lede">
+            A chatbot answers a question. An <em>agent</em> takes a job and works on it. Today you'll learn the
+            four-phase methodology that makes either one trustworthy &mdash; whether the AI is writing your memo,
+            analyzing your budget, or building software for you. Then you'll learn to do data work in plain
+            English, using pandas vocabulary as <em>prompt</em> vocabulary.
+        </p>
+    </header>
+
+    <main>
+        <nav class="module-toc" aria-label="Table of contents">
+            <h4>On this page</h4>
+            <ol>
+                <li><a href="#why-methodology">Why a methodology at all?</a></li>
+                <li><a href="#four-phases">The four phases</a></li>
+                <li><a href="#planning-questions">The four critical planning questions</a></li>
+                <li><a href="#workflow">The iterative workflow</a></li>
+                <li><a href="#testing">Multi-level testing</a></li>
+                <li><a href="#context-window">Managing the context window</a></li>
+                <li><a href="#responsibility">The responsibility checklist</a></li>
+                <li><a href="#agents">Agents in action</a></li>
+                <li><a href="#nql">Natural Query Language &mdash; data work without code</a></li>
+                <li><a href="#pandas-vocab">Pandas vocabulary for better prompts</a></li>
+                <li><a href="#takeaways">What to take away</a></li>
+            </ol>
+        </nav>
+
+        <section id="why-methodology" class="module-section">
+            <h2>Why a methodology at all?</h2>
+            <p>
+                A common pattern: someone gives a chatbot a vague request, gets back something that looks correct,
+                and uses it. Two weeks later the error surfaces. The fix is not a better chatbot &mdash; it's a
+                better way of using one.
+            </p>
+            <p>
+                The methodology in this module is the same whether the AI you are directing is a chatbot
+                (you talk, it writes), an agent (it can read, plan, and act on its own across many steps), or a
+                team of humans. It applies to budgets, memos, presentations, code, document review, and almost
+                any non-trivial knowledge work. It is built around four phases.
+            </p>
+        </section>
+
+        <section id="four-phases" class="module-section">
+            <h2>The four phases</h2>
+
+            <figure class="diagram">
+                <img src="../images/diagrams/four_phases_cycle.svg" alt="Cycle diagram showing the four phases: Exploration, Planning, Implementation, Improvement, with arrows showing they form a loop." />
+                <figcaption>The four phases form a cycle: each pass through teaches the next.</figcaption>
+            </figure>
+
+            <h3>1. Exploration</h3>
+            <p>
+                Before you ask the AI to do anything, understand the territory. What's the existing material?
+                What's the format of the data? Who else has solved this problem? What are the constraints? When
+                you skip exploration you end up with a beautiful answer to the wrong question.
+            </p>
+
+            <figure class="diagram">
+                <img src="../images/diagrams/exploration_discovery.svg" alt="Exploration phase: gather inputs, examples, constraints, and prior art before planning." />
+                <figcaption>Exploration: collecting inputs, examples, and constraints.</figcaption>
+            </figure>
+
+            <h3>2. Planning</h3>
+            <p>
+                Decide on the approach <em>before</em> you start producing output. The four planning questions
+                below force this. Planning is cheap; rework is expensive.
+            </p>
+
+            <h3>3. Implementation</h3>
+            <p>
+                Now you do the work &mdash; or, more usefully, you direct the AI to do the work in tight iterations.
+                Upload a piece, get a result, save the result, check it, repeat. The AI generates; you verify.
+            </p>
+
+            <h3>4. Improvement</h3>
+            <p>
+                When the first draft exists, improvement is much cheaper than first-draft writing. Refine the
+                content, remove what doesn't earn its place, fact-check anything load-bearing, then ship. After
+                shipping, learn what didn't land &mdash; and feed that back into next time's exploration.
+            </p>
+        </section>
+
+        <section id="planning-questions" class="module-section">
+            <h2>The four critical planning questions</h2>
+            <p>
+                Before you tell the AI to start, answer these four questions yourself. If you can't, the AI can't either.
+            </p>
+
+            <figure class="diagram">
+                <img src="../images/diagrams/planning_questions.svg" alt="Diagram showing the four planning questions with branches for each: What, Who, How, When." />
+                <figcaption>Four questions to answer before you give the AI the go-ahead.</figcaption>
+            </figure>
+
+            <ol>
+                <li><strong>What is the actual output?</strong> A memo? A spreadsheet? A talking-points list? Be exact.</li>
+                <li><strong>Who is the audience?</strong> A director with five minutes? A technical team? A minister? The same content needs different framing for each.</li>
+                <li><strong>What inputs does the AI need to do this?</strong> A draft, prior examples, source documents, the data itself. If you wouldn't expect a junior colleague to do this without those inputs, the AI can't either.</li>
+                <li><strong>How will you know it's good?</strong> Decide your acceptance criteria <em>before</em> you see the output. Otherwise you'll either accept a flawed result because it looks polished, or reject a good one because it doesn't match the version in your head.</li>
+            </ol>
+
+            <div class="callout">
+                <h4>Test it yourself</h4>
+                <p>Pick the next memo or report on your list. Try answering the four questions in writing before you open ChatGPT. Notice how often Question 4 (acceptance criteria) is the one you've never thought through.</p>
+            </div>
+        </section>
+
+        <section id="workflow" class="module-section">
+            <h2>The iterative workflow</h2>
+            <p>The six-step loop you run during the Implementation phase, again and again, in tight cycles:</p>
+
+            <figure class="diagram">
+                <img src="../images/diagrams/implementation_workflow.svg" alt="Six-step iterative workflow: Upload, Process, Return, Save, Verify, Repeat." />
+                <figcaption>Upload &rarr; Process &rarr; Return &rarr; Save &rarr; Verify &rarr; Repeat.</figcaption>
+            </figure>
+
+            <ol>
+                <li><strong>Upload.</strong> Give the AI just enough context to do this step &mdash; not the whole project. More context isn't always better; it's often noise.</li>
+                <li><strong>Process.</strong> The AI generates. While it does, you think about what good would look like.</li>
+                <li><strong>Return.</strong> You read the result. Don't skim. Read like an editor.</li>
+                <li><strong>Save.</strong> If it's good (or partially good), commit it somewhere outside the chat &mdash; a doc, a file, a notebook. Chats are ephemeral; your work shouldn't be.</li>
+                <li><strong>Verify.</strong> Check the parts that matter. Numbers, names, dates, citations &mdash; anything load-bearing.</li>
+                <li><strong>Repeat.</strong> Take the next slice and run it through the loop.</li>
+            </ol>
+
+            <div class="callout callout-warn">
+                <h4>The single most common failure</h4>
+                <p>Skipping <strong>Save</strong>. People keep working inside the chat, watching their progress
+                scroll up and away, until something breaks and they can't recover the version from twelve turns ago.
+                Save out of the chat early and often.</p>
+            </div>
+        </section>
+
+        <section id="testing" class="module-section">
+            <h2>Multi-level testing</h2>
+            <p>
+                You wouldn't accept an Excel formula without checking it on a row you can verify by hand. AI output
+                deserves the same hierarchy of checks. Software engineering has a useful frame here &mdash; the
+                <em>testing pyramid</em>:
+            </p>
+
+            <figure class="diagram">
+                <img src="../images/diagrams/testing_pyramid.svg" alt="Pyramid showing many cheap unit tests at the bottom, fewer integration tests in the middle, fewest expensive end-to-end tests at the top." />
+                <figcaption>The testing pyramid: many cheap tests, few expensive tests.</figcaption>
+            </figure>
+
+            <ul>
+                <li><strong>Unit-level (cheap, many).</strong> Spot-check small pieces. Did this paragraph cite the right report? Does this number actually appear in the source?</li>
+                <li><strong>Integration-level (moderate).</strong> Read a whole section end-to-end. Does the argument hold together? Does the conclusion follow from the body?</li>
+                <li><strong>End-to-end (expensive, rare).</strong> Have a real reader read the whole thing &mdash; preferably someone who matches your target audience. Watch where they stumble.</li>
+            </ul>
+
+            <p>
+                The discipline is to do <em>more</em> of the cheap tests and <em>fewer</em> of the expensive ones.
+                Most failures could have been caught at the unit level &mdash; one wrong number, one
+                misattributed quote.
+            </p>
+        </section>
+
+        <section id="context-window" class="module-section">
+            <h2>Managing the context window</h2>
+            <p>
+                Every AI tool has a <em>context window</em> &mdash; how much it can hold in its head at once.
+                Modern tools have very large windows (hundreds of pages of text), but they still have limits, and
+                more importantly: <strong>more context isn't always better</strong>. Pasting in a 200-page policy
+                when only 5 pages are relevant produces worse results, not better, because the AI now has to find
+                the signal in the noise.
+            </p>
+
+            <figure class="diagram">
+                <img src="../images/diagrams/context_window.svg" alt="Context window concept: relevant material inside the window, irrelevant material outside, with a 'signal vs noise' indicator." />
+                <figcaption>The context window: hold what's relevant, omit what isn't.</figcaption>
+            </figure>
+
+            <p>Three habits make a real difference:</p>
+            <ul>
+                <li><strong>Quote, don't dump.</strong> Paste the relevant paragraph, not the whole document.</li>
+                <li><strong>Re-anchor every few turns.</strong> "Recall: we are writing the executive summary for the Director of IT, not the technical appendix." Long chats forget.</li>
+                <li><strong>Start fresh when scope changes.</strong> If you've been editing a memo for an hour and now want to draft a press release, open a new chat. The old context is now noise.</li>
+            </ul>
+        </section>
+
+        <section id="responsibility" class="module-section">
+            <h2>The responsibility checklist</h2>
+            <p>
+                The AI did the typing. <em>You</em> are responsible for what's in the document. Before you ship
+                anything an AI helped produce, run this checklist:
+            </p>
+
+            <figure class="diagram">
+                <img src="../images/diagrams/responsibility_checklist.svg" alt="A checklist of items to verify before sharing AI-generated content: facts, sources, audience fit, sensitive data, attribution, tone." />
+                <figcaption>The pre-flight checklist for AI-assisted work.</figcaption>
+            </figure>
+
+            <ul>
+                <li>Every name, number, date, and citation has been verified against the source.</li>
+                <li>Nothing sensitive (personal data, internal financials, classified information) was shared with a tool that shouldn't have it &mdash; we'll go deep on this in Day 3.</li>
+                <li>The tone matches the audience.</li>
+                <li>The argument holds without the sentences I added that just sound impressive.</li>
+                <li>If asked, I can explain how this was produced.</li>
+            </ul>
+        </section>
+
+        <section id="agents" class="module-section">
+            <h2>Agents in action</h2>
+            <p>
+                A chatbot waits for you to type. An <em>agent</em> takes a goal and works on it on its own &mdash;
+                reading files, running code, calling tools, deciding what to do next, and reporting back. The same
+                four phases apply, but the agent runs many micro-iterations of Implementation under the hood for
+                each thing you ask of it.
+            </p>
+
+            <p>The agent loop, in plain language:</p>
+
+            <ol>
+                <li><strong>Read.</strong> Look at what's in front of it (a file, a previous result, the user's last message).</li>
+                <li><strong>Plan.</strong> Decide the next small step.</li>
+                <li><strong>Act.</strong> Take that step (run code, write a file, call an API).</li>
+                <li><strong>Observe.</strong> Look at what came back.</li>
+                <li><strong>Repeat.</strong> Until the goal is met or it's stuck.</li>
+            </ol>
+
+            <p>
+                The same five-step loop describes a junior analyst working through a task. The difference is that
+                the agent does it in seconds, all day, without lunch. That speed is the point &mdash; and the danger.
+                When the loop is wrong, it's wrong fast.
+            </p>
+
+            <div class="callout callout-demo">
+                <h4>Live demo (instructor-led)</h4>
+                <p>
+                    In the live session, the instructor will run an agent (Claude Code or equivalent) on a
+                    realistic task: a CSV of fake employee records that needs to be checked for anomalies. The
+                    terminal is projected and each turn of the loop is narrated. Watch which step in the four-phase
+                    methodology each agent action maps to.
+                </p>
+                <p>
+                    For an offline taste, you can also watch two AI agents play a non-trivial game in the
+                    <a href="../demos/baloot_game.html"><strong>Baloot AI Arena</strong></a>. Notice how each move is the
+                    output of a small read-plan-act-observe loop.
+                </p>
+            </div>
+        </section>
+
+        <section id="nql" class="module-section">
+            <h2>Natural Query Language &mdash; data work without code</h2>
+            <p>
+                Five years ago, asking "what was our average ticket-resolution time per region last quarter?" of a
+                spreadsheet required either a SQL query, a pivot table, or a phone call to an analyst. Today, you
+                paste the spreadsheet into ChatGPT or Claude and you ask the question in English (or Arabic) and
+                you get the answer.
+            </p>
+
+            <p>
+                This is sometimes called <em>natural-language querying</em> or NQL. The AI is doing the same data
+                work an analyst would do &mdash; loading the file, slicing it, aggregating &mdash; but the
+                interface is your sentence, not a programming language.
+            </p>
+
+            <p>Three observations matter for leaders:</p>
+
+            <ol>
+                <li><strong>It works.</strong> For the kinds of analysis a 5-page spreadsheet supports, the answer is usually right.</li>
+                <li><strong>The accuracy depends on your wording.</strong> Vague questions get vague answers. "What's our trend?" is much weaker than "Plot weekly resolution time by region for Q3 and tell me which region's trend changed the most."</li>
+                <li><strong>You should ask for the work, not just the result.</strong> Tell the AI to show its calculation, not just the final number. You catch errors much faster.</li>
+            </ol>
+
+            <div class="callout">
+                <h4>The vague-vs-specific contrast</h4>
+                <p><strong>Weak prompt:</strong> "What's interesting in this data?"</p>
+                <p><strong>Strong prompt:</strong> "Group rows by region, compute the median resolution time per region, sort descending, and show me the top three. Then tell me which one is the outlier and why."</p>
+                <p>The second prompt is using the right vocabulary &mdash; <em>group by</em>, <em>median</em>, <em>sort</em>, <em>outlier</em> &mdash; even though no code was written. That vocabulary is what we cover next.</p>
+            </div>
+        </section>
+
+        <section id="pandas-vocab" class="module-section">
+            <h2>Pandas vocabulary for better prompts</h2>
+            <p>
+                Pandas is the most-used data-analysis library in Python. We are <em>not</em> going to teach you to
+                write Python. We are going to teach you the vocabulary, because it is the same vocabulary the AI
+                will use when it does the work for you, and using it precisely makes your prompts dramatically
+                better.
+            </p>
+
+            <h3>DataFrame</h3>
+
+            <figure class="diagram">
+                <img src="../images/diagrams/dataframe_anatomy.svg" alt="A DataFrame visualized as a table with rows, columns, an index, and column headers." />
+                <figcaption>A DataFrame: rows, columns, an index, headers. The mental model of a spreadsheet.</figcaption>
+            </figure>
+
+            <p>
+                A <span class="term">DataFrame</span> is a table &mdash; rows and columns, with column names at
+                the top and a row identifier on the left (the <em>index</em>). When you paste a CSV into ChatGPT,
+                it becomes a DataFrame in the AI's head. When you say "the third column," the AI may ask "do you
+                mean the third by position or by name?" &mdash; that distinction is the next concept.
+            </p>
+
+            <h3>Series</h3>
+
+            <figure class="diagram">
+                <img src="../images/diagrams/series_vs_dataframe.svg" alt="Series vs DataFrame: a Series is one column of a DataFrame, a DataFrame is many Series side by side." />
+                <figcaption>A Series is a single column. A DataFrame is many Series side by side.</figcaption>
+            </figure>
+
+            <p>
+                A <span class="term">Series</span> is a single column (or single row) of a DataFrame. When you ask
+                for "average sales" you are asking for an aggregation of the <em>sales</em> Series.
+            </p>
+
+            <h3>iloc vs loc &mdash; position vs label</h3>
+
+            <figure class="diagram">
+                <img src="../images/diagrams/iloc_vs_loc.svg" alt="Side-by-side: iloc selects by integer position, loc selects by label." />
+                <figcaption>iloc selects by position. loc selects by label. Get this wrong and you select the wrong row.</figcaption>
+            </figure>
+
+            <p>
+                "Show me row 5" is ambiguous. Did you mean the row at position 5 (<span class="term">iloc[5]</span>)
+                or the row whose ID is 5 (<span class="term">loc[5]</span>)? They are usually different. Saying
+                "the row at position 5" or "the row whose customer ID equals 5" eliminates the question.
+            </p>
+
+            <h3>NaN &mdash; missing data</h3>
+            <p>
+                <span class="term">NaN</span> stands for "not a number" and means <em>missing</em>. A column might
+                have an average that <em>looks</em> too low because it includes empty cells the AI silently treated
+                as zero. Always ask: "Are there any NaN values in this column? How are they being handled?"
+            </p>
+
+            <h3>groupby</h3>
+
+            <figure class="diagram">
+                <img src="../images/diagrams/groupby_concept.svg" alt="Diagram showing rows being split into groups by a category column, then aggregated within each group." />
+                <figcaption>groupby: split rows by a category, then aggregate inside each group.</figcaption>
+            </figure>
+
+            <p>
+                <span class="term">groupby</span> is the most important word in your data vocabulary. It means:
+                "split the rows by some category, then do something inside each group." This is what people mean
+                by "per region" or "by department" or "for each customer." Use it.
+            </p>
+
+            <h3>info() vs describe()</h3>
+
+            <figure class="diagram">
+                <img src="../images/diagrams/info_vs_describe.svg" alt="info() shows column types and counts; describe() shows summary statistics." />
+                <figcaption>info() answers "what's in this dataset?" &mdash; describe() answers "what does it look like?"</figcaption>
+            </figure>
+
+            <p>
+                Two great opening prompts when you've just been handed a dataset:
+            </p>
+            <ul>
+                <li><strong>"Show me the info() of this DataFrame."</strong> &mdash; You'll see how many rows, what columns exist, what types they are, and how many missing values are in each.</li>
+                <li><strong>"Show me describe() for the numeric columns."</strong> &mdash; You'll see the mean, median, min, max, and standard deviation of each.</li>
+            </ul>
+            <p>Knowing those two words moves a vague conversation about a CSV into a precise one.</p>
+
+            <div class="callout">
+                <h4>The whole pipeline in one sentence</h4>
+                <p>
+                    "Load the CSV into a DataFrame, run info(), then groupby region and aggregate the median
+                    resolution time, ignore NaN, sort descending, and show the top 3."
+                </p>
+                <p>
+                    That sentence is not code. It's a prompt. But because it uses the right vocabulary, the AI
+                    will produce exactly the analysis you wanted on the first try.
+                </p>
+            </div>
+        </section>
+
+        <section id="takeaways" class="module-section">
+            <h2>What to take away</h2>
+            <ol>
+                <li>The four phases &mdash; Exploration, Planning, Implementation, Improvement &mdash; apply to anything an AI helps you do, not just code.</li>
+                <li>Answer the four planning questions <em>before</em> you ask the AI to start. Question 4 (acceptance criteria) is the one most often skipped and most often regretted.</li>
+                <li>Run the Upload &rarr; Process &rarr; Return &rarr; Save &rarr; Verify &rarr; Repeat loop in tight cycles. Save out of the chat early and often.</li>
+                <li>Use the testing pyramid: many cheap unit checks, fewer integration checks, rare end-to-end checks.</li>
+                <li>You are responsible for what ships. The AI did the typing.</li>
+                <li>Agents run the same loop, just much faster &mdash; which is the value <em>and</em> the risk.</li>
+                <li>Use precise data vocabulary (DataFrame, Series, groupby, NaN, iloc/loc, info/describe) in your prompts. The vocabulary is more important than the syntax.</li>
+            </ol>
+        </section>
+
+        <nav class="module-nav" aria-label="Module navigation">
+            <a href="module1.html" class="prev">
+                <span class="nav-label">← Previous</span>
+                <span class="nav-title">Day 1 — What AI Is + Using AI Today</span>
+            </a>
+            <a href="module3.html" class="next">
+                <span class="nav-label">Next →</span>
+                <span class="nav-title">Day 3 — Big Data, Privacy &amp; Sovereignty</span>
+            </a>
+        </nav>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div>
+                <h3>About this module</h3>
+                <p>Day 2 of <a href="../index.html">AI for Leaders</a>. Materials adapted and condensed from the open DS-AI course under CC BY 4.0.</p>
+            </div>
+            <div class="footer-links">
+                <h3>The 5 days</h3>
+                <ul>
+                    <li><a href="module1.html">Day 1 &mdash; What AI Is</a></li>
+                    <li><a href="module2.html"><strong>Day 2 &mdash; Directing AI</strong></a></li>
+                    <li><a href="module3.html">Day 3 &mdash; Privacy &amp; Sovereignty</a></li>
+                    <li><a href="module4.html">Day 4 &mdash; How AI Reasons</a></li>
+                    <li><a href="module5.html">Day 5 &mdash; Capstone</a></li>
+                </ul>
+            </div>
+            <div>
+                <h3>License</h3>
+                <p>CC BY 4.0. Attribution: "DS-AI Course Materials, licensed under CC BY 4.0."</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 DS-AI Educational Course · Open Educational Resource</p>
+        </div>
+    </footer>
+</body>
+</html>

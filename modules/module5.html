@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Module 5: AI Opportunity Workshop. Identify one process in your work where AI can help, draft a one-page proposal, share, present, and cluster.">
+    <title>Day 5 — AI Opportunity Workshop (Capstone) | AI for Leaders</title>
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="../landing.css">
+</head>
+<body class="module module-5">
+    <div class="language-switcher">
+        <a href="module5_ar.html" class="lang-button" title="Switch to Arabic">العربية</a>
+    </div>
+
+    <nav class="module-breadcrumb">
+        <div class="crumbs">
+            <a href="../index.html">Home</a><span class="sep">›</span>
+            <span>Day 5 — AI Opportunity Workshop (Capstone)</span>
+        </div>
+    </nav>
+
+    <header class="module-header">
+        <div class="module-eyebrow">Day 5 · Module 5 · Workshop</div>
+        <h1>AI Opportunity Workshop &mdash; Capstone</h1>
+        <p class="module-lede">
+            The four previous days built up vocabulary and judgment. Today you put them to work. By the end of
+            the session you will leave with a one-page proposal for an AI opportunity in your <em>actual</em>
+            work &mdash; not a hypothetical one &mdash; that you could put in front of your director or your
+            IT team next week.
+        </p>
+    </header>
+
+    <main>
+        <nav class="module-toc" aria-label="Table of contents">
+            <h4>On this page</h4>
+            <ol>
+                <li><a href="#recap">The four threads, recap</a></li>
+                <li><a href="#workshop-frame">Workshop framing</a></li>
+                <li><a href="#template">The proposal template</a></li>
+                <li><a href="#worked-example">A worked example</a></li>
+                <li><a href="#draft">Individual drafting</a></li>
+                <li><a href="#pair-share">Pair-and-share</a></li>
+                <li><a href="#present">Short presentations</a></li>
+                <li><a href="#cluster">Cluster on the whiteboard</a></li>
+                <li><a href="#closing">Closing &mdash; what you can do now</a></li>
+                <li><a href="#further">Continued learning</a></li>
+            </ol>
+        </nav>
+
+        <section id="recap" class="module-section">
+            <h2>The four threads, recap</h2>
+            <p>
+                Before you start drafting, recall the four threads that ran through the week. They are the lenses
+                you'll use today &mdash; and every time you evaluate an AI proposal after that.
+            </p>
+
+            <table>
+                <thead>
+                    <tr><th>Thread</th><th>What it asks</th><th>Where it appeared</th></tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Agent &amp; Methodology</strong></td>
+                        <td>Are we using a clear four-phase process? Is there a verification step?</td>
+                        <td>Day 2 (the methodology) &rarr; agent loop &rarr; this proposal</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Data Sovereignty</strong></td>
+                        <td>What classification level? Where will the data physically live? Who controls the logs?</td>
+                        <td>Day 2 (light) &rarr; Day 3 ($20 Attack &amp; PDPL/NDMO) &rarr; this proposal</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Optimization &amp; Trade-offs</strong></td>
+                        <td>What are we trading off to get the result we want? What's the Pareto front?</td>
+                        <td>Day 4 (objective functions) &rarr; ML loss functions &rarr; this proposal</td>
+                    </tr>
+                    <tr>
+                        <td><strong>DAG &amp; Parallelism</strong></td>
+                        <td>What's the flow of computation? Where are the dependencies? Where can we parallelize?</td>
+                        <td>Day 3 (data pipelines) &rarr; Day 4 (neural networks) &rarr; this proposal</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section id="workshop-frame" class="module-section">
+            <h2>Workshop framing</h2>
+            <p>
+                Today is structured. Roughly:
+            </p>
+            <ul>
+                <li><strong>~30 minutes:</strong> recap (above) and template walk-through (below).</li>
+                <li><strong>~45 minutes:</strong> individual drafting time. Instructors circulate and coach.</li>
+                <li><strong>~30 minutes:</strong> pair-and-share with a partner. Each of you reads the other's
+                draft and gives one strengthening suggestion and one sharpening question.</li>
+                <li><strong>~45 minutes:</strong> short presentations. 2 minutes each, no slides. Just walk us
+                through your proposal.</li>
+                <li><strong>~30 minutes:</strong> cluster on the whiteboard by theme &mdash; automation, document
+                analysis, prediction, decision support &mdash; and discuss patterns.</li>
+                <li><strong>~10 minutes:</strong> closing reflections.</li>
+            </ul>
+            <p>
+                Pick a problem from <em>your real work</em>. Not what AI <em>could</em> do in some general sense
+                &mdash; what it could do for <em>you</em>, next month, on a process you actually own or influence.
+                Specificity is the test of whether you can use what you learned this week.
+            </p>
+        </section>
+
+        <section id="template" class="module-section">
+            <h2>The proposal template</h2>
+            <p>One page. Six fields. Aim for one or two paragraphs per field.</p>
+
+            <div class="capstone-fields">
+                <div class="field">
+                    <strong>1. Problem</strong>
+                    <span>What's slow, error-prone, or repetitive in your work? Be specific. Numbers help: "We process 2,000 incoming letters per month and it takes our team an average of 18 hours/week."</span>
+                </div>
+                <div class="field">
+                    <strong>2. AI Approach</strong>
+                    <span>Which kind of AI from this week? Chatbot drafting? ML prediction? Document classification? KBS over a policy book? Generative? Be precise &mdash; "use AI" is not an answer.</span>
+                </div>
+                <div class="field">
+                    <strong>3. Data Needed</strong>
+                    <span>What data does the approach require? What exists today (and where)? What doesn't exist? If labelled training data is needed, who would label it?</span>
+                </div>
+                <div class="field">
+                    <strong>4. Classification &amp; Sovereignty</strong>
+                    <span>What NDMO classification level does this data carry? Does the proposed approach (hosted, local, hybrid) keep the data inside the right boundary under PDPL? Be specific.</span>
+                </div>
+                <div class="field">
+                    <strong>5. Privacy &amp; Risk</strong>
+                    <span>What could go wrong? Who's harmed if it does? Hallucination? Re-identification? Wrong classification of an edge case? What's your mitigation for each?</span>
+                </div>
+                <div class="field">
+                    <strong>6. Success Metric</strong>
+                    <span>How would you know it worked? Time saved? Accuracy improved? Cost reduced? Be quantitative. "Improved" is not measurable.</span>
+                </div>
+            </div>
+
+            <div class="callout callout-warn">
+                <h4>Common mistakes to avoid</h4>
+                <ul>
+                    <li><strong>Generic "AI"</strong> in field 2. If you can't name which kind, you don't have a proposal yet.</li>
+                    <li><strong>Skipping field 4.</strong> If you can't classify the data, you don't know whether your proposal is legal.</li>
+                    <li><strong>"Improved" or "better"</strong> in field 6. If the metric isn't a number, you can't tell whether it worked.</li>
+                    <li><strong>Solving someone else's problem.</strong> If you don't own or influence the process, the proposal goes nowhere.</li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="worked-example" class="module-section">
+            <h2>A worked example</h2>
+            <p>
+                Imagine an HR department that processes incoming employment-verification letters. Here is what a
+                strong one-page proposal might look like, to give you a target.
+            </p>
+
+            <div class="callout">
+                <h4>Example: Automated employment-verification triage</h4>
+                <p><strong>1. Problem.</strong> Our HR team receives ~600 employment-verification requests per
+                month from banks, embassies, and other employers. Each one currently takes an analyst about 15
+                minutes to look up, draft, and send &mdash; ~150 hours per month, ~1.5 FTE. Most are routine; ~5%
+                are exceptions that need human judgment.</p>
+
+                <p><strong>2. AI Approach.</strong> A two-stage system. Stage 1: a document-classification model
+                (supervised ML, Day 4) reads the incoming letter and classifies it as routine or exception, plus
+                extracts the requester, employee name, and requested fields. Stage 2: for routine cases, a
+                template-driven generator (LLM with strict prompt and verification, Day 2 methodology) drafts the
+                response for analyst approval. Exceptions are flagged for human handling.</p>
+
+                <p><strong>3. Data Needed.</strong> 18 months of past requests + responses (~10,000 documents)
+                exist in a shared drive. Labelling routine vs. exception requires ~2 weeks of analyst time
+                (already budgeted). No new data collection required.</p>
+
+                <p><strong>4. Classification &amp; Sovereignty.</strong> Letters contain employee personal data
+                &rarr; <em>Confidential</em> under NDMO. Hosted Tier-1 LLMs (e.g., Claude.ai) ruled out per
+                PDPL cross-border restrictions. Recommend on-premises deployment of an open-source model (e.g.,
+                Qwen-2.5) on existing infrastructure. Day 3 hosted/local trade-off accepted: slightly lower
+                quality, full sovereignty.</p>
+
+                <p><strong>5. Privacy &amp; Risk.</strong> (a) Hallucination risk: model invents employment
+                dates. <em>Mitigation:</em> all generated dates cross-checked against the source HR database
+                before send; analyst signs off on every routine response in pilot phase. (b) Misclassification
+                risk: exception treated as routine. <em>Mitigation:</em> conservative threshold; below-confidence
+                cases default to human. (c) Bias risk: certain employee categories systematically misclassified.
+                <em>Mitigation:</em> audit by employee category quarterly.</p>
+
+                <p><strong>6. Success Metric.</strong> Reduce average analyst time per request from 15 to &le; 5
+                minutes (66% reduction) at &ge; 99% accuracy on routine cases over a 90-day pilot. If achieved,
+                FTE saving = ~1.0 (60% of current 1.5).</p>
+            </div>
+
+            <p>
+                Notice what the example does: every field is specific. Numbers are real. The risk section names
+                three concrete risks and one mitigation each. The success metric is a number with a deadline.
+                That's the bar.
+            </p>
+        </section>
+
+        <section id="draft" class="module-section">
+            <h2>Individual drafting</h2>
+            <p>
+                Now your turn. Pick one process from your work where the analysis above could apply. Use the
+                template. Aim for the level of specificity in the worked example. Don't over-engineer the
+                language &mdash; one or two paragraphs per field is right. Instructors will circulate and ask
+                sharpening questions.
+            </p>
+
+            <div class="callout">
+                <h4>Coaching prompts the instructors will use</h4>
+                <ul>
+                    <li>"What number would tell you this is working?"</li>
+                    <li>"Where does this data live today, physically?"</li>
+                    <li>"What's the worst-case mistake the model could make? Who would notice?"</li>
+                    <li>"Is this the kind of AI from Day 4 you actually need, or a different one?"</li>
+                    <li>"Who has to say yes for this to happen? Are they in this room?"</li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="pair-share" class="module-section">
+            <h2>Pair-and-share</h2>
+            <p>Find a partner. You'll spend ~15 minutes per draft.</p>
+            <ol>
+                <li>Read the other person's proposal silently.</li>
+                <li>Give them <strong>one strengthening suggestion</strong> &mdash; what would make this proposal more likely to be approved?</li>
+                <li>Give them <strong>one sharpening question</strong> &mdash; what would you want them to clarify before you'd sign off?</li>
+                <li>Swap.</li>
+            </ol>
+            <p>
+                The partner is not a critic. They are the person you'd take this proposal to. Their feedback is
+                free and far cheaper than your director's.
+            </p>
+        </section>
+
+        <section id="present" class="module-section">
+            <h2>Short presentations</h2>
+            <p>
+                Each of you presents your proposal to the room. Two minutes each. No slides &mdash; just walk
+                through the six fields. Listeners hold questions to the end.
+            </p>
+            <p>
+                The reason for two minutes and no slides is not arbitrary. The discipline of fitting your
+                proposal into two minutes forces clarity. If you can't say it in two minutes, you don't yet
+                understand it well enough to ask anyone for resources.
+            </p>
+        </section>
+
+        <section id="cluster" class="module-section">
+            <h2>Cluster on the whiteboard</h2>
+            <p>
+                As proposals come in, the instructor groups them on a whiteboard by theme. The four most common
+                clusters in past cohorts:
+            </p>
+
+            <ul>
+                <li><strong>Automation.</strong> Repetitive document tasks &mdash; verification letters, form processing, simple Q&amp;A. Usually LLM-driven, often Confidential data, on-premises preferred.</li>
+                <li><strong>Document analysis.</strong> Triage, classification, extraction from incoming documents. Often a mix of CV (for scans) and NLP (for text).</li>
+                <li><strong>Prediction.</strong> Demand forecasting, no-show estimation, risk scoring. Classical ML &mdash; often the right tool, often less hyped than generative AI.</li>
+                <li><strong>Decision support.</strong> Eligibility checking, policy compliance, regulatory reasoning. Often KBS &mdash; sometimes hybridized with ML for the fuzzy parts.</li>
+            </ul>
+
+            <p>
+                As the patterns emerge, discuss: which cluster has the most proposals? Why? Which cluster has the
+                hardest sovereignty issues? Which cluster has the cleanest success metrics? Which cluster do
+                <em>you</em> want a peer's notes on?
+            </p>
+        </section>
+
+        <section id="closing" class="module-section">
+            <h2>Closing &mdash; what you can do now</h2>
+            <p>You came in able to use AI as a consumer. You leave able to direct it as a leader. Concretely:</p>
+            <ul>
+                <li>You can <strong>evaluate AI proposals</strong> from your technical teams. You know which questions the proposal must answer and which silences are red flags.</li>
+                <li>You can <strong>ask the right procurement questions</strong>. Where the data goes, who has access to logs, what the retention policy is, what runs on-premises, what the cost difference is.</li>
+                <li>You can <strong>identify opportunities in your own work</strong>. The capstone you just wrote is one. There will be others as the methodology becomes a habit.</li>
+                <li>You can <strong>make data-classification-aware decisions</strong> about which AI tools to deploy where. Public, Confidential, Secret, Top Secret &mdash; each level constrains the toolbox, and you know how.</li>
+                <li>You can <strong>tell good AI from bad AI</strong> across the four perspectives, the eight subfields, and the eras. You know when "AI" is hype and when it's substance.</li>
+            </ul>
+
+            <div class="callout">
+                <h4>The one-line summary</h4>
+                <p>
+                    Direct AI deliberately. Match the tool to the data classification. Ask the trade-off
+                    question every time. Verify everything load-bearing. Repeat.
+                </p>
+            </div>
+        </section>
+
+        <section id="further" class="module-section">
+            <h2>Continued learning</h2>
+
+            <h3>The interactive demos as take-home material</h3>
+            <p>Every demo from this week is yours to revisit. Recommended order:</p>
+            <ul>
+                <li><a href="../demos/baloot_game.html">Baloot AI Arena</a> &mdash; intelligent agents in a non-trivial game.</li>
+                <li><a href="../demos/memory_game_demo.html">Memory game</a> &amp; <a href="../demos/heuristic_demo.html">Heuristic demo</a> &mdash; build search intuition.</li>
+                <li><a href="../demos/objective_function_demo.html">Objective function explorer</a> &mdash; play with Pareto fronts.</li>
+                <li><a href="../demos/family_inference_demo.html">Family inference</a> &mdash; KBS reasoning step by step.</li>
+                <li><a href="../demos/activation_functions_demo.html">Activation functions</a> &amp; <a href="../demos/ml-viz-v2.html">ML viz</a> &mdash; deepen the ML intuition.</li>
+                <li><a href="../demos/deanonymization_demo.html">De-anonymization</a> &amp; <a href="../demos/privacy_budget_tracker.html">Privacy budget</a> &mdash; revisit privacy when you face it in practice.</li>
+                <li><a href="../demos/vid_dag.html">DAG visualization</a> &mdash; see the shape that runs through Days 3 and 4.</li>
+                <li><a href="../demos/entropy_calculator_demo.html">Entropy calculator</a> &mdash; build information-theory intuition.</li>
+            </ul>
+
+            <h3>Reference materials</h3>
+            <ul>
+                <li><a href="../references/ai_smartphone_apps.html">AI Smartphone Apps Guide</a> &mdash; up-to-date guide to consumer AI tools.</li>
+                <li><a href="../references/distributed_tools_reference.html">Distributed Tools Reference</a> &mdash; for when an IT team mentions Spark, Hadoop, or Dask.</li>
+                <li><a href="../references/optimization_solvers_reference.html">Optimization Solvers Reference</a> &mdash; for serious optimization work.</li>
+                <li><a href="../references/ml_resources.html">ML Resources</a> &mdash; frameworks, datasets, neural architectures.</li>
+                <li><a href="../references/AI_History_English.html">The Story of AI</a> &mdash; full narrative history if you want depth.</li>
+            </ul>
+
+            <h3>Arabic versions</h3>
+            <p>
+                Every page in this course exists in Arabic. The language switcher (top of every page) flips
+                between them. Materials are
+                <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a>
+                so you can share them with colleagues and adapt them for your own programmes.
+            </p>
+
+            <h3>What to do next week</h3>
+            <ol>
+                <li>Show your one-page proposal to a peer who didn't take this course. If you can explain it without referring back to your notes, you're ready.</li>
+                <li>Pick one consumer AI tool (ChatGPT, Claude, Gemini, Copilot) and use it daily for two weeks. Notice when it helps and when it doesn't.</li>
+                <li>The next time someone in your organization pitches "AI for X," ask the four planning questions and the ten procurement questions. Notice which ones land.</li>
+            </ol>
+        </section>
+
+        <nav class="module-nav" aria-label="Module navigation">
+            <a href="module4.html" class="prev">
+                <span class="nav-label">← Previous</span>
+                <span class="nav-title">Day 4 — How AI Reasons</span>
+            </a>
+            <a href="../index.html" class="next">
+                <span class="nav-label">Course home →</span>
+                <span class="nav-title">Back to the index</span>
+            </a>
+        </nav>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div>
+                <h3>About this module</h3>
+                <p>Day 5 of <a href="../index.html">AI for Leaders</a>. Materials adapted and condensed from the open DS-AI course under CC BY 4.0.</p>
+            </div>
+            <div class="footer-links">
+                <h3>The 5 days</h3>
+                <ul>
+                    <li><a href="module1.html">Day 1 &mdash; What AI Is</a></li>
+                    <li><a href="module2.html">Day 2 &mdash; Directing AI</a></li>
+                    <li><a href="module3.html">Day 3 &mdash; Privacy &amp; Sovereignty</a></li>
+                    <li><a href="module4.html">Day 4 &mdash; How AI Reasons</a></li>
+                    <li><a href="module5.html"><strong>Day 5 &mdash; Capstone</strong></a></li>
+                </ul>
+            </div>
+            <div>
+                <h3>License</h3>
+                <p>CC BY 4.0. Attribution: "DS-AI Course Materials, licensed under CC BY 4.0."</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 DS-AI Educational Course · Open Educational Resource</p>
+        </div>
+    </footer>
+</body>
+</html>

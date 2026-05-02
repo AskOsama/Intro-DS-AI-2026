@@ -1,0 +1,329 @@
+/* ===================================================================
+   Demo Polish — overrides applied AFTER styles.css to tone the demos
+   toward the editorial palette of the new index/module pages.
+   Loaded by every file in /demos/ as the second stylesheet.
+   =================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..700;1,9..144,400..700&family=Geist:wght@300..700&family=Cairo:wght@300..700&display=swap');
+
+/* -------------------------------------------------------------------
+   Override legacy color tokens
+   ------------------------------------------------------------------- */
+:root {
+    --primary-color:   #14202e;   /* editorial navy ink   */
+    --secondary-color: #2c5a82;   /* muted ocean (was bright blue)   */
+    --accent-color:    #b15c26;   /* terracotta (was bright red)     */
+    --text-color:      #14202e;
+    --light-gray:      #fbf8f0;   /* vellum                          */
+    --border-color:    #d6cdb8;   /* warm taupe rule                 */
+    --highlight-bg:    rgba(232, 217, 153, 0.25);  /* gold tint     */
+    --success-green:   #2c6a5b;   /* forest                          */
+
+    /* New editorial palette tokens for demos that want them */
+    --ed-paper:    #f6f2e9;
+    --ed-vellum:   #fbf8f0;
+    --ed-paper-3:  #ede7d6;
+    --ed-ink:      #14202e;
+    --ed-ink-2:    #3a4659;
+    --ed-ink-3:    #717b8f;
+    --ed-rule:     #d6cdb8;
+    --ed-gold:     #a07c1d;
+    --ed-gold-soft:#e8d999;
+    --ed-day-1:    #2c5a82;
+    --ed-day-2:    #2c6a5b;
+    --ed-day-3:    #6a3d75;
+    --ed-day-4:    #b15c26;
+    --ed-day-5:    #4a6b32;
+}
+
+/* -------------------------------------------------------------------
+   Body & typography
+   ------------------------------------------------------------------- */
+body {
+    background: var(--ed-paper) !important;
+    color: var(--ed-ink);
+    font-family: 'Geist', -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif !important;
+    -webkit-font-smoothing: antialiased;
+}
+
+[dir="rtl"] body {
+    font-family: 'Cairo', sans-serif !important;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Fraunces', Georgia, serif !important;
+    font-weight: 500 !important;
+    color: var(--ed-ink) !important;
+    letter-spacing: -0.015em;
+    border: none !important;
+    padding: 0 !important;
+}
+
+[dir="rtl"] h1, [dir="rtl"] h2, [dir="rtl"] h3, [dir="rtl"] h4 {
+    font-family: 'Cairo', sans-serif !important;
+    font-weight: 700 !important;
+}
+
+h1 { font-size: 2.4em !important; line-height: 1.1; }
+h2 { font-size: 1.7em !important; }
+h3 { font-size: 1.3em !important; color: var(--ed-day-1) !important; }
+
+a { color: var(--ed-day-1); text-decoration-color: var(--ed-rule); text-underline-offset: 3px; }
+a:hover { color: var(--ed-gold); }
+
+em, i { font-style: italic; color: inherit; }
+strong, b { font-weight: 600; color: var(--ed-ink); }
+
+::selection { background: var(--ed-gold-soft); color: var(--ed-ink); }
+
+/* -------------------------------------------------------------------
+   Replace bright gradient headers (most demos use this pattern)
+   ------------------------------------------------------------------- */
+header,
+.demo-header,
+.game-header,
+.workshop-header,
+[class*="header"]:not(.day-header):not(.module-header):not(.course-header) {
+    background: var(--ed-ink) !important;
+    background-image: none !important;
+    color: var(--ed-paper) !important;
+    border-radius: 0 !important;
+}
+
+header h1, header h2, header h3, header p,
+[class*="header"] h1, [class*="header"] h2, [class*="header"] h3, [class*="header"] p {
+    color: var(--ed-paper) !important;
+}
+
+/* -------------------------------------------------------------------
+   Tame the dark "gaming UI" backgrounds in some demos
+   (objective_function, activation_functions, ml-viz-v2)
+   ------------------------------------------------------------------- */
+[style*="#1a1a2e"],
+[style*="#16213e"],
+[style*="#0f3460"] {
+    background: var(--ed-vellum) !important;
+    background-color: var(--ed-vellum) !important;
+    color: var(--ed-ink) !important;
+}
+
+/* -------------------------------------------------------------------
+   Replace Bootstrap warning / danger swatches with editorial accents
+   ------------------------------------------------------------------- */
+.alert-warning, .warning-banner, [class*="warning"]:not(.warning-banner-text) {
+    background: rgba(232, 217, 153, 0.25) !important;
+    border-color: var(--ed-gold) !important;
+    color: var(--ed-ink) !important;
+}
+
+.alert-danger, [class*="danger"], .red-alert {
+    background: rgba(177, 92, 38, 0.08) !important;
+    border-color: var(--ed-day-4) !important;
+    color: var(--ed-day-4) !important;
+}
+
+.alert-success, [class*="success"]:not(.success-rate) {
+    background: rgba(44, 106, 91, 0.08) !important;
+    border-color: var(--ed-day-2) !important;
+}
+
+.alert-info, [class*="info"]:not(.info-banner-text) {
+    background: rgba(44, 90, 130, 0.05) !important;
+    border-color: var(--ed-day-1) !important;
+}
+
+/* -------------------------------------------------------------------
+   Buttons — flat editorial style
+   ------------------------------------------------------------------- */
+button, .btn, input[type="button"], input[type="submit"], input[type="reset"] {
+    background: var(--ed-ink) !important;
+    color: var(--ed-paper) !important;
+    border: 1px solid var(--ed-ink) !important;
+    border-radius: 2px !important;
+    font-family: 'Geist', sans-serif !important;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    padding: 9px 18px;
+    cursor: pointer;
+    transition: all 0.18s ease;
+    text-transform: none;
+    box-shadow: none !important;
+    background-image: none !important;
+}
+
+[dir="rtl"] button, [dir="rtl"] .btn { font-family: 'Cairo', sans-serif !important; }
+
+button:hover, .btn:hover {
+    background: var(--ed-day-1) !important;
+    border-color: var(--ed-day-1) !important;
+    color: var(--ed-paper) !important;
+    transform: translateY(-1px);
+}
+
+button:disabled, .btn:disabled, button[disabled] {
+    background: var(--ed-rule) !important;
+    color: var(--ed-ink-3) !important;
+    border-color: var(--ed-rule) !important;
+    opacity: 0.7;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* Secondary / outline buttons */
+.btn-secondary, .btn-outline {
+    background: transparent !important;
+    color: var(--ed-ink) !important;
+    border: 1px solid var(--ed-ink) !important;
+}
+
+/* -------------------------------------------------------------------
+   Cards / panels / containers
+   ------------------------------------------------------------------- */
+.card, .panel, .box, .container-fluid > div, .game-board, .demo-section,
+section.demo, .info-box, .stats-box {
+    background: var(--ed-vellum) !important;
+    border: 1px solid var(--ed-rule) !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    background-image: none !important;
+}
+
+/* -------------------------------------------------------------------
+   Tables
+   ------------------------------------------------------------------- */
+table {
+    background: var(--ed-vellum) !important;
+    border-collapse: collapse;
+    border-block-start: 1px solid var(--ed-ink);
+    border-block-end: 1px solid var(--ed-ink);
+}
+
+th {
+    background: var(--ed-paper-3) !important;
+    color: var(--ed-ink) !important;
+    background-image: none !important;
+    border-block-end: 1px solid var(--ed-ink) !important;
+    font-family: 'Geist', sans-serif !important;
+    font-weight: 600;
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    text-align: start;
+    padding: 10px 14px;
+}
+
+[dir="rtl"] th { font-family: 'Cairo', sans-serif !important; text-transform: none; letter-spacing: 0; }
+
+td {
+    border-block-end: 1px solid var(--ed-rule) !important;
+    padding: 10px 14px;
+    color: var(--ed-ink-2);
+}
+
+tr:nth-child(even) td { background: rgba(214, 205, 184, 0.18); }
+
+/* -------------------------------------------------------------------
+   Form inputs
+   ------------------------------------------------------------------- */
+input[type="text"], input[type="number"], input[type="email"], select, textarea {
+    background: var(--ed-vellum) !important;
+    border: 1px solid var(--ed-rule) !important;
+    border-radius: 2px !important;
+    padding: 9px 12px;
+    color: var(--ed-ink) !important;
+    font-family: 'Geist', sans-serif !important;
+    font-size: 0.95rem;
+}
+
+input:focus, select:focus, textarea:focus {
+    border-color: var(--ed-day-1) !important;
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(44, 90, 130, 0.15) !important;
+}
+
+/* -------------------------------------------------------------------
+   Progress bars (privacy_budget_tracker)
+   ------------------------------------------------------------------- */
+.progress, progress {
+    background: var(--ed-paper-3) !important;
+    border: 1px solid var(--ed-rule) !important;
+    border-radius: 2px !important;
+    height: 14px;
+    overflow: hidden;
+    box-shadow: none !important;
+}
+
+.progress-bar, .progress > div {
+    background: var(--ed-day-2) !important;
+    background-image: none !important;
+    transition: width 0.35s ease;
+}
+
+.progress-bar.bg-warning, [class*="progress"][class*="warning"] {
+    background: var(--ed-gold) !important;
+}
+
+.progress-bar.bg-danger, [class*="progress"][class*="danger"] {
+    background: var(--ed-day-4) !important;
+}
+
+/* -------------------------------------------------------------------
+   Inline-style hex overrides (catch hardcoded bright colors)
+   ------------------------------------------------------------------- */
+[style*="#3498db"], [style*="#2980b9"] { color: var(--ed-day-1) !important; }
+[style*="background:#3498db"], [style*="background-color:#3498db"],
+[style*="background: #3498db"], [style*="background-color: #3498db"] {
+    background: var(--ed-day-1) !important;
+}
+[style*="#e74c3c"], [style*="#c0392b"] { color: var(--ed-day-4) !important; }
+[style*="background:#e74c3c"], [style*="background: #e74c3c"] {
+    background: var(--ed-day-4) !important;
+}
+
+/* -------------------------------------------------------------------
+   Code blocks
+   ------------------------------------------------------------------- */
+code, pre, kbd, samp {
+    font-family: 'Geist Mono', 'JetBrains Mono', monospace !important;
+    background: var(--ed-paper-3) !important;
+    color: var(--ed-ink) !important;
+    border: 1px solid var(--ed-rule);
+    padding: 2px 6px;
+    border-radius: 2px;
+    font-size: 0.92em;
+}
+
+pre code { border: none; padding: 0; background: none; }
+pre {
+    padding: var(--spacing-md, 1.5rem);
+    overflow-x: auto;
+}
+
+/* -------------------------------------------------------------------
+   Footer (when demos have one)
+   ------------------------------------------------------------------- */
+footer {
+    background: var(--ed-paper) !important;
+    background-image: none !important;
+    border-block-start: 2px solid var(--ed-ink);
+    color: var(--ed-ink-2);
+    padding: 1.5rem 0;
+}
+
+footer a { color: var(--ed-day-1); }
+
+/* -------------------------------------------------------------------
+   Make sure body stays centered on demos too
+   ------------------------------------------------------------------- */
+body {
+    max-width: 1100px;       /* a bit wider than the legacy 900px to feel airy */
+    margin: 0 auto !important;
+    padding: 1.5rem !important;
+    box-shadow: 0 0 60px rgba(20, 32, 46, 0.06);
+}
+
+/* Mobile: full width */
+@media (max-width: 720px) {
+    body { padding: 1rem !important; }
+    button, .btn { padding: 8px 14px; font-size: 0.9rem; }
+}

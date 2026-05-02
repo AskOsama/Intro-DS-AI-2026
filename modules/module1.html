@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Module 1: What AI Is + Using AI Today. The four perspectives, six eras of AI history, intelligent agents, the AI landscape, and hands-on use of consumer AI tools.">
+    <title>Day 1 — What AI Is + Using AI Today | AI for Leaders</title>
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="../landing.css">
+</head>
+<body class="module module-1">
+    <div class="language-switcher">
+        <a href="module1_ar.html" class="lang-button" title="Switch to Arabic">العربية</a>
+    </div>
+
+    <nav class="module-breadcrumb">
+        <div class="crumbs">
+            <a href="../index.html">Home</a><span class="sep">›</span>
+            <span>Day 1 — What AI Is + Using AI Today</span>
+        </div>
+    </nav>
+
+    <header class="module-header">
+        <div class="module-eyebrow">Day 1 · Module 1</div>
+        <h1>What AI Is + Using AI Today</h1>
+        <p class="module-lede">
+            By the end of today you will recognize how AI already shows up in your daily life, have a mental
+            framework for understanding what "AI" means when a vendor uses the word, and be more capable at your
+            actual work because you have used the tools yourself.
+        </p>
+    </header>
+
+    <main>
+        <nav class="module-toc" aria-label="Table of contents">
+            <h4>On this page</h4>
+            <ol>
+                <li><a href="#daily-life">AI in your daily life</a></li>
+                <li><a href="#four-perspectives">The four perspectives on AI</a></li>
+                <li><a href="#history">Six eras of AI history</a></li>
+                <li><a href="#agents">Intelligent agents</a></li>
+                <li><a href="#landscape">The AI landscape</a></li>
+                <li><a href="#data-science">AI ↔ Data Science</a></li>
+                <li><a href="#tools">Using AI tools today</a></li>
+                <li><a href="#prompt-patterns">Prompt patterns that work</a></li>
+                <li><a href="#takeaways">What to take away</a></li>
+            </ol>
+        </nav>
+
+        <section id="daily-life" class="module-section">
+            <h2>AI is already in your day</h2>
+            <p>
+                You have used AI several times today and may not have noticed. The directions your phone gave you
+                this morning came from a search algorithm planning the fastest route across a graph of streets, factoring
+                in live traffic, road closures, and how many minutes the car ahead is delaying you. The voice
+                assistant that turned off the lights last night converted the sound waves of your voice into text,
+                figured out which device you meant, and called the right system. The unread emails your inbox quietly
+                moved to "Promotions" were classified by a model that has read billions of marketing messages. The
+                "Memories" album your phone offered last week was assembled by a face-recognition model that grouped
+                photos of the same people, even when those people were five years younger and fifty pounds heavier.
+            </p>
+            <p>
+                None of these felt like AI when they happened. That's the point. The most useful AI does not announce
+                itself; it disappears into the work it is doing. Today, if you have a smartphone and a budget
+                meeting, you are already an AI user. The question this course answers is whether you are a deliberate
+                one.
+            </p>
+
+            <div class="callout">
+                <h4>For leaders</h4>
+                <p>
+                    When someone proposes adding AI to a process, the right first question is rarely
+                    <em>"Is this AI?"</em> &mdash; the answer is almost always yes. The right question is <em>"What
+                    kind of AI, and is it the right one for this job?"</em> Today's content gives you the categories
+                    you need to ask that question intelligently.
+                </p>
+            </div>
+        </section>
+
+        <section id="four-perspectives" class="module-section">
+            <h2>The four perspectives on AI</h2>
+            <p>
+                The textbook by Stuart Russell and Peter Norvig &mdash; <em>Artificial Intelligence: A Modern
+                Approach</em> &mdash; organizes the entire field around a 2&times;2 grid. AI systems are trying to do
+                one of four things:
+            </p>
+
+            <figure class="diagram">
+                <img src="../images/diagrams/four_perspectives.svg" alt="A 2x2 grid showing the four perspectives on AI: Acting Humanly (Turing test), Thinking Humanly (cognitive modeling), Acting Rationally (rational agents), Thinking Rationally (logic-based)." />
+                <figcaption>The four perspectives on AI — Russell &amp; Norvig.</figcaption>
+            </figure>
+
+            <h3>Acting humanly &mdash; the Turing test</h3>
+            <p>
+                Can a machine fool a person into thinking they're talking to another person? This is the original AI
+                question. ChatGPT and Claude live here when they hold a conversation that <em>feels</em> like
+                talking to a colleague. Notice the goal isn't to be correct &mdash; it's to be indistinguishable.
+            </p>
+
+            <h3>Thinking humanly &mdash; cognitive modeling</h3>
+            <p>
+                Can we build a machine whose <em>internal process</em> resembles a human's thought process?
+                This is the territory of cognitive science. Less common in industry but underlies a lot of
+                human-computer interaction research.
+            </p>
+
+            <h3>Thinking rationally &mdash; logic and proofs</h3>
+            <p>
+                Reasoning from premises to correct conclusions, the way a careful lawyer or mathematician would.
+                This is where "expert systems" and the knowledge-based systems we'll meet on Day 4 sit. Strict,
+                explainable, but brittle when reality breaks the rules.
+            </p>
+
+            <h3>Acting rationally &mdash; the rational agent</h3>
+            <p>
+                Whatever the inner process, the system <em>acts</em> in a way that maximizes its chance of achieving
+                its goals. This is the dominant view in modern AI. A self-driving car does not need to think like a
+                human driver; it needs to drive well. This is the lens we'll use most.
+            </p>
+
+            <div class="callout">
+                <h4>Why this grid matters to you</h4>
+                <p>
+                    When a vendor pitches "AI," ask which quadrant. A chatbot trying to feel human (acting humanly)
+                    is a very different thing from a fraud-detection system trying to maximize true positives
+                    (acting rationally) &mdash; and they fail in very different ways.
+                </p>
+            </div>
+        </section>
+
+        <section id="history" class="module-section">
+            <h2>Six eras of AI history</h2>
+            <p>
+                AI is older than most people think and has been declared dead at least twice. Knowing the cycle is
+                useful: it teaches you which kinds of progress have stuck, which were hype, and what to watch for
+                in today's wave.
+            </p>
+
+            <figure class="diagram">
+                <img src="../images/diagrams/ai_timeline.svg" alt="Timeline of AI from 1950s to 2020s, showing six eras and two AI winters." />
+                <figcaption>Six eras of AI, with the two great winters.</figcaption>
+            </figure>
+
+            <h3>1950s &mdash; The dream begins</h3>
+            <p>
+                Alan Turing asks "Can machines think?" in 1950. The Dartmouth workshop in 1956 names the field
+                "Artificial Intelligence." Early programs play checkers, solve logic puzzles, and prove geometry
+                theorems. Optimism is enormous: a 1965 paper predicts machines will be doing any work a human can
+                do within twenty years.
+            </p>
+
+            <h3>1970s &mdash; The first AI winter</h3>
+            <p>
+                The grand promises don't materialize. Funding evaporates. Researchers learn the hard way that what
+                looks easy to a child (recognizing a face) is much harder than what looks hard to an adult (proving
+                a theorem). This is called <em>Moravec's paradox</em>, and it still bites.
+            </p>
+
+            <h3>1980s &mdash; Expert systems</h3>
+            <p>
+                A practical comeback. Companies build "expert systems" that encode the rules a specialist uses
+                &mdash; medical diagnosis, oil exploration, equipment configuration. These are the ancestors of
+                today's knowledge-based systems (Day 4). They worked, narrowly. They scaled badly.
+            </p>
+
+            <h3>Late 1980s and 1990s &mdash; The second AI winter</h3>
+            <p>
+                Expert systems prove brittle. The hype cycle collapses again. AI quietly survives in academia and
+                in narrow industrial applications. Meanwhile, the foundations of modern machine learning are being
+                laid: neural networks, statistical methods, support vector machines.
+            </p>
+
+            <h3>2000s &mdash; Data and statistics quietly win</h3>
+            <p>
+                The Internet floods the world with data. Search engines, recommendation systems, and spam filters
+                start working remarkably well using simple statistical methods on huge datasets. AI succeeds without
+                being called AI. Companies like Google and Amazon are essentially built on this generation of
+                techniques.
+            </p>
+
+            <h3>2010s &mdash; The deep learning revolution</h3>
+            <p>
+                In 2012 a neural network called AlexNet wins the ImageNet competition by a huge margin, and
+                everything changes. Deep learning &mdash; massive neural networks trained on massive datasets with
+                massive amounts of compute &mdash; starts beating every previous approach in image recognition,
+                speech, translation, and game playing.
+            </p>
+
+            <h3>2020s &mdash; Generative AI</h3>
+            <p>
+                GPT-3 in 2020, ChatGPT in 2022. Models that can generate fluent text, working code, and believable
+                images on demand. We will return to how this generation works in Day 4. For now: the present wave
+                is real, but the question is which parts of it stick.
+            </p>
+
+            <div class="callout callout-warn">
+                <h4>Pattern across the eras</h4>
+                <p>
+                    Every wave of AI has been over-promised and then partially delivered. The progress is real but
+                    rarely as fast or as complete as the loudest voices claim. As a leader, your job is to find the
+                    durable middle &mdash; the part that has actually stuck &mdash; and ignore the parts that are
+                    next year's winter.
+                </p>
+            </div>
+        </section>
+
+        <section id="agents" class="module-section">
+            <h2>Intelligent agents</h2>
+            <p>
+                The dominant modern frame for AI is the <em>intelligent agent</em>: something that perceives its
+                environment, processes what it perceives, takes actions, and (sometimes) learns from the results.
+                Four ingredients:
+            </p>
+
+            <figure class="diagram">
+                <img src="../images/diagrams/agent_architecture.svg" alt="Diagram of an intelligent agent: sensors → process → actuators, with a feedback loop for learning." />
+                <figcaption>Anatomy of an intelligent agent.</figcaption>
+            </figure>
+
+            <ul>
+                <li><span class="term">Perceive</span> &mdash; sensors, cameras, network inputs, user messages.</li>
+                <li><span class="term">Process</span> &mdash; rules, search, statistical models, neural networks &mdash; whatever turns input into a decision.</li>
+                <li><span class="term">Act</span> &mdash; actuators, screen output, sent messages, written files, physical motors.</li>
+                <li><span class="term">Learn</span> &mdash; adjust the process based on outcomes (optional but increasingly common).</li>
+            </ul>
+
+            <h3>Four agents, from very simple to very complex</h3>
+
+            <figure class="diagram">
+                <img src="../images/diagrams/agent_types.svg" alt="Four types of intelligent agents from simple reflex to learning agent." />
+                <figcaption>Four agent types, increasing in sophistication.</figcaption>
+            </figure>
+
+            <h3>1. A thermostat</h3>
+            <p>
+                Perceives temperature. Acts: turn heater on or off. No memory, no learning. Reflexes only. This is
+                a perfectly good agent for the job it has.
+            </p>
+
+            <h3>2. A spam filter</h3>
+            <p>
+                Perceives the words and metadata of an incoming email. Process is a statistical model trained on
+                millions of past emails. Acts by routing the email. Learns when you mark something as spam or
+                "not spam."
+            </p>
+
+            <h3>3. A recommendation system</h3>
+            <p>
+                Perceives what you have watched, paused, abandoned, and rated. Models a representation of your
+                taste. Acts by ordering the homepage. Learns continuously from how you respond. The same agent
+                pattern, with much richer perception, processing, and action.
+            </p>
+
+            <h3>4. A self-driving car</h3>
+            <p>
+                Perceives via cameras, radar, lidar, GPS, and inertial sensors at thousands of frames per second.
+                Processes through several stacked models &mdash; one for object detection, one for tracking, one
+                for prediction, one for planning. Acts on the steering, throttle, and brakes. Learns offline from
+                billions of miles of fleet data. Same four ingredients, much harder problem.
+            </p>
+
+            <div class="callout">
+                <h4>The leader's takeaway</h4>
+                <p>
+                    Whenever someone says "we're using AI to do X," try to identify the four ingredients. What does
+                    it perceive? How does it process? What does it act on? Does it learn, or is it frozen at deployment?
+                    Most failed AI projects fail at one of these four points &mdash; usually perception (bad data) or
+                    learning (drift after deployment).
+                </p>
+            </div>
+        </section>
+
+        <section id="landscape" class="module-section">
+            <h2>The AI landscape</h2>
+            <p>
+                "AI" is a parent term covering many subfields. You don't need to be an expert in any of them, but
+                you need the names so vendor pitches stop sounding alike.
+            </p>
+
+            <table>
+                <thead>
+                    <tr><th>Subfield</th><th>What it does</th><th>Where you've seen it</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td><strong>Machine Learning (ML)</strong></td><td>Find patterns in data, make predictions</td><td>Spam filters, fraud detection, demand forecasting</td></tr>
+                    <tr><td><strong>Computer Vision (CV)</strong></td><td>Make sense of images and video</td><td>Face unlock, license-plate readers, medical imaging</td></tr>
+                    <tr><td><strong>Natural Language Processing (NLP)</strong></td><td>Read, write, and understand text</td><td>Translation, sentiment analysis, ChatGPT</td></tr>
+                    <tr><td><strong>Speech</strong></td><td>Transcribe audio and synthesize voices</td><td>Voice assistants, captions, dictation</td></tr>
+                    <tr><td><strong>Robotics</strong></td><td>Move and act in the physical world</td><td>Warehouse robots, surgical assistance, drones</td></tr>
+                    <tr><td><strong>Planning &amp; Scheduling</strong></td><td>Find good sequences of actions</td><td>Route optimization, manufacturing schedules, calendar AI</td></tr>
+                    <tr><td><strong>Knowledge Representation</strong></td><td>Encode rules and facts so machines can reason</td><td>Medical decision support, legal reasoning, access control</td></tr>
+                    <tr><td><strong>Generative AI</strong></td><td>Produce new text, images, audio, video, code</td><td>ChatGPT, Midjourney, code completion</td></tr>
+                </tbody>
+            </table>
+
+            <p>
+                Most useful systems combine several of these. A document-processing AI might use computer vision to
+                read scanned PDFs, NLP to extract clauses, and a knowledge-based system to flag policy violations.
+                When a proposal claims to be "AI-powered," ask which of these subfields are actually doing the work.
+            </p>
+        </section>
+
+        <section id="data-science" class="module-section">
+            <h2>AI ↔ Data Science</h2>
+            <p>
+                AI and data science overlap heavily but are not the same. The simplest distinction:
+            </p>
+
+            <div class="compare">
+                <div>
+                    <h4>Data Science</h4>
+                    <p>Turning raw data into <em>understanding</em>. Cleaning, exploring, visualizing, building
+                    statistical models that explain what happened and why.</p>
+                </div>
+                <div>
+                    <h4>Artificial Intelligence</h4>
+                    <p>Turning data (and other inputs) into <em>action</em>. Building agents that decide and do
+                    things in the real world &mdash; sometimes invisibly, sometimes visibly.</p>
+                </div>
+            </div>
+
+            <figure class="diagram">
+                <img src="../images/diagrams/venn_diagram.svg" alt="Venn diagram showing AI and Data Science overlap heavily, sharing machine learning." />
+                <figcaption>AI and Data Science overlap in machine learning &mdash; but each has territory the other doesn't.</figcaption>
+            </figure>
+
+            <p>
+                In practice, machine learning sits in the overlap. A demand-forecasting model is both data science
+                (it explains historical demand) and AI (it acts on tomorrow's purchasing decisions). A pure
+                Excel-style sales report is data science but not AI. A rule-based access-control system is AI but
+                not data science.
+            </p>
+
+            <p>
+                For a leader: when a team asks for "data scientists" they often need analysts and modelers; when
+                they ask for "AI engineers" they often need people who deploy and maintain models in production.
+                These are related but distinct skill sets, and budgeting for one when you needed the other is a
+                common failure mode.
+            </p>
+        </section>
+
+        <section id="tools" class="module-section">
+            <h2>Using AI tools today</h2>
+            <p>
+                The conceptual model above is necessary but not sufficient. The other half of Day 1 is hands-on:
+                you should leave more capable at your daily work than you arrived. The four general-purpose AI
+                tools every leader should be able to use:
+            </p>
+
+            <h3>ChatGPT (OpenAI)</h3>
+            <p>
+                The most widely-used. Strong at general writing, brainstorming, summarization. Has tools for web
+                search, image generation, and running code. Default choice when you want a conversation that "just
+                works."
+            </p>
+
+            <h3>Claude (Anthropic)</h3>
+            <p>
+                Strong at long, careful documents and at following complex instructions precisely. Excels when you
+                need to feed it an entire policy or report and ask nuanced questions about it. Tends toward the
+                cautious end &mdash; will refuse fewer things than it used to but more than ChatGPT.
+            </p>
+
+            <h3>Gemini (Google)</h3>
+            <p>
+                Tightly integrated with Google services &mdash; Workspace, Search, Maps. If your day already runs
+                in Google Docs and Gmail, Gemini's biggest advantage is being right there.
+            </p>
+
+            <h3>Copilot (Microsoft)</h3>
+            <p>
+                The same: tight integration with Microsoft 365 &mdash; Word, Excel, PowerPoint, Outlook. If your
+                day runs in Office, Copilot is the lowest-friction path. There is also a "GitHub Copilot" variant
+                for software developers; that's a different product.
+            </p>
+
+            <div class="callout callout-demo">
+                <h4>Practical reference</h4>
+                <p>
+                    For a fuller side-by-side &mdash; including which tools are smartphone-native, which require
+                    paid plans, and which respect specific privacy settings &mdash; see the
+                    <a href="../references/ai_smartphone_apps.html"><strong>AI Smartphone Apps Guide</strong></a>.
+                </p>
+            </div>
+        </section>
+
+        <section id="prompt-patterns" class="module-section">
+            <h2>Prompt patterns that work</h2>
+            <p>
+                The single biggest determinant of how useful these tools are to you is how you ask. A few patterns
+                that consistently produce better output:
+            </p>
+
+            <h3>1. Set the role and the audience</h3>
+            <blockquote>
+                "Act as a budget analyst preparing a one-page memo for a director who has 5 minutes to read it."
+            </blockquote>
+            <p>
+                Models behave differently depending on who they think they are talking to and as. Saying so up front
+                replaces a paragraph of unstated assumptions.
+            </p>
+
+            <h3>2. Show, don't tell</h3>
+            <blockquote>
+                "Here are two memos I've written before that I'm happy with: [paste]. Match this style for the new
+                memo about [topic]."
+            </blockquote>
+            <p>
+                A model with one good example will usually outperform a model with three pages of style guidelines.
+                Examples are denser than rules.
+            </p>
+
+            <h3>3. Ask for the structure first</h3>
+            <blockquote>
+                "Don't write the memo yet. First propose an outline with three headings and one sentence per
+                heading. I'll tell you which to expand."
+            </blockquote>
+            <p>
+                Cheap to course-correct an outline. Expensive to course-correct three pages of prose.
+            </p>
+
+            <h3>4. Push back when you disagree</h3>
+            <blockquote>
+                "Your draft assumes the audience knows what NDMO is. They don't. Rewrite the second paragraph
+                assuming a non-technical reader."
+            </blockquote>
+            <p>
+                These tools are extraordinarily responsive to feedback. The sooner you treat them like a junior
+                colleague who needs direction (rather than a vending machine that produces a single output), the
+                more useful they become.
+            </p>
+
+            <h3>5. Watch for confident wrongness</h3>
+            <p>
+                The single biggest failure mode of today's tools is producing fluent, confident text that is
+                plausible-sounding but factually wrong &mdash; the phenomenon known as <em>hallucination</em>. We
+                will treat this seriously in Day 4. For now: never paste a model's output into a document that
+                will be read by someone you can't unembarrass yourself in front of, without checking the facts
+                first.
+            </p>
+        </section>
+
+        <section id="takeaways" class="module-section">
+            <h2>What to take away</h2>
+            <ol>
+                <li>AI is already woven into your day. The interesting question is not whether to use it but how to use it deliberately.</li>
+                <li>"AI" covers four perspectives (acting/thinking × humanly/rationally) and many subfields. Ask which kind a proposal really means.</li>
+                <li>Modern AI is best understood as <em>intelligent agents</em> with four parts: perceive, process, act, learn.</li>
+                <li>The field has had two winters. Some of today's wave will stick. Some will not. Your job as a leader is to bet on the durable parts.</li>
+                <li>You should be using ChatGPT, Claude, Gemini, or Copilot daily for the work that fits them &mdash; writing, summarizing, brainstorming, editing &mdash; with a cautious eye on hallucination.</li>
+            </ol>
+
+            <div class="callout callout-demo">
+                <h4>Try a demo</h4>
+                <p>
+                    To see two intelligent agents face off in a non-trivial task, watch the
+                    <a href="../demos/baloot_game.html"><strong>Baloot AI Arena</strong></a> &mdash; two AI players (Greedy
+                    vs. Strategic) play the classic Saudi card game. You can also
+                    <a href="../demos/baloot_game_human.html"><strong>play against the AI yourself</strong></a>. Notice how
+                    the four agent ingredients show up at every move.
+                </p>
+            </div>
+        </section>
+
+        <nav class="module-nav" aria-label="Module navigation">
+            <span class="placeholder"></span>
+            <a href="module2.html" class="next">
+                <span class="nav-label">Next →</span>
+                <span class="nav-title">Day 2 — Directing AI: From Chatbots to Agents</span>
+            </a>
+        </nav>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div>
+                <h3>About this module</h3>
+                <p>Day 1 of <a href="../index.html">AI for Leaders</a>. Materials adapted and condensed from the open DS-AI course under CC BY 4.0.</p>
+            </div>
+            <div class="footer-links">
+                <h3>The 5 days</h3>
+                <ul>
+                    <li><a href="module1.html"><strong>Day 1 &mdash; What AI Is</strong></a></li>
+                    <li><a href="module2.html">Day 2 &mdash; Directing AI</a></li>
+                    <li><a href="module3.html">Day 3 &mdash; Privacy &amp; Sovereignty</a></li>
+                    <li><a href="module4.html">Day 4 &mdash; How AI Reasons</a></li>
+                    <li><a href="module5.html">Day 5 &mdash; Capstone</a></li>
+                </ul>
+            </div>
+            <div>
+                <h3>License</h3>
+                <p>CC BY 4.0. Attribution: "DS-AI Course Materials, licensed under CC BY 4.0."</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 DS-AI Educational Course · Open Educational Resource</p>
+        </div>
+    </footer>
+</body>
+</html>

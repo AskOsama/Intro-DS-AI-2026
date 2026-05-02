@@ -1,0 +1,100 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400" direction="rtl">
+  <defs>
+    <linearGradient id="manualGradAr" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#3498db;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#2980b9;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="relGradAr" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#9b59b6;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#8e44ad;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="autoGradAr" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#27ae60;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#229954;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="impGradAr" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#e67e22;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#d35400;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="800" height="400" fill="#f8f9fa" rx="10"/>
+
+  <!-- Title -->
+  <text x="400" y="30" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="#2c3e50">نظرة عامة على أدوات هندسة الخصائص</text>
+  <text x="400" y="50" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#7f8c8d">(ماذا تفعل، وليس كيف تُبرمج)</text>
+
+  <!-- Row 1: Manual FE Tools -->
+  <rect x="410" y="70" width="370" height="140" rx="10" fill="#e3f2fd" stroke="#3498db" stroke-width="2"/>
+  <rect x="410" y="70" width="370" height="30" rx="10" fill="url(#manualGradAr)"/>
+  <text x="430" y="90" text-anchor="end" font-family="Arial, sans-serif" font-size="13" font-weight="bold" fill="white">🔧 هندسة الخصائص اليدوية</text>
+
+  <!-- Pandas -->
+  <rect x="600" y="115" width="160" height="80" rx="8" fill="white" stroke="#bdc3c8"/>
+  <text x="680" y="140" text-anchor="middle" font-family="Arial, sans-serif" font-size="24">🐼</text>
+  <text x="680" y="160" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#2c3e50">pandas</text>
+  <text x="680" y="175" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#777">النسب، التواريخ، التجميعات</text>
+  <text x="680" y="188" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#555">عندما تعرف ما تحتاجه</text>
+
+  <!-- Feature-engine -->
+  <rect x="430" y="115" width="160" height="80" rx="8" fill="white" stroke="#bdc3c8"/>
+  <text x="510" y="140" text-anchor="middle" font-family="Arial, sans-serif" font-size="24">⚙️</text>
+  <text x="510" y="160" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#2c3e50">feature-engine</text>
+  <text x="510" y="175" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#777">التجميع، الترميز، القياس</text>
+  <text x="510" y="188" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#555">كتل بناء جاهزة</text>
+
+  <!-- Row 1: Relational FE -->
+  <rect x="20" y="70" width="370" height="140" rx="10" fill="#e8daef" stroke="#9b59b6" stroke-width="2"/>
+  <rect x="20" y="70" width="370" height="30" rx="10" fill="url(#relGradAr)"/>
+  <text x="40" y="90" text-anchor="end" font-family="Arial, sans-serif" font-size="13" font-weight="bold" fill="white">🔗 هندسة الخصائص العلائقية</text>
+
+  <!-- Featuretools -->
+  <rect x="35" y="115" width="340" height="80" rx="8" fill="white" stroke="#bdc3c8"/>
+  <text x="205" y="140" text-anchor="middle" font-family="Arial, sans-serif" font-size="24">🔗🤖</text>
+  <text x="205" y="160" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#2c3e50">Featuretools (التوليف العميق للخصائص)</text>
+  <text x="205" y="175" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#777">ينشئ خصائص تلقائياً من جداول مرتبطة</text>
+  <text x="205" y="188" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#555">عندما تمتد البيانات عبر جداول متعددة</text>
+
+  <!-- Row 2: Automated FE -->
+  <rect x="410" y="225" width="370" height="160" rx="10" fill="#d4edda" stroke="#27ae60" stroke-width="2"/>
+  <rect x="410" y="225" width="370" height="30" rx="10" fill="url(#autoGradAr)"/>
+  <text x="430" y="245" text-anchor="end" font-family="Arial, sans-serif" font-size="13" font-weight="bold" fill="white">🤖 هندسة الخصائص الآلية</text>
+
+  <!-- Autofeat -->
+  <rect x="600" y="270" width="160" height="100" rx="8" fill="white" stroke="#bdc3c8"/>
+  <text x="680" y="295" text-anchor="middle" font-family="Arial, sans-serif" font-size="24">🔢✖️</text>
+  <text x="680" y="315" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#2c3e50">Autofeat</text>
+  <text x="680" y="330" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#777">الضرب، القسمة، اللوغاريتم</text>
+  <text x="680" y="343" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#555">يجرب التوليفات الرياضية</text>
+  <text x="680" y="358" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#28a745">توليف رياضي</text>
+
+  <!-- tsfresh -->
+  <rect x="430" y="270" width="160" height="100" rx="8" fill="white" stroke="#bdc3c8"/>
+  <text x="510" y="295" text-anchor="middle" font-family="Arial, sans-serif" font-size="24">📈⏱️</text>
+  <text x="510" y="315" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#2c3e50">tsfresh</text>
+  <text x="510" y="330" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#777">المتوسطات المتحركة، الاتجاهات</text>
+  <text x="510" y="343" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#555">يستخرج أنماط الوقت</text>
+  <text x="510" y="358" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#28a745">استخراج السلاسل الزمنية</text>
+
+  <!-- Row 2: Imputation -->
+  <rect x="20" y="225" width="370" height="160" rx="10" fill="#fef3e2" stroke="#e67e22" stroke-width="2"/>
+  <rect x="20" y="225" width="370" height="30" rx="10" fill="url(#impGradAr)"/>
+  <text x="40" y="245" text-anchor="end" font-family="Arial, sans-serif" font-size="13" font-weight="bold" fill="white">🔮 تعويض القيم المفقودة</text>
+
+  <!-- sklearn -->
+  <rect x="205" y="270" width="160" height="100" rx="8" fill="white" stroke="#bdc3c8"/>
+  <text x="285" y="295" text-anchor="middle" font-family="Arial, sans-serif" font-size="24">🧩</text>
+  <text x="285" y="315" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#2c3e50">sklearn</text>
+  <text x="285" y="330" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#777">الوسيط، المتوسط، المنوال</text>
+  <text x="285" y="343" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#555">تعبئة إحصائية بسيطة</text>
+  <text x="285" y="358" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#e67e22">تعويض أساسي</text>
+
+  <!-- fancyimpute -->
+  <rect x="35" y="270" width="160" height="100" rx="8" fill="white" stroke="#bdc3c8"/>
+  <text x="115" y="295" text-anchor="middle" font-family="Arial, sans-serif" font-size="24">🧠✨</text>
+  <text x="115" y="315" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#2c3e50">fancyimpute</text>
+  <text x="115" y="330" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#777">MICE، KNN، طرق المصفوفات</text>
+  <text x="115" y="343" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#555">تعبئة ذكية بالأنماط</text>
+  <text x="115" y="358" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#e67e22">تعويض متقدم</text>
+</svg>

@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Module 4: How AI Reasons. Search and optimization, knowledge-based systems, machine learning, neural networks, and generative AI.">
+    <title>Day 4 — How AI Reasons | AI for Leaders</title>
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="../landing.css">
+</head>
+<body class="module module-4">
+    <div class="language-switcher">
+        <a href="module4_ar.html" class="lang-button" title="Switch to Arabic">العربية</a>
+    </div>
+
+    <nav class="module-breadcrumb">
+        <div class="crumbs">
+            <a href="../index.html">Home</a><span class="sep">›</span>
+            <span>Day 4 — How AI Reasons</span>
+        </div>
+    </nav>
+
+    <header class="module-header">
+        <div class="module-eyebrow">Day 4 · Module 4</div>
+        <h1>How AI Reasons: Search, Knowledge, ML &amp; Generative AI</h1>
+        <p class="module-lede">
+            Today is about what's actually happening inside an AI system when it "reasons." You don't need to do
+            the math. You need the mental models, so when a vendor says "we use deep learning" or "our model
+            optimizes objective X" you know exactly what that means &mdash; and what they're not telling you.
+        </p>
+    </header>
+
+    <main>
+        <nav class="module-toc" aria-label="Table of contents">
+            <h4>On this page</h4>
+            <ol>
+                <li><a href="#card-game">The card-flipping game</a></li>
+                <li><a href="#search-space">Search space, constraints, heuristics</a></li>
+                <li><a href="#informed-uninformed">Informed vs. uninformed search</a></li>
+                <li><a href="#single-objective">Single-objective optimization</a></li>
+                <li><a href="#multi-objective">Multi-objective &amp; Pareto fronts</a></li>
+                <li><a href="#kbs">Knowledge-based systems</a></li>
+                <li><a href="#kbs-applications">Where KBS shows up in your world</a></li>
+                <li><a href="#ml-paradigms">Three ML paradigms</a></li>
+                <li><a href="#classification">Classification as decision boundaries</a></li>
+                <li><a href="#gradient-descent">Gradient descent</a></li>
+                <li><a href="#activation">Activation functions &amp; non-linearity</a></li>
+                <li><a href="#nn-are-dags">Neural networks ARE DAGs</a></li>
+                <li><a href="#layers">Layered abstraction</a></li>
+                <li><a href="#generative">Generative AI</a></li>
+                <li><a href="#takeaways">What to take away</a></li>
+            </ol>
+        </nav>
+
+        <section id="card-game" class="module-section">
+            <h2>The card-flipping game</h2>
+
+            <div class="callout callout-story">
+                <p>
+                    Eight cards face-down on a table. Behind them are four pairs &mdash; a shape on each
+                    card, with a matching shape on exactly one other card. Your job is to find all four pairs
+                    by flipping two cards at a time. If they match, you keep them. If not, you flip them back and
+                    try to remember what was where.
+                </p>
+            </div>
+
+            <figure class="diagram">
+                <img src="../images/diagrams/card_game_setup.svg" alt="Eight cards face-down arranged in two rows of four, with shapes hidden underneath." />
+                <figcaption>The setup: 8 cards, 4 pairs, no information yet.</figcaption>
+            </figure>
+
+            <p>
+                On your first move, you have no information at all. You pick two cards. How many distinct first
+                moves are possible? Eight choices for the first card, seven for the second &mdash; that's 56
+                ordered pairs, or 28 unordered. With a full 52-card deck and 26 pairs, the number is
+                astronomical: more first moves than there are seconds in your day.
+            </p>
+            <p>
+                That collection of "all possible moves" is called the <em>search space</em>. Every AI problem can
+                be framed as searching through one. The interesting question is how to search smartly.
+            </p>
+
+            <div class="callout callout-demo">
+                <h4>Try it</h4>
+                <p>
+                    Play the <a href="../demos/memory_game_demo.html"><strong>Memory Game demo</strong></a> for a minute or
+                    two. Notice that you're not searching randomly &mdash; you're using memory. That intuition is
+                    the foundation of <em>heuristic</em> search, which we'll get to in a moment.
+                </p>
+            </div>
+        </section>
+
+        <section id="search-space" class="module-section">
+            <h2>Search space, constraints, heuristics</h2>
+
+            <figure class="diagram">
+                <img src="../images/diagrams/search_problems_overview.svg" alt="A flowchart showing search problems: state, actions, transitions, goal test, and path cost." />
+                <figcaption>The anatomy of a search problem.</figcaption>
+            </figure>
+
+            <p>Three concepts run through every search-based AI system:</p>
+            <ul>
+                <li><strong>Search space.</strong> The set of all possible states or moves. Always huge. Sometimes infinite.</li>
+                <li><strong>Constraints.</strong> Rules that rule out parts of the space. "The car must stay in its lane." "The schedule must not assign the same teacher to two classes at once." Constraints make the space tractable.</li>
+                <li><strong>Heuristics.</strong> Rules of thumb that suggest where to look <em>first</em>. Not guaranteed to be right, but usually good enough to make a big problem manageable.</li>
+            </ul>
+
+            <p>
+                In the card game: the search space is all possible move sequences; a constraint is "you flip two
+                at a time"; the heuristic is "if you remember seeing a circle in position 3 and another in
+                position 7, flip those two next." Random play would solve it eventually but slowly. The memory
+                heuristic solves it fast.
+            </p>
+        </section>
+
+        <section id="informed-uninformed" class="module-section">
+            <h2>Informed vs. uninformed search</h2>
+
+            <figure class="diagram">
+                <img src="../images/diagrams/memory_heuristic_walkthrough.svg" alt="Step-by-step walkthrough of using the memory heuristic to solve the card game more efficiently than random or sequential approaches." />
+                <figcaption>The memory heuristic in action.</figcaption>
+            </figure>
+
+            <p>
+                <strong>Uninformed search</strong> is search with no extra knowledge. You explore systematically
+                &mdash; in order, in random order, breadth-first, depth-first &mdash; but you have nothing to tell
+                you which option is more promising than another. It works. It's slow on large spaces.
+            </p>
+
+            <p>
+                <strong>Informed search</strong> uses a heuristic to focus on promising parts of the space first.
+                The memory heuristic in the card game is a perfect example. So is "follow the river to the sea
+                when you're lost in a forest" &mdash; you're not searching randomly, you're using a piece of
+                background knowledge to point you in a useful direction.
+            </p>
+
+            <div class="callout callout-demo">
+                <h4>See the difference</h4>
+                <p>
+                    The <a href="../demos/heuristic_demo.html"><strong>Heuristic demo</strong></a> runs three strategies
+                    side by side on the same card game: random, sequential, and memory-heuristic. Watch how
+                    quickly the memory strategy pulls ahead. The same gap, scaled up, is why GPS routing works
+                    and why optimization software runs your supply chain.
+                </p>
+            </div>
+        </section>
+
+        <section id="single-objective" class="module-section">
+            <h2>Single-objective optimization</h2>
+            <p>
+                A close cousin of search is <em>optimization</em>: not just finding any solution, but finding the
+                <em>best</em> one according to some measure. The simplest form is <strong>single-objective</strong>:
+                one thing to maximize or minimize.
+            </p>
+
+            <figure class="diagram">
+                <img src="../images/diagrams/single_objective_hp.svg" alt="A scatter plot of cars showing horsepower vs. some independent variable, with one car circled as the best on horsepower alone." />
+                <figcaption>Single-objective: pick the car with the highest horsepower.</figcaption>
+            </figure>
+
+            <p>
+                "Pick the car with the most horsepower." Trivial &mdash; just sort the list. The same approach
+                works for any single number you're trying to maximize: revenue, accuracy, throughput, response
+                time. Single-objective problems are easy to solve and easy to argue about, because there is one
+                right answer.
+            </p>
+            <p>
+                The catch: single-objective is rarely realistic. The car with the most horsepower might also be
+                the most expensive, or the worst on fuel.
+            </p>
+        </section>
+
+        <section id="multi-objective" class="module-section">
+            <h2>Multi-objective &amp; the Pareto front</h2>
+            <p>
+                Real decisions almost always involve <strong>conflicting objectives</strong>. You want
+                horsepower <em>and</em> low cost. You want accuracy <em>and</em> low latency. You want privacy
+                <em>and</em> the convenience of hosted AI.
+            </p>
+
+            <figure class="diagram">
+                <img src="../images/diagrams/two_objective_scatter.svg" alt="A scatter plot of cars on horsepower vs. cost axes, showing some cars are dominated by others (worse on both) while a frontier of best trade-offs forms the Pareto front." />
+                <figcaption>Two objectives at once. Some cars are clearly worse than others; some are different.</figcaption>
+            </figure>
+
+            <p>
+                When two objectives conflict, no single car wins. Some are <em>dominated</em> &mdash; another car
+                is better on both axes. Those should never be picked. The remaining cars form the
+                <strong>Pareto front</strong>: each one is the best at <em>some</em> trade-off between
+                horsepower and cost. None of them is wrong; the choice depends on which trade-off matters most
+                to you.
+            </p>
+
+            <figure class="diagram">
+                <img src="../images/diagrams/pareto_front.svg" alt="A plot showing the Pareto front: the frontier of non-dominated solutions in a two-objective optimization problem." />
+                <figcaption>The Pareto front: every point on it is the best at <em>some</em> trade-off.</figcaption>
+            </figure>
+
+            <div class="callout callout-demo">
+                <h4>See it interactively</h4>
+                <p>
+                    The <a href="../demos/objective_function_demo.html"><strong>Objective Function Explorer</strong></a>
+                    lets you adjust car parameters and watch the Pareto front update in real time. It's the same
+                    intuition you already use whenever you compare two options on cost vs. quality &mdash; just
+                    formalized.
+                </p>
+            </div>
+
+            <p>
+                For a leader: every AI vendor pitch involves trade-offs. When they show you only one curve
+                ("our accuracy"), ask what they're trading off to get it. Cost? Latency? Fairness? Privacy?
+                There is no AI system that maximizes everything at once. The Pareto-front lens helps you see
+                which dimensions the vendor is quietly accepting losses on.
+            </p>
+        </section>
+
+        <section id="kbs" class="module-section">
+            <h2>Knowledge-based systems</h2>
+
+            <div class="callout callout-story">
+                <p>
+                    Khalid has a database listing parents and their children. The database knows that Khalid is
+                    Sara's father, and that Sara is Yousef's mother. You ask: "Who are Khalid's grandchildren?"
+                </p>
+                <p>
+                    The database can't answer. There is no "grandchild" column. The information is implicit in
+                    the data &mdash; you can <em>derive</em> it &mdash; but the database doesn't know how. To
+                    answer that question you need <strong>data + rules</strong>.
+                </p>
+            </div>
+
+            <figure class="diagram">
+                <img src="../images/diagrams/family_tree_kbs.svg" alt="A family tree with explicit parent-child relationships and an arrow indicating that grandchild relationships must be inferred via a rule." />
+                <figcaption>Khalid's family tree: parents and children stored, grandchildren inferred.</figcaption>
+            </figure>
+
+            <p>This is the core of a <strong>knowledge-based system</strong> (KBS). Three ingredients:</p>
+            <ul>
+                <li><strong>Data.</strong> The facts. "Khalid is Sara's parent. Sara is Yousef's parent."</li>
+                <li><strong>Rules.</strong> The general knowledge. "X is a grandparent of Z if X is a parent of Y and Y is a parent of Z."</li>
+                <li><strong>Query.</strong> The question. "Who are Khalid's grandchildren?"</li>
+            </ul>
+
+            <figure class="diagram">
+                <img src="../images/diagrams/grandparent_inference.svg" alt="Step-by-step inference: from Khalid is parent of Sara + Sara is parent of Yousef, derive Khalid is grandparent of Yousef." />
+                <figcaption>The grandparent rule fires: from two facts, a new fact.</figcaption>
+            </figure>
+
+            <p>
+                A KBS lets a machine answer the query by combining the rules with the data. This is the same
+                style of reasoning that drove the 1980s expert systems. Strict, explainable, and ideal when the
+                rules are crisp &mdash; not when they're fuzzy or contradictory.
+            </p>
+
+            <figure class="diagram">
+                <img src="../images/diagrams/kbs_unified_architecture.svg" alt="Unified architecture: a knowledge base feeding both a TELL interface (add new facts/rules) and an ASK interface (queries)." />
+                <figcaption>The classical KBS architecture: TELL adds knowledge, ASK queries it.</figcaption>
+            </figure>
+
+            <div class="callout callout-demo">
+                <h4>Try it</h4>
+                <p>
+                    The <a href="../demos/family_inference_demo.html"><strong>Family Tree Inference demo</strong></a> walks
+                    through grandparent and sibling rules step by step. Watch the rules fire, see new facts
+                    appear, and notice that a KBS can <em>explain</em> every answer it gives &mdash; "I concluded X
+                    because rule R fired with facts F1 and F2." That explainability is a major reason KBS is still
+                    chosen over ML for some problems.
+                </p>
+            </div>
+        </section>
+
+        <section id="kbs-applications" class="module-section">
+            <h2>Where KBS shows up in your world</h2>
+            <p>Three concrete government-relevant uses where KBS is often the right answer, not deep learning:</p>
+
+            <h3>Medical diagnosis support</h3>
+            <p>
+                Symptom + test-result &rarr; possible diagnoses. A clinician sees the chain of reasoning ("flagged
+                because the patient has X plus Y, which together implicate Z") and can override. ML black boxes
+                struggle with the explanation requirement that medicine usually demands.
+            </p>
+
+            <h3>Access control</h3>
+            <p>
+                "Can user U access resource R?" Encoded as rules over roles, attributes, and context. Auditable,
+                explainable, easy to update when policy changes. The right way to handle "who can see what" in
+                most enterprises.
+            </p>
+
+            <h3>Legal reasoning</h3>
+            <p>
+                Eligibility for a benefit, applicability of a regulation, qualification for a position. These are
+                rules in a statute book. A KBS that encodes them faithfully gives you a system that produces the
+                same answer the statute does, every time, with a citation to the rule that fired.
+            </p>
+
+            <div class="callout">
+                <h4>For leaders</h4>
+                <p>
+                    When a problem has crisp rules and an explanation requirement, a KBS is often a better choice
+                    than a machine-learning model &mdash; cheaper, more transparent, and easier to maintain.
+                    Don't reach for "AI" reflexively. Reach for the right kind of AI.
+                </p>
+            </div>
+        </section>
+
+        <section id="ml-paradigms" class="module-section">
+            <h2>Three machine learning paradigms</h2>
+            <p>When the rules aren't crisp, you let the system <em>learn</em> from data. Three flavours:</p>
+
+            <figure class="diagram">
+                <img src="../images/diagrams/ml_types.svg" alt="Three ML paradigms: supervised (labelled examples), unsupervised (find structure), reinforcement (learn from reward)." />
+                <figcaption>Three paradigms for machine learning.</figcaption>
+            </figure>
+
+            <h3>Supervised learning</h3>
+            <p>
+                You provide examples with the right answer attached. "These 10,000 emails are spam, these 10,000
+                are not. Learn to tell the difference." Most production ML is supervised. Excellent when you
+                have labelled data; useless when you don't.
+            </p>
+
+            <h3>Unsupervised learning</h3>
+            <p>
+                You provide data without labels and ask the system to find structure. "Group these customers
+                into segments by their behavior." Useful for exploration, customer analytics, anomaly detection.
+                Cannot tell you whether the groups it finds are meaningful &mdash; only you can.
+            </p>
+
+            <h3>Reinforcement learning</h3>
+            <p>
+                You provide an environment and a reward signal. The system tries actions, sees what works,
+                gets better. The most "AI-shaped" of the three. Famous examples: AlphaGo, robotics, dynamic
+                pricing. Hard to deploy in domains where mistakes are costly &mdash; the system has to make
+                many of them to learn.
+            </p>
+        </section>
+
+        <section id="classification" class="module-section">
+            <h2>Classification as decision boundaries</h2>
+            <p>
+                The most common supervised-learning task is <em>classification</em>: given an input, predict
+                which class it belongs to. Spam or not spam. Fraud or not fraud. Image of a dog or a cat.
+            </p>
+            <p>
+                Conceptually, all classification is doing the same thing: drawing a <em>line</em> through a
+                space of features such that examples on one side belong to one class and examples on the other
+                belong to another.
+            </p>
+
+            <div class="callout callout-demo">
+                <h4>See it directly</h4>
+                <p>
+                    The <a href="../demos/ml-viz-v2.html"><strong>ML Algorithm Comparison demo</strong></a> generates
+                    datasets and lets you watch decision boundaries form for several different algorithms. The
+                    same data produces strikingly different boundaries depending on the algorithm. That's not a
+                    bug &mdash; it's the central trade-off in ML.
+                </p>
+            </div>
+        </section>
+
+        <section id="gradient-descent" class="module-section">
+            <h2>Gradient descent &mdash; the blindfolded walk</h2>
+
+            <div class="callout callout-story">
+                <p>
+                    You are blindfolded on a hilly landscape. Your job is to find the lowest point. You can't
+                    see, but you can feel which direction your foot tilts down. You take a small step in that
+                    direction, then re-feel, then step again, then re-feel. Eventually you reach a valley.
+                </p>
+            </div>
+
+            <figure class="diagram">
+                <img src="../images/diagrams/gradient_descent.svg" alt="A 3D loss landscape with a path showing successive steps downhill toward a minimum." />
+                <figcaption>Gradient descent: small downhill steps toward a minimum.</figcaption>
+            </figure>
+
+            <p>
+                That blindfolded walk <em>is</em> gradient descent. The "landscape" is a measure of how wrong
+                the model currently is &mdash; the <em>loss function</em>. The "lowest point" is the
+                configuration of model parameters that minimizes loss. The "feeling which way is downhill" is
+                computing the gradient. Every modern ML training run does this, billions of times.
+            </p>
+            <p>
+                Notice the connection to Day 4's optimization material: the loss function is just an objective
+                function the model is trying to minimize. The same idea, in a different costume.
+            </p>
+        </section>
+
+        <section id="activation" class="module-section">
+            <h2>Activation functions &amp; non-linearity</h2>
+            <p>
+                If a neural network were just a stack of linear operations &mdash; multiply by weights, add
+                them up, multiply again &mdash; you could prove mathematically that the whole stack is
+                equivalent to <em>one</em> linear operation. No matter how many layers, you'd get a single
+                line as your decision boundary. That can't classify anything but the simplest data.
+            </p>
+            <p>
+                What makes deep neural networks powerful is <strong>non-linearity</strong>. After each linear
+                step, the network applies a non-linear function &mdash; called an <em>activation function</em>
+                &mdash; that bends the output. The most common are ReLU (zero out negatives, keep positives),
+                Sigmoid (squash to between 0 and 1), and Tanh (squash to between -1 and 1).
+            </p>
+
+            <div class="callout callout-demo">
+                <h4>Visualize them</h4>
+                <p>
+                    The <a href="../demos/activation_functions_demo.html"><strong>Activation Functions Visualizer</strong></a>
+                    lets you drag input sliders and watch each function reshape the output in real time. The
+                    intuition that comes out of five minutes with this demo is worth a chapter of explanation.
+                </p>
+            </div>
+        </section>
+
+        <section id="nn-are-dags" class="module-section">
+            <h2>Neural networks ARE DAGs</h2>
+            <p>
+                Recall from Day 3: a <em>directed acyclic graph</em> (DAG) is a flow of computation where each
+                step depends on previous steps and there are no loops. Data pipelines are DAGs. Build systems
+                are DAGs. So is a neural network.
+            </p>
+
+            <figure class="diagram">
+                <img src="../images/diagrams/neural_network.svg" alt="A neural network drawn as nodes (neurons) in layers connected by edges (weights), with data flowing left to right." />
+                <figcaption>A neural network drawn as a DAG. Inputs on the left, outputs on the right, every neuron is a node.</figcaption>
+            </figure>
+
+            <p>
+                Each neuron is a node. The connections between them are edges. Data flows from inputs through
+                hidden layers to outputs, never looping back. That is the literal definition of a DAG.
+            </p>
+            <p>
+                The fact that neural networks are DAGs isn't a metaphor. It's why GPUs are good at running them
+                (DAGs parallelize beautifully, as we saw in Day 3). It's why frameworks like TensorFlow and
+                PyTorch use DAG-style "computational graphs" internally. And it's why a Day 3 concept
+                (parallel pipelines) shows up again in Day 4 (deep learning) &mdash; same shape, different
+                application.
+            </p>
+
+            <h3>Backpropagation in plain English</h3>
+            <p>
+                Training a neural network means adjusting all those edge weights so the output gets closer to
+                the right answer. <strong>Backpropagation</strong> is the algorithm that figures out, for each
+                weight, "if I change you a little bit, will the answer get more right or less right?" It works
+                by walking the DAG <em>backward</em> from the output to the inputs, propagating blame for the
+                error to each weight along the way. Combined with gradient descent, that's how a network learns
+                from its mistakes.
+            </p>
+        </section>
+
+        <section id="layers" class="module-section">
+            <h2>Layered abstraction</h2>
+            <p>
+                The most beautiful thing about deep neural networks &mdash; and the reason they work on tasks
+                like image recognition that defied 50 years of hand-crafted approaches &mdash; is that
+                successive layers learn successively more abstract features.
+            </p>
+            <p>In an image-recognition network:</p>
+            <ul>
+                <li><strong>Layer 1</strong> learns to detect edges.</li>
+                <li><strong>Layer 2</strong> combines edges into <em>shapes</em>: corners, curves, blobs.</li>
+                <li><strong>Layer 3</strong> combines shapes into <em>parts</em>: an eye, a wheel, a doorway.</li>
+                <li><strong>Layer 4+</strong> combines parts into <em>objects</em>: a face, a car, a building.</li>
+            </ul>
+            <p>
+                Nobody told the network what an "eye" or a "wheel" is. The hierarchical abstraction emerged
+                from many millions of training examples and the gradient-descent-over-a-DAG mechanism. That
+                emergence is the heart of why deep learning is different from earlier approaches.
+            </p>
+        </section>
+
+        <section id="generative" class="module-section">
+            <h2>Generative AI</h2>
+            <p>
+                Until 2017, AI <em>recognized</em> things. Since 2020 or so, a new wave of AI <em>generates</em>
+                things &mdash; text, images, video, code. The technology behind almost all of it is the
+                <strong>Transformer</strong>, a neural-network architecture introduced in a 2017 paper called
+                "Attention Is All You Need."
+            </p>
+
+            <h3>How an LLM works, in one paragraph</h3>
+            <p>
+                A Large Language Model is trained to predict the next word in a sequence. Given "The capital of
+                Saudi Arabia is", it should output "Riyadh." Trained on essentially the entire public internet,
+                doing this prediction trillions of times, the model develops internal representations of
+                grammar, facts, reasoning patterns, code structure, and the patterns of essentially every kind
+                of human writing. To <em>generate</em> text, the model just keeps predicting the next word,
+                feeding its own output back as new input, until it decides to stop. That is all that ChatGPT
+                and Claude are doing &mdash; very fast, with very large internal representations.
+            </p>
+
+            <h3>How image generation works</h3>
+            <p>
+                The dominant approach is the <strong>diffusion model</strong>. Imagine starting with a picture
+                of pure noise and training a network to slowly remove the noise, step by step, until a real
+                image appears. Steer the de-noising with a text prompt and you get an image that matches the
+                prompt. Tools like Midjourney, DALL-E, and Stable Diffusion all work this way.
+            </p>
+
+            <h3>What they can and cannot do</h3>
+
+            <div class="compare">
+                <div>
+                    <h4>What they're good at</h4>
+                    <ul>
+                        <li>Generating fluent prose in any genre and tone.</li>
+                        <li>Summarizing long documents.</li>
+                        <li>Translating between languages with surprising quality.</li>
+                        <li>Drafting and editing structured text (emails, memos, briefs).</li>
+                        <li>Writing and explaining code in dozens of languages.</li>
+                        <li>Generating images and videos that look professional.</li>
+                    </ul>
+                </div>
+                <div>
+                    <h4>What they're bad at</h4>
+                    <ul>
+                        <li>Knowing whether what they wrote is true (hallucination).</li>
+                        <li>Math, especially when small precision matters.</li>
+                        <li>Counting, dates, source citations &mdash; check these manually.</li>
+                        <li>Anything from after their training cutoff &mdash; they don't know it.</li>
+                        <li>Reasoning step-by-step over long, novel problems.</li>
+                        <li>Promising they "won't" do something they were just trained on patterns of doing.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h3>Hallucination &mdash; the headline failure mode</h3>
+            <p>
+                The model has no internal "I don't know" signal. When asked something it doesn't know, it
+                produces output that <em>looks</em> like it should be the right answer &mdash; same tone, same
+                shape, same confidence &mdash; but is fabricated. A made-up legal citation, an invented
+                academic paper, a confident but wrong number. This is not a bug; it's how the technology works.
+                The fix is verification, not better prompting. We covered this in Day 2 and you should hear it
+                again.
+            </p>
+
+            <h3>Costs</h3>
+            <p>
+                LLMs are not free. Every query costs the provider compute time, and they pass that cost on to
+                you per-token (roughly per-word). For a leader: when a vendor's pricing is "we'll work it out
+                later," ask for the per-million-token cost in writing. Multiply by your expected volume.
+                Surprises are a frequent feature of LLM-based product launches.
+            </p>
+
+            <div class="callout callout-warn">
+                <h4>When NOT to use generative AI</h4>
+                <p>
+                    Don't use generative AI for: legal advice (use a KBS or a lawyer), financial calculations
+                    (use a spreadsheet or a programmer), medical diagnosis (use a clinical decision system),
+                    sources you must cite (verify every reference), or anything where confidently wrong is
+                    much worse than slowly right.
+                </p>
+            </div>
+        </section>
+
+        <section id="takeaways" class="module-section">
+            <h2>What to take away</h2>
+            <ol>
+                <li>Search and optimization are the same idea: explore a huge space, with constraints to rule things out and heuristics to focus where to look.</li>
+                <li>Real decisions almost always involve conflicting objectives. The Pareto front shows you the trade-off. Demand to see it.</li>
+                <li>Knowledge-based systems are the right answer when rules are crisp and explainability matters &mdash; cheaper, more transparent, and easier to maintain than ML.</li>
+                <li>Three ML paradigms: supervised (most common), unsupervised, reinforcement.</li>
+                <li>Classification is drawing a line through a feature space. Different algorithms draw different lines on the same data.</li>
+                <li>Training is gradient descent: small steps downhill on a loss landscape.</li>
+                <li>Non-linearity (activation functions) is what lets neural networks do anything interesting beyond a single straight line.</li>
+                <li><strong>Neural networks ARE DAGs.</strong> The Day 3 thread returns. Same shape, same parallelism, same logic.</li>
+                <li>Layered abstraction: each layer learns more abstract features. Edges &rarr; shapes &rarr; parts &rarr; objects.</li>
+                <li>Generative AI &mdash; LLMs, image, video &mdash; is fluent and useful but hallucinates. Verify everything load-bearing.</li>
+            </ol>
+        </section>
+
+        <nav class="module-nav" aria-label="Module navigation">
+            <a href="module3.html" class="prev">
+                <span class="nav-label">← Previous</span>
+                <span class="nav-title">Day 3 — Privacy &amp; Sovereignty</span>
+            </a>
+            <a href="module5.html" class="next">
+                <span class="nav-label">Next →</span>
+                <span class="nav-title">Day 5 — Capstone Workshop</span>
+            </a>
+        </nav>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div>
+                <h3>About this module</h3>
+                <p>Day 4 of <a href="../index.html">AI for Leaders</a>. Materials adapted and condensed from the open DS-AI course under CC BY 4.0.</p>
+            </div>
+            <div class="footer-links">
+                <h3>The 5 days</h3>
+                <ul>
+                    <li><a href="module1.html">Day 1 &mdash; What AI Is</a></li>
+                    <li><a href="module2.html">Day 2 &mdash; Directing AI</a></li>
+                    <li><a href="module3.html">Day 3 &mdash; Privacy &amp; Sovereignty</a></li>
+                    <li><a href="module4.html"><strong>Day 4 &mdash; How AI Reasons</strong></a></li>
+                    <li><a href="module5.html">Day 5 &mdash; Capstone</a></li>
+                </ul>
+            </div>
+            <div>
+                <h3>License</h3>
+                <p>CC BY 4.0. Attribution: "DS-AI Course Materials, licensed under CC BY 4.0."</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 DS-AI Educational Course · Open Educational Resource</p>
+        </div>
+    </footer>
+</body>
+</html>

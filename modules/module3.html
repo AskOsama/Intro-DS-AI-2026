@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Module 3: Big Data, Privacy & Data Sovereignty. Parallel processing, the privacy reckoning, PDPL & NDMO classification, hosted vs. local AI, and procurement questions.">
+    <title>Day 3 — Big Data, Privacy &amp; Data Sovereignty | AI for Leaders</title>
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="../landing.css">
+</head>
+<body class="module module-3">
+    <div class="language-switcher">
+        <a href="module3_ar.html" class="lang-button" title="Switch to Arabic">العربية</a>
+    </div>
+
+    <nav class="module-breadcrumb">
+        <div class="crumbs">
+            <a href="../index.html">Home</a><span class="sep">›</span>
+            <span>Day 3 — Big Data, Privacy &amp; Data Sovereignty</span>
+        </div>
+    </nav>
+
+    <header class="module-header">
+        <div class="module-eyebrow">Day 3 · Module 3</div>
+        <h1>Big Data, Privacy &amp; Data Sovereignty</h1>
+        <p class="module-lede">
+            Today is the heaviest day. You will learn how AI systems handle massive datasets (so the infrastructure
+            choices your IT team is making stop sounding like jargon), why anonymizing personal data the obvious
+            way doesn't work, what PDPL and NDMO actually require of you, and how to choose between hosted and
+            sovereign AI tools without giving up either capability or jurisdiction.
+        </p>
+    </header>
+
+    <main>
+        <nav class="module-toc" aria-label="Table of contents">
+            <h4>On this page</h4>
+            <ol>
+                <li><a href="#warehouse">Sarah's warehouse</a></li>
+                <li><a href="#scaling">Scaling up vs. scaling out</a></li>
+                <li><a href="#cpu-gpu">CPU vs. GPU</a></li>
+                <li><a href="#master-worker">Master-worker &amp; data locality</a></li>
+                <li><a href="#fault-tolerance">Fault tolerance</a></li>
+                <li><a href="#detective">The detective story</a></li>
+                <li><a href="#feature-eng">Feature engineering</a></li>
+                <li><a href="#privacy">The privacy reckoning</a></li>
+                <li><a href="#twenty-dollar">The $20 Attack</a></li>
+                <li><a href="#pdpl-ndmo">PDPL &amp; NDMO classification</a></li>
+                <li><a href="#hosted-vs-local">Hosted vs. local AI</a></li>
+                <li><a href="#procurement">Procurement questions</a></li>
+                <li><a href="#takeaways">What to take away</a></li>
+            </ol>
+        </nav>
+
+        <section id="warehouse" class="module-section">
+            <h2>Sarah's warehouse</h2>
+
+            <div class="callout callout-story">
+                <p>
+                    Sarah runs a warehouse. One morning a shipment of 4,000 items arrives that needs to be
+                    inspected, labelled, and sorted. Ahmed, working alone, takes four hours. Sarah brings in three
+                    more workers the next day for the same shipment size. They finish in 1 hour 15 minutes.
+                </p>
+                <p>
+                    Not 1 hour exactly. Why? Because some time is spent on coordination &mdash; one worker waits
+                    for the labeller, another finishes their pile early and helps a slower neighbour. The team
+                    isn't 4&times; faster than Ahmed; it's about 3.2&times; faster. That gap between "what you'd
+                    expect" and "what you actually get" is one of the most important numbers in big-data
+                    infrastructure.
+                </p>
+            </div>
+
+            <figure class="diagram">
+                <img src="../images/diagrams/warehouse_parallel.svg" alt="Warehouse with one worker processing items vs four workers processing items in parallel, showing speedup and overhead." />
+                <figcaption>Sarah's warehouse: one worker vs. four. The speedup is real but never quite 4&times;.</figcaption>
+            </figure>
+
+            <p>
+                This is parallel processing in a sentence. To go faster, add workers. But coordination is never
+                free, and the gap between perfect parallelism and real parallelism is where most infrastructure
+                discussions actually live.
+            </p>
+        </section>
+
+        <section id="scaling" class="module-section">
+            <h2>Scaling up vs. scaling out</h2>
+            <p>
+                When more capacity is needed, you have two options. Both work. They have very different cost,
+                resilience, and procurement profiles.
+            </p>
+
+            <figure class="diagram">
+                <img src="../images/diagrams/scaling_comparison.svg" alt="Side by side: scaling up shows one machine getting bigger; scaling out shows many machines added in parallel." />
+                <figcaption>Scaling up: one bigger machine. Scaling out: more machines in parallel.</figcaption>
+            </figure>
+
+            <div class="compare">
+                <div>
+                    <h4>Scaling up &mdash; the skyscraper</h4>
+                    <p>One bigger, faster machine. More CPU, more memory, more disk. Simple to operate. Limited by
+                    the largest single machine you can buy. When it fails, everything fails.</p>
+                </div>
+                <div>
+                    <h4>Scaling out &mdash; the campus</h4>
+                    <p>Many smaller machines working in parallel. Cheaper per unit of compute. Practically unlimited
+                    if your software supports it. When one machine fails, the rest carry on.</p>
+                </div>
+            </div>
+
+            <p>
+                For a leader: when an IT team proposes a "single big server" answer, ask what happens when it goes
+                down. When they propose a "cluster" answer, ask how the work is split and what software keeps the
+                cluster coordinated. The right answer depends on your workload, but you should never accept "we
+                just need a bigger machine" without a discussion of resilience.
+            </p>
+        </section>
+
+        <section id="cpu-gpu" class="module-section">
+            <h2>CPU vs. GPU</h2>
+
+            <div class="callout callout-story">
+                <p>
+                    Two kitchens. The first has one expert chef who can cook anything &mdash; sashimi, soufflé,
+                    biryani. She does it sequentially, one dish at a time, and each dish is excellent. The second
+                    is an assembly line with 200 workers, each one doing one tiny step (chop onion, plate, garnish)
+                    on hundreds of identical bowls of pasta. The first kitchen is a CPU. The second is a GPU.
+                </p>
+            </div>
+
+            <figure class="diagram">
+                <img src="../images/diagrams/gpu_parallel_matrix.svg" alt="A matrix multiplication broken into many tiny multiplications running in parallel on a GPU, vs. running sequentially on a CPU." />
+                <figcaption>A GPU: many small operations in parallel. The right tool for matrix-heavy work.</figcaption>
+            </figure>
+
+            <p>
+                Modern AI &mdash; especially deep learning &mdash; is overwhelmingly matrix arithmetic, the same
+                small operation done millions of times. That's the bowl-of-pasta problem. GPUs do this 100&times;
+                faster than CPUs. That is why every AI infrastructure conversation eventually becomes a GPU
+                conversation. It is also why GPUs are expensive, scarce, and a major procurement consideration.
+            </p>
+
+            <div class="callout">
+                <h4>For leaders</h4>
+                <p>
+                    Ask whether the workload your team wants to run actually needs GPUs. Document classification,
+                    rule-based systems, and many "AI" tools run perfectly well on CPUs. GPUs are for training
+                    large models and running large neural networks. Don't pay for an assembly line when you have
+                    one dish to cook.
+                </p>
+            </div>
+        </section>
+
+        <section id="master-worker" class="module-section">
+            <h2>Master-worker &amp; data locality</h2>
+            <p>
+                When you have many workers, somebody has to coordinate them. The dominant pattern is
+                <em>master-worker</em>: one node assigns tasks, the workers execute, and results come back.
+            </p>
+
+            <figure class="diagram">
+                <img src="../images/diagrams/master_worker_architecture.svg" alt="A master node assigning tasks to multiple worker nodes; results return to the master." />
+                <figcaption>Master-worker: a coordinator hands out tasks; workers execute in parallel.</figcaption>
+            </figure>
+
+            <p>
+                The other concept that drops constantly in big-data discussions is <em>data locality</em>. Moving
+                data across a network is slow and expensive. Computing is fast. So the rule is:
+            </p>
+            <blockquote>
+                Move computation to data, not data to computation.
+            </blockquote>
+            <p>
+                If you have ten terabytes of records sitting in a particular data centre and you want to analyze
+                them, you ship the small piece of code <em>to where the data lives</em> and run it there. You do
+                not download all ten terabytes to your laptop. This sounds obvious until you watch a project ignore
+                it and then wonder why everything is slow and expensive.
+            </p>
+
+            <figure class="diagram">
+                <img src="../images/diagrams/data_partitioning.svg" alt="A large dataset partitioned across many nodes, with each node processing its own partition." />
+                <figcaption>Data partitioned across nodes. Each worker processes its local slice.</figcaption>
+            </figure>
+        </section>
+
+        <section id="fault-tolerance" class="module-section">
+            <h2>Fault tolerance</h2>
+            <p>
+                With one machine, "the machine works" is the only state. With a thousand machines, several are
+                broken at any moment. Big-data systems are designed to keep going when individual workers die. The
+                three usual mechanisms:
+            </p>
+            <ul>
+                <li><strong>Replication.</strong> Store each piece of data on three machines, not one. If one dies, the data is still on the other two.</li>
+                <li><strong>Re-execution.</strong> If a worker fails halfway through a task, the master notices and gives the same task to a healthy worker.</li>
+                <li><strong>Checkpointing.</strong> Long-running jobs save their progress periodically so they don't have to start over after a crash.</li>
+            </ul>
+
+            <div class="callout">
+                <h4>For leaders</h4>
+                <p>
+                    When evaluating a proposal, ask: "What happens if one of these machines fails halfway through?"
+                    A good architect will have a crisp answer. A worrying silence means the system has not been
+                    designed for failure &mdash; only for happy paths.
+                </p>
+            </div>
+        </section>
+
+        <section id="detective" class="module-section">
+            <h2>The detective story</h2>
+
+            <div class="callout callout-story">
+                <p>
+                    A detective walks into a living room. There's a half-eaten birthday cake, deflated balloons,
+                    a small bicycle leaning against the wall, and a card on the table. She has not been told
+                    anything. Within seconds she infers: a child's birthday party happened here recently, the
+                    child is probably 5&ndash;7 years old (small bicycle, cartoon-themed cake), and the party
+                    has ended (half-eaten cake, deflated balloons).
+                </p>
+                <p>
+                    The detective never <em>asked</em> for any of those facts. She read them off cues nobody
+                    bothered to hide. This is exactly what AI does with data, and it has profound implications for
+                    what "private" means.
+                </p>
+            </div>
+
+            <p>
+                The data your organization holds is full of these cues. A lot of what looks like benign metadata
+                is, when combined, deeply revealing. We will see in a few sections just how cheap and how
+                successful this kind of inference can be.
+            </p>
+        </section>
+
+        <section id="feature-eng" class="module-section">
+            <h2>Feature engineering</h2>
+            <p>
+                Before AI can learn from your data, the data has to be turned into <em>features</em> &mdash;
+                numerical or categorical inputs the model can work with. This translation step is called feature
+                engineering, and it's where most of the real intelligence in many ML projects actually lives.
+            </p>
+
+            <h3>Explicit vs. implicit data</h3>
+
+            <figure class="diagram">
+                <img src="../images/diagrams/explicit_implicit_data.svg" alt="Two columns: explicit data (what users tell us directly) vs. implicit data (what we infer from their behavior)." />
+                <figcaption>Explicit data: what users tell you. Implicit data: what their behavior reveals.</figcaption>
+            </figure>
+
+            <ul>
+                <li><strong>Explicit data</strong> is what users hand you on purpose: the form they filled in, the rating they gave, the box they ticked. Honest, structured, but limited.</li>
+                <li><strong>Implicit data</strong> is what they reveal without meaning to: how long they hovered on a page, which links they didn't click, what time they logged in. Vastly richer, but ethically heavier.</li>
+            </ul>
+
+            <h3>Three flavours of feature engineering</h3>
+
+            <figure class="diagram">
+                <img src="../images/diagrams/feature_engineering_tree.svg" alt="Tree showing manual, relational, and automated feature engineering as three branches." />
+                <figcaption>Three flavours of feature engineering, increasing in automation.</figcaption>
+            </figure>
+
+            <ol>
+                <li><strong>Manual.</strong> A domain expert decides what to compute. "Add a column for 'days since last purchase' &mdash; we know that predicts churn."</li>
+                <li><strong>Relational.</strong> Combine fields from multiple tables. "Join customer records with order records and compute lifetime spend."</li>
+                <li><strong>Automated.</strong> Let an algorithm generate features and keep the ones that help. Powerful, but the resulting features can be hard to explain to a regulator.</li>
+            </ol>
+
+            <h3>Inference-based imputation</h3>
+
+            <figure class="diagram">
+                <img src="../images/diagrams/missing_data_strategies.svg" alt="Strategies for handling missing data: drop rows, fill with constant, fill with median, predict from other columns." />
+                <figcaption>Strategies for missing data &mdash; not all are honest.</figcaption>
+            </figure>
+
+            <p>
+                When data is missing, you have to do something. The safest options &mdash; drop the row, mark it
+                explicitly as missing &mdash; are honest but reduce your sample size. The seductive option &mdash;
+                <em>infer</em> the missing value from the other columns &mdash; preserves your sample but changes
+                the data into something that wasn't actually observed.
+            </p>
+            <p>
+                For a leader: when a model "knows" something a customer never told it, you should know which
+                imputation method produced that knowledge. There is no rule against inference, but there are
+                rules against pretending it didn't happen.
+            </p>
+        </section>
+
+        <section id="privacy" class="module-section">
+            <h2>The privacy reckoning</h2>
+            <p>
+                For most of the last twenty years, organizations published "anonymized" datasets and assumed they
+                were safe. They were wrong.
+            </p>
+
+            <h3>Quasi-identifiers</h3>
+
+            <figure class="diagram">
+                <img src="../images/diagrams/privacy_reidentification.svg" alt="A diagram showing how seemingly innocent fields combine to uniquely identify a person." />
+                <figcaption>Quasi-identifiers: fields that look harmless individually, but uniquely identify when combined.</figcaption>
+            </figure>
+
+            <p>
+                A name is an obvious identifier. A ZIP code is not &mdash; thousands of people share one. A birth
+                date is not &mdash; thousands share one. Gender is not &mdash; half the country shares one. But
+                <em>the combination</em> of ZIP code + date of birth + gender uniquely identifies <strong>87%
+                of the U.S. population</strong>. This is the classic finding by Latanya Sweeney, and it shattered
+                the industry's assumption that removing names was enough.
+            </p>
+
+            <h3>Four cautionary tales</h3>
+
+            <h4>1. Governor Weld</h4>
+            <p>
+                In the mid-1990s, Massachusetts released "anonymized" hospital records of state employees. The
+                Governor, William Weld, was among them. Latanya Sweeney bought the public voter list for $20,
+                joined the two datasets on ZIP, birthday, and gender, and sent the Governor's medical records to
+                his office. She had not broken any law. She had used only public data.
+            </p>
+
+            <h4>2. AOL search data</h4>
+            <p>
+                In 2006, AOL released 20 million search queries from 650,000 users with names replaced by ID
+                numbers. Within days, journalists had identified specific users by reading their search histories
+                &mdash; queries about specific landmarks, specific medical conditions, specific people. AOL
+                pulled the data; the damage was done.
+            </p>
+
+            <h4>3. Netflix Prize</h4>
+            <p>
+                Netflix released 100 million movie ratings with user IDs anonymized for a $1M prediction-accuracy
+                competition. Researchers cross-referenced with public IMDB ratings and re-identified specific
+                Netflix subscribers, including details about their political and religious views inferred from
+                what they watched.
+            </p>
+
+            <h4>4. NYC Taxi data</h4>
+            <p>
+                New York City released anonymized taxi trip records. The medallion numbers had been hashed &mdash;
+                but with a method weak enough to be reversed in hours. Researchers linked specific taxis to
+                specific drivers, and specific trips to specific celebrities seen leaving specific clubs.
+            </p>
+
+            <div class="callout callout-warn">
+                <h4>The pattern</h4>
+                <p>
+                    In every case the publishing organization believed it had anonymized the data. In every case
+                    the anonymization was defeated by combining the dataset with another public dataset. The
+                    lesson is not "be more careful with anonymization." The lesson is that <em>truly anonymous
+                    is much harder than it sounds</em>, and you should assume any quasi-identifier can be linked
+                    to other public data.
+                </p>
+            </div>
+        </section>
+
+        <section id="twenty-dollar" class="module-section">
+            <h2>The $20 Attack</h2>
+            <p>
+                The Weld attack required a $20 voter-registration list, a database join, and a Saturday afternoon.
+                That is the threat model now. Not a state-level adversary &mdash; an undergraduate with a laptop
+                and a credit card.
+            </p>
+
+            <figure class="diagram">
+                <img src="../images/diagrams/five_dollar_attack.svg" alt="Diagram showing how a small public dataset combined with a 'sanitized' release can re-identify individuals." />
+                <figcaption>The pattern: sanitized release + public auxiliary data = re-identification.</figcaption>
+            </figure>
+
+            <p>
+                The 87% figure deserves repeating: <strong>87% of Americans are uniquely identified by ZIP code +
+                date of birth + gender alone</strong>. That number is for the U.S. and from the 1990s. The
+                equivalent number in any country with detailed civil records is likely higher today, not lower,
+                because we have more data, not less.
+            </p>
+
+            <div class="callout callout-demo">
+                <h4>Try it yourself</h4>
+                <p>
+                    The <a href="../demos/deanonymization_demo.html"><strong>De-Anonymization Attack demo</strong></a> lets
+                    you play the attacker. You're handed a "private" set of medical records and a public registry,
+                    and asked to identify specific individuals. Try it before reading further. Most people identify
+                    several people in under five minutes.
+                </p>
+                <p>
+                    For the formal counterpart, see also the
+                    <a href="../demos/privacy_budget_tracker.html"><strong>Privacy Budget Tracker</strong></a>, which
+                    visualizes <em>differential privacy</em> &mdash; the modern formal answer to the
+                    re-identification problem.
+                </p>
+            </div>
+        </section>
+
+        <section id="pdpl-ndmo" class="module-section">
+            <h2>PDPL &amp; NDMO classification</h2>
+            <p>
+                Saudi Arabia's Personal Data Protection Law (PDPL) and the National Data Management Office's
+                (NDMO) data-classification standard turn the abstract privacy concerns above into legal duties.
+                A leader does not need to memorize every clause, but you do need to know:
+            </p>
+
+            <h3>The four classification tiers (NDMO)</h3>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Level</th>
+                        <th>Meaning</th>
+                        <th>Implication for AI</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Public</strong></td>
+                        <td>Freely shareable; release would not harm.</td>
+                        <td>Any AI tool is permissible. Hosted, local, anywhere.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Confidential</strong></td>
+                        <td>Internal; release would cause limited harm.</td>
+                        <td>Hosted tools allowed only with explicit data-handling agreement; prefer in-region.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Secret</strong></td>
+                        <td>Sensitive; release would cause serious harm.</td>
+                        <td>Hosted tools generally not permitted. Prefer on-premises or sovereign-cloud deployments.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Top Secret</strong></td>
+                        <td>Highest sensitivity; release would cause exceptional harm.</td>
+                        <td>Air-gapped or strictly on-premises only. No external AI tool may see this data.</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>What PDPL adds on top</h3>
+            <ul>
+                <li><strong>Lawful basis.</strong> You need a lawful basis to process personal data &mdash; consent, contract, legal obligation, or another listed ground.</li>
+                <li><strong>Cross-border transfers.</strong> Strict rules on when personal data may leave Saudi Arabia, and what safeguards travel with it.</li>
+                <li><strong>Subject rights.</strong> Individuals have rights to access, correct, and (in defined cases) erase their data.</li>
+                <li><strong>Breach notification.</strong> Organizations must notify both regulators and affected individuals in defined timeframes.</li>
+            </ul>
+
+            <div class="callout callout-warn">
+                <h4>The classification question every AI proposal must answer</h4>
+                <p>
+                    Before you approve any AI deployment, ask: <em>What is the highest classification level of
+                    data this system will see?</em> The answer dictates everything else &mdash; which tools are
+                    legal, where the system can be hosted, who can have access, and what audit trail you need.
+                </p>
+            </div>
+        </section>
+
+        <section id="hosted-vs-local" class="module-section">
+            <h2>Hosted vs. local AI</h2>
+            <p>
+                The simplest framing of data sovereignty for AI: <em>where does the data go when you use the
+                tool?</em> Two ends of a spectrum:
+            </p>
+
+            <div class="compare">
+                <div>
+                    <h4>Hosted (Claude.ai, ChatGPT, Gemini)</h4>
+                    <ul>
+                        <li>Easiest to set up &mdash; sign in and use.</li>
+                        <li>Most capable &mdash; biggest models, latest features.</li>
+                        <li><strong>Data leaves the country</strong> and falls under foreign jurisdiction.</li>
+                        <li>Vendor's logs may retain queries for a stated period.</li>
+                        <li>Acceptable for Public data; sometimes for Confidential under contract; not for Secret or Top Secret.</li>
+                    </ul>
+                </div>
+                <div>
+                    <h4>Local / open-source (Qwen, DeepSeek, Llama)</h4>
+                    <ul>
+                        <li>Harder to set up &mdash; needs hardware, IT operations, often a GPU server.</li>
+                        <li>Less capable per dollar &mdash; smaller models, slower outputs.</li>
+                        <li><strong>Data stays inside the building</strong> under full PDPL jurisdiction.</li>
+                        <li>You own the logs, the access, the retention.</li>
+                        <li>The only acceptable choice for Secret and Top Secret data.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="callout callout-demo">
+                <h4>Live demo (instructor-led)</h4>
+                <p>
+                    The instructor will run the same task from Module 2 (CSV anomaly check) against a local
+                    open-source model, projected side-by-side with the hosted version. The local result will be
+                    <em>visibly slower</em> and <em>slightly worse</em>. <strong>That contrast is the point.</strong>
+                    For Public data the hosted version wins; for Secret data the local version is the only option,
+                    even though it costs you capability. The decision is not which is "better" &mdash; it's which
+                    matches your data's classification.
+                </p>
+            </div>
+        </section>
+
+        <section id="procurement" class="module-section">
+            <h2>Procurement questions to ask IT teams and vendors</h2>
+            <p>
+                The single most useful thing you will leave today with: a list of questions to put to anyone
+                proposing an AI system that will touch your data. Print this list. Keep it on your desk.
+            </p>
+
+            <ol>
+                <li><strong>Where does the data physically go?</strong> Country, region, specific data centres if known.</li>
+                <li><strong>Who has access to logs?</strong> Vendor employees? Their subcontractors? What jurisdiction governs them?</li>
+                <li><strong>What's the retention policy?</strong> How long are inputs kept? Are they used to train future models?</li>
+                <li><strong>Can this run on-premises?</strong> If yes, what does that change in cost and performance?</li>
+                <li><strong>What's the cost difference between hosted and on-premises?</strong> Annual operating cost, not just licence cost.</li>
+                <li><strong>What's the highest data classification this system can legally process?</strong> Get the vendor to commit in writing.</li>
+                <li><strong>What's the breach-notification process?</strong> Who tells whom, when, in what format?</li>
+                <li><strong>If we needed to remove a user's data tomorrow, how?</strong> PDPL gives subjects rights; the system has to be able to honour them.</li>
+                <li><strong>What happens to our data if we cancel?</strong> Returned? Deleted? Retained?</li>
+                <li><strong>Who else uses this exact deployment?</strong> Are we sharing infrastructure with someone we wouldn't want to?</li>
+            </ol>
+
+            <p>
+                A vendor who can answer all ten quickly and in writing is one you can probably trust. A vendor who
+                gets uncomfortable on Question 3 or Question 8 is telling you something important.
+            </p>
+        </section>
+
+        <section id="takeaways" class="module-section">
+            <h2>What to take away</h2>
+            <ol>
+                <li>Parallel processing is real but never perfect. Coordination always costs something.</li>
+                <li>Scaling out (many small machines) usually beats scaling up (one big machine) for resilience and cost &mdash; if your software supports it.</li>
+                <li>GPUs are the right tool for matrix-heavy ML workloads, the wrong tool for everything else. Don't pay for them out of habit.</li>
+                <li>Move computation to data, not data to computation.</li>
+                <li>Anonymization by removing names is not anonymization. Quasi-identifiers leak. Assume the $20 Attack works against any dataset you publish.</li>
+                <li>87% of people are uniquely identified by ZIP + birthday + gender. Treat that combination as personally identifying.</li>
+                <li>Match your AI tool tier to your data's classification level under PDPL/NDMO. Public data → any tool. Secret data → on-premises only.</li>
+                <li>Hosted AI is more capable but lives in another jurisdiction. Local AI is sovereign but currently weaker. The trade-off is the leader's call.</li>
+                <li>The procurement question list above is short, blunt, and works. Use it.</li>
+            </ol>
+        </section>
+
+        <nav class="module-nav" aria-label="Module navigation">
+            <a href="module2.html" class="prev">
+                <span class="nav-label">← Previous</span>
+                <span class="nav-title">Day 2 — Directing AI</span>
+            </a>
+            <a href="module4.html" class="next">
+                <span class="nav-label">Next →</span>
+                <span class="nav-title">Day 4 — How AI Reasons</span>
+            </a>
+        </nav>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div>
+                <h3>About this module</h3>
+                <p>Day 3 of <a href="../index.html">AI for Leaders</a>. Materials adapted and condensed from the open DS-AI course under CC BY 4.0.</p>
+            </div>
+            <div class="footer-links">
+                <h3>The 5 days</h3>
+                <ul>
+                    <li><a href="module1.html">Day 1 &mdash; What AI Is</a></li>
+                    <li><a href="module2.html">Day 2 &mdash; Directing AI</a></li>
+                    <li><a href="module3.html"><strong>Day 3 &mdash; Privacy &amp; Sovereignty</strong></a></li>
+                    <li><a href="module4.html">Day 4 &mdash; How AI Reasons</a></li>
+                    <li><a href="module5.html">Day 5 &mdash; Capstone</a></li>
+                </ul>
+            </div>
+            <div>
+                <h3>License</h3>
+                <p>CC BY 4.0. Attribution: "DS-AI Course Materials, licensed under CC BY 4.0."</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 DS-AI Educational Course · Open Educational Resource</p>
+        </div>
+    </footer>
+</body>
+</html>
