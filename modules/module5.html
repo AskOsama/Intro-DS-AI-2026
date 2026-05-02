@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Module 5: Capstone. Synthesise the previous four days, see the anatomy of a composed agent, and draft a one-page AI opportunity proposal for a process in your own work.">
-    <title>Day 5 — Capstone: Composing Your Proposal | Introduction to DS &amp; AI</title>
+    <title>Module 5 — Capstone: Composing Your Proposal | Introduction to DS &amp; AI</title>
     <link rel="stylesheet" href="../styles.css">
     <link rel="stylesheet" href="../landing.css">
 </head>
@@ -16,15 +16,15 @@
     <nav class="module-breadcrumb">
         <div class="crumbs">
             <a href="../index.html">Home</a><span class="sep">›</span>
-            <span>Day 5 — Capstone: Composing Your Proposal</span>
+            <span>Module 5 — Capstone: Composing Your Proposal</span>
         </div>
     </nav>
 
     <header class="module-header">
-        <div class="module-eyebrow">Day 5 · Module 5</div>
+        <div class="module-eyebrow">Module 5</div>
         <h1>Capstone &mdash; Composing Your Proposal</h1>
         <p class="module-lede">
-            The four previous days built up vocabulary and judgment. Today you put them to work, at your own
+            The four previous modules built up vocabulary and judgment. In this one you put them to work, at your own
             pace. The output is a one-page proposal for an AI opportunity in your <em>actual</em> work
             &mdash; not a hypothetical one &mdash; that you could put in front of your director or your IT
             team next week.
@@ -60,22 +60,22 @@
                     <tr>
                         <td><strong>Agent &amp; Methodology</strong></td>
                         <td>Are we using a clear four-phase process? Is there a verification step?</td>
-                        <td>Day 2 (the methodology) &rarr; agent loop &rarr; this proposal</td>
+                        <td>Module 2 (the methodology) &rarr; agent loop &rarr; this proposal</td>
                     </tr>
                     <tr>
                         <td><strong>Data Sovereignty</strong></td>
                         <td>What classification level? Where will the data physically live? Who controls the logs?</td>
-                        <td>Day 2 (light) &rarr; Day 3 ($20 Attack &amp; PDPL/NDMO) &rarr; this proposal</td>
+                        <td>Module 2 (light) &rarr; Module 3 ($20 Attack &amp; data-protection / classification) &rarr; this proposal</td>
                     </tr>
                     <tr>
                         <td><strong>Optimization &amp; Trade-offs</strong></td>
                         <td>What are we trading off to get the result we want? What's the Pareto front?</td>
-                        <td>Day 4 (objective functions) &rarr; ML loss functions &rarr; this proposal</td>
+                        <td>Module 4 (objective functions) &rarr; ML loss functions &rarr; this proposal</td>
                     </tr>
                     <tr>
                         <td><strong>DAG &amp; Parallelism</strong></td>
                         <td>What's the flow of computation? Where are the dependencies? Where can we parallelize?</td>
-                        <td>Day 3 (data pipelines) &rarr; Day 4 (neural networks) &rarr; this proposal</td>
+                        <td>Module 3 (data pipelines) &rarr; Module 4 (neural networks) &rarr; this proposal</td>
                     </tr>
                 </tbody>
             </table>
@@ -90,8 +90,8 @@
             </p>
 
             <blockquote>
-                <strong>Agent = an LLM (Day 4) + tools (Day 4 building blocks) + memory (Day 2) + a safety
-                wrapper (Day 3) + a loop that runs them (Day 2).</strong>
+                <strong>Agent = an LLM (Module 4) + tools (Module 4 building blocks) + memory (Module 2) + a safety
+                wrapper (Module 3) + a loop that runs them (Module 2).</strong>
             </blockquote>
 
             <p>
@@ -115,27 +115,27 @@
                     <tr>
                         <td><strong>The LLM</strong></td>
                         <td>The "brain". Reads context, proposes the next action, drafts language. Hallucinates if not constrained.</td>
-                        <td>Day 4 &mdash; generative AI segment</td>
+                        <td>Module 4 &mdash; generative AI segment</td>
                     </tr>
                     <tr>
                         <td><strong>Tools</strong></td>
                         <td>What the LLM can <em>do</em>. Each tool is a capability the agent can call.</td>
-                        <td>Day 4 building blocks (see four common ones below)</td>
+                        <td>Module 4 building blocks (see four common ones below)</td>
                     </tr>
                     <tr>
                         <td><strong>Memory / context</strong></td>
                         <td>What the agent remembers across turns. Short-term in the context window; longer-term in files, databases, MCP servers.</td>
-                        <td>Day 2 (context window) + Day 3 (where memory physically lives)</td>
+                        <td>Module 2 (context window) + Module 3 (where memory physically lives)</td>
                     </tr>
                     <tr>
                         <td><strong>Safety wrapper</strong></td>
                         <td>Autonomy level, action approval, action log, kill-switch, identity.</td>
-                        <td>Day 2 (responsibility checklist) + Day 3 (agent-specific security)</td>
+                        <td>Module 2 (responsibility checklist) + Module 3 (agent-specific security)</td>
                     </tr>
                     <tr>
                         <td><strong>The loop</strong></td>
                         <td>The runtime that drives Read &rarr; Plan &rarr; Act &rarr; Observe &rarr; Repeat.</td>
-                        <td>Day 2 (the agent loop)</td>
+                        <td>Module 2 (the agent loop)</td>
                     </tr>
                 </tbody>
             </table>
@@ -155,12 +155,12 @@
 
             <div class="callout">
                 <h4>How the parts compose on a real task</h4>
-                <p><strong>The job.</strong> Your team receives ~30 vendor proposals per month for AI tooling. Each one needs a rapid review against three things: NDMO classification fit, total cost of ownership compared to the current incumbent, and a written summary for the director.</p>
+                <p><strong>The job.</strong> Your team receives ~30 vendor proposals per month for AI tooling. Each one needs a rapid review against three things: data classification fit, total cost of ownership compared to the current incumbent, and a written summary for the director.</p>
 
                 <p><strong>The agent.</strong></p>
                 <ul>
                     <li><strong>LLM:</strong> Claude Opus (hosted) or a Qwen-class model (on-prem) &mdash; chosen based on the highest classification level any proposal will contain.</li>
-                    <li><strong>KBS tool:</strong> the NDMO classification rules + your organisation's PDPL playbook, exposed as a local MCP server. The agent asks: "Given this proposal mentions [X], what classification level applies, and what tools are permitted?"</li>
+                    <li><strong>KBS tool:</strong> the data-classification rules + your organisation's data-protection playbook, exposed as a local MCP server. The agent asks: "Given this proposal mentions [X], what classification level applies, and what tools are permitted?"</li>
                     <li><strong>Optimization tool:</strong> a small TCO solver. The agent feeds in proposal numbers vs. incumbent; the solver returns the Pareto front of cost/capability trade-offs and identifies the dominated proposals.</li>
                     <li><strong>Reasoning / ML tool:</strong> a small classifier you trained once on past procurement decisions, returning "approve / refer / reject" with a confidence. Used as a sanity check on the LLM's draft recommendation.</li>
                     <li><strong>Memory:</strong> the proposal text + every previous review of the same vendor, fetched on the fly via an MCP server pointed at your procurement archive.</li>
@@ -202,11 +202,11 @@
                 </div>
                 <div class="field">
                     <strong>4. Classification &amp; Sovereignty</strong>
-                    <span>What NDMO classification level does this data carry? Does the proposed approach (hosted, local, hybrid) keep the data inside the right boundary under PDPL? If using MCP servers, where do they run?</span>
+                    <span>What data classification level does this data carry? Does the proposed approach (hosted, local, hybrid) keep the data inside the right boundary under your data-protection regime? If using MCP servers, where do they run?</span>
                 </div>
                 <div class="field">
                     <strong>5. Autonomy Level</strong>
-                    <span><em>(New for 2026.)</em> If this involves an agent: suggestion-only, per-action approval, bounded autonomous, or fully autonomous? What's the kill-switch and the action-log? Tied to Day 2's autonomy spectrum and Day 3's agent procurement questions.</span>
+                    <span><em>(New for 2026.)</em> If this involves an agent: suggestion-only, per-action approval, bounded autonomous, or fully autonomous? What's the kill-switch and the action-log? Tied to Module 2's autonomy spectrum and Module 3's agent procurement questions.</span>
                 </div>
                 <div class="field">
                     <strong>6. Privacy &amp; Risk</strong>
@@ -245,9 +245,9 @@
                 are exceptions that need human judgment.</p>
 
                 <p><strong>2. AI Approach.</strong> A two-stage system. Stage 1: a document-classification model
-                (supervised ML, Day 4) reads the incoming letter and classifies it as routine or exception, plus
+                (supervised ML, Module 4) reads the incoming letter and classifies it as routine or exception, plus
                 extracts the requester, employee name, and requested fields. Stage 2: for routine cases, a
-                template-driven generator (LLM with strict prompt and verification, Day 2 methodology) drafts the
+                template-driven generator (LLM with strict prompt and verification, Module 2 methodology) drafts the
                 response for analyst approval. Exceptions are flagged for human handling.</p>
 
                 <p><strong>3. Data Needed.</strong> 18 months of past requests + responses (~10,000 documents)
@@ -255,10 +255,10 @@
                 (already budgeted). No new data collection required.</p>
 
                 <p><strong>4. Classification &amp; Sovereignty.</strong> Letters contain employee personal data
-                &rarr; <em>Confidential</em> under NDMO. Hosted Tier-1 LLMs (e.g., Claude.ai) ruled out per
-                PDPL cross-border restrictions. Recommend on-premises deployment of an open-source model (e.g.,
+                &rarr; <em>Confidential</em> under standard data-classification levels. Hosted Tier-1 LLMs (e.g., Claude.ai) ruled out per
+                cross-border restrictions in the local data-protection regime. Recommend on-premises deployment of an open-source model (e.g.,
                 Qwen-2.5 or Gemma 4) accessed via OpenCode + a custom on-prem MCP server that fronts the HR
-                database. Day 3 hosted/local trade-off accepted: slightly lower quality, full sovereignty.</p>
+                database. Module 3 hosted/local trade-off accepted: slightly lower quality, full sovereignty.</p>
 
                 <p><strong>5. Autonomy Level.</strong> <em>Supervised</em> in pilot &mdash; the agent drafts but
                 an analyst reviews and approves every routine response before send. After 90 days, evaluate
@@ -311,7 +311,7 @@
                     <li>"What single number would tell me this is working?"</li>
                     <li>"Where does this data live today, physically?"</li>
                     <li>"What's the worst-case mistake the agent could make? Who would notice, and how soon?"</li>
-                    <li>"Is this the kind of AI from Day 4 I actually need, or a different one?"</li>
+                    <li>"Is this the kind of AI from Module 4 I actually need, or a different one?"</li>
                     <li>"Who has to say yes for this to happen? Have I made it easy for them to say yes?"</li>
                 </ul>
             </div>
@@ -404,7 +404,7 @@
         <nav class="module-nav" aria-label="Module navigation">
             <a href="module4.html" class="prev">
                 <span class="nav-label">← Previous</span>
-                <span class="nav-title">Day 4 — How AI Reasons</span>
+                <span class="nav-title">Module 4 — How AI Reasons</span>
             </a>
             <a href="../index.html" class="next">
                 <span class="nav-label">Course home →</span>
@@ -417,16 +417,16 @@
         <div class="footer-content">
             <div>
                 <h3>About this module</h3>
-                <p>Day 5 of <a href="../index.html">Introduction to DS &amp; AI</a>. Materials adapted and condensed from the open DS-AI course under CC BY 4.0.</p>
+                <p>Module 5 of <a href="../index.html">Introduction to DS &amp; AI</a>. Materials adapted and condensed from the open DS-AI course under CC BY 4.0.</p>
             </div>
             <div class="footer-links">
                 <h3>The 5 days</h3>
                 <ul>
-                    <li><a href="module1.html">Day 1 &mdash; What AI Is</a></li>
-                    <li><a href="module2.html">Day 2 &mdash; Directing AI</a></li>
-                    <li><a href="module3.html">Day 3 &mdash; Privacy &amp; Sovereignty</a></li>
-                    <li><a href="module4.html">Day 4 &mdash; How AI Reasons</a></li>
-                    <li><a href="module5.html"><strong>Day 5 &mdash; Capstone</strong></a></li>
+                    <li><a href="module1.html">Module 1 &mdash; What AI Is</a></li>
+                    <li><a href="module2.html">Module 2 &mdash; Directing AI</a></li>
+                    <li><a href="module3.html">Module 3 &mdash; Privacy &amp; Sovereignty</a></li>
+                    <li><a href="module4.html">Module 4 &mdash; How AI Reasons</a></li>
+                    <li><a href="module5.html"><strong>Module 5 &mdash; Capstone</strong></a></li>
                 </ul>
             </div>
             <div>

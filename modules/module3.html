@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Module 3: Big Data, Privacy & Data Sovereignty. Parallel processing, the privacy reckoning, PDPL & NDMO classification, hosted vs. local AI, and procurement questions.">
-    <title>Day 3 — Big Data, Privacy &amp; Data Sovereignty | Introduction to DS &amp; AI</title>
+    <meta name="description" content="Module 3: Big Data, Privacy & Data Sovereignty. Parallel processing, the privacy reckoning, data classification levels, hosted vs. local AI, and procurement questions.">
+    <title>Module 3 — Big Data, Privacy &amp; Data Sovereignty | Introduction to DS &amp; AI</title>
     <link rel="stylesheet" href="../styles.css">
     <link rel="stylesheet" href="../landing.css">
 </head>
@@ -16,18 +16,19 @@
     <nav class="module-breadcrumb">
         <div class="crumbs">
             <a href="../index.html">Home</a><span class="sep">›</span>
-            <span>Day 3 — Big Data, Privacy &amp; Data Sovereignty</span>
+            <span>Module 3 — Big Data, Privacy &amp; Data Sovereignty</span>
         </div>
     </nav>
 
     <header class="module-header">
-        <div class="module-eyebrow">Day 3 · Module 3</div>
+        <div class="module-eyebrow">Module 3</div>
         <h1>Big Data, Privacy &amp; Data Sovereignty</h1>
         <p class="module-lede">
-            Today is the heaviest day. You will learn how AI systems handle massive datasets (so the infrastructure
+            This is the heaviest module. You will learn how AI systems handle massive datasets (so the infrastructure
             choices your IT team is making stop sounding like jargon), why anonymizing personal data the obvious
-            way doesn't work, what PDPL and NDMO actually require of you, and how to choose between hosted and
-            sovereign AI tools without giving up either capability or jurisdiction.
+            way doesn't work, what a data protection law and a data classification standard actually require of
+            you, and how to choose between hosted and sovereign AI tools without giving up either capability or
+            jurisdiction.
         </p>
     </header>
 
@@ -44,7 +45,7 @@
                 <li><a href="#feature-eng">Feature engineering</a></li>
                 <li><a href="#privacy">The privacy reckoning</a></li>
                 <li><a href="#twenty-dollar">The $20 Attack</a></li>
-                <li><a href="#pdpl-ndmo">PDPL &amp; NDMO classification</a></li>
+                <li><a href="#pdpl-ndmo">Data classification</a></li>
                 <li><a href="#hosted-vs-local">Hosted vs. local AI</a></li>
                 <li><a href="#agent-security">Agent-specific security threats</a></li>
                 <li><a href="#procurement">Procurement questions</a></li>
@@ -388,14 +389,14 @@
         </section>
 
         <section id="pdpl-ndmo" class="module-section">
-            <h2>PDPL &amp; NDMO classification</h2>
+            <h2>Data classification</h2>
             <p>
-                Saudi Arabia's Personal Data Protection Law (PDPL) and the National Data Management Office's
-                (NDMO) data-classification standard turn the abstract privacy concerns above into legal duties.
-                A leader does not need to memorize every clause, but you do need to know:
+                A data protection law and a data classification standard turn the abstract privacy concerns above
+                into legal duties. The exact statute and standard depend on your jurisdiction, but the shape is
+                the same almost everywhere. You don't need to memorise every clause, but you do need to know:
             </p>
 
-            <h3>The four classification tiers (NDMO)</h3>
+            <h3>The four classification tiers</h3>
 
             <table>
                 <thead>
@@ -429,7 +430,7 @@
                 </tbody>
             </table>
 
-            <h3>What PDPL adds on top</h3>
+            <h3>What a data protection law typically adds on top</h3>
             <ul>
                 <li><strong>Lawful basis.</strong> You need a lawful basis to process personal data &mdash; consent, contract, legal obligation, or another listed ground.</li>
                 <li><strong>Cross-border transfers.</strong> Strict rules on when personal data may leave Saudi Arabia, and what safeguards travel with it.</li>
@@ -470,7 +471,7 @@
                     <ul>
                         <li>Harder to set up &mdash; needs hardware, IT operations, often a GPU server.</li>
                         <li>Less capable per dollar &mdash; smaller models, slower outputs.</li>
-                        <li><strong>Data stays inside the building</strong> under full PDPL jurisdiction.</li>
+                        <li><strong>Data stays inside the building</strong> under your local data protection jurisdiction.</li>
                         <li>You own the logs, the access, the retention.</li>
                         <li>The only acceptable choice for Secret and Top Secret data.</li>
                     </ul>
@@ -547,7 +548,7 @@
                 <li><strong>What's the cost difference between hosted and on-premises?</strong> Annual operating cost, not just licence cost.</li>
                 <li><strong>What's the highest data classification this system can legally process?</strong> Get the vendor to commit in writing.</li>
                 <li><strong>What's the breach-notification process?</strong> Who tells whom, when, in what format?</li>
-                <li><strong>If we needed to remove a user's data tomorrow, how?</strong> PDPL gives subjects rights; the system has to be able to honour them.</li>
+                <li><strong>If we needed to remove a user's data tomorrow, how?</strong> data protection law gives subjects rights; the system has to be able to honour them.</li>
                 <li><strong>What happens to our data if we cancel?</strong> Returned? Deleted? Retained?</li>
                 <li><strong>Who else uses this exact deployment?</strong> Are we sharing infrastructure with someone we wouldn't want to?</li>
             </ol>
@@ -559,7 +560,7 @@
 
             <h3>Five more questions if the proposal is an agent (not a chatbot)</h3>
             <ol start="11">
-                <li><strong>Does this use MCP, or a custom integration?</strong> See Day 2 &mdash; MCP is now the default expectation for portability and audit.</li>
+                <li><strong>Does this use MCP, or a custom integration?</strong> See Module 2 &mdash; MCP is now the default expectation for portability and audit.</li>
                 <li><strong>What level of autonomy will it run at?</strong> Suggestion only? Per-action approval? Bounded autonomous? Fully autonomous? You should be deciding this, not the vendor.</li>
                 <li><strong>How does it authenticate to our systems?</strong> Does it have its own identity, or does it borrow a human user's credentials? Borrowed credentials make audit impossible.</li>
                 <li><strong>What's logged for every action?</strong> Specifically: which tool was called, with what arguments, by which agent, on whose behalf, and what came back. If the answer is "we log requests" but not "we log tool calls," the audit trail won't survive an incident review.</li>
@@ -576,7 +577,7 @@
                 <li>Move computation to data, not data to computation.</li>
                 <li>Anonymization by removing names is not anonymization. Quasi-identifiers leak. Assume the $20 Attack works against any dataset you publish.</li>
                 <li>87% of people are uniquely identified by ZIP + birthday + gender. Treat that combination as personally identifying.</li>
-                <li>Match your AI tool tier to your data's classification level under PDPL/NDMO. Public data → any tool. Secret data → on-premises only.</li>
+                <li>Match your AI tool tier to your data's classification level under data-protection / classification. Public data → any tool. Secret data → on-premises only.</li>
                 <li>Hosted AI is more capable but lives in another jurisdiction. Local AI is sovereign but currently weaker. The trade-off is the leader's call.</li>
                 <li>The procurement question list above is short, blunt, and works. Use it.</li>
                 <li><strong>Agents add new threat vectors</strong> &mdash; prompt injection, tool misuse, supply-chain attacks, cascading failures &mdash; and 88% of organizations have already had incidents. The fix is governance (least-privilege tools, agent-as-identity, action logs, kill-switches), not "smarter prompts."</li>
@@ -586,11 +587,11 @@
         <nav class="module-nav" aria-label="Module navigation">
             <a href="module2.html" class="prev">
                 <span class="nav-label">← Previous</span>
-                <span class="nav-title">Day 2 — Directing AI</span>
+                <span class="nav-title">Module 2 — Directing AI</span>
             </a>
             <a href="module4.html" class="next">
                 <span class="nav-label">Next →</span>
-                <span class="nav-title">Day 4 — How AI Reasons</span>
+                <span class="nav-title">Module 4 — How AI Reasons</span>
             </a>
         </nav>
     </main>
@@ -599,16 +600,16 @@
         <div class="footer-content">
             <div>
                 <h3>About this module</h3>
-                <p>Day 3 of <a href="../index.html">Introduction to DS &amp; AI</a>. Materials adapted and condensed from the open DS-AI course under CC BY 4.0.</p>
+                <p>Module 3 of <a href="../index.html">Introduction to DS &amp; AI</a>. Materials adapted and condensed from the open DS-AI course under CC BY 4.0.</p>
             </div>
             <div class="footer-links">
                 <h3>The 5 days</h3>
                 <ul>
-                    <li><a href="module1.html">Day 1 &mdash; What AI Is</a></li>
-                    <li><a href="module2.html">Day 2 &mdash; Directing AI</a></li>
-                    <li><a href="module3.html"><strong>Day 3 &mdash; Privacy &amp; Sovereignty</strong></a></li>
-                    <li><a href="module4.html">Day 4 &mdash; How AI Reasons</a></li>
-                    <li><a href="module5.html">Day 5 &mdash; Capstone</a></li>
+                    <li><a href="module1.html">Module 1 &mdash; What AI Is</a></li>
+                    <li><a href="module2.html">Module 2 &mdash; Directing AI</a></li>
+                    <li><a href="module3.html"><strong>Module 3 &mdash; Privacy &amp; Sovereignty</strong></a></li>
+                    <li><a href="module4.html">Module 4 &mdash; How AI Reasons</a></li>
+                    <li><a href="module5.html">Module 5 &mdash; Capstone</a></li>
                 </ul>
             </div>
             <div>

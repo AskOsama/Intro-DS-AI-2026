@@ -1,6 +1,6 @@
 # DS-AI 2026 — Introduction to Data Science &amp; Artificial Intelligence
 
-A self-contained 5-day intensive course on AI for practitioners and decision-makers. Bilingual (English + Modern Standard Arabic), no coding required, includes interactive demos.
+A self-contained 5-module intensive course on AI for practitioners and decision-makers. Bilingual (English + Modern Standard Arabic), no coding required, includes interactive demos.
 
 This directory is independent — you can zip it and upload it as a single static site.
 
@@ -14,16 +14,16 @@ This directory is independent — you can zip it and upload it as a single stati
 ├── landing.css         — Stylesheet for index & module pages
 ├── README.md
 │
-├── modules/            — The 5 day-modules (EN + AR each)
-│   ├── module1.html    Day 1 — What AI Is + Using AI Today
+├── modules/            — The 5 modules (EN + AR each)
+│   ├── module1.html    Module 1 — What AI Is + Using AI Today
 │   ├── module1_ar.html
-│   ├── module2.html    Day 2 — Directing AI: From Chatbots to Agents
+│   ├── module2.html    Module 2 — Directing AI: From Chatbots to Agents
 │   ├── module2_ar.html
-│   ├── module3.html    Day 3 — Big Data, Privacy & Sovereignty
+│   ├── module3.html    Module 3 — Big Data, Privacy & Sovereignty
 │   ├── module3_ar.html
-│   ├── module4.html    Day 4 — How AI Reasons
+│   ├── module4.html    Module 4 — How AI Reasons
 │   ├── module4_ar.html
-│   ├── module5.html    Day 5 — Capstone Workshop
+│   ├── module5.html    Module 5 — Capstone
 │   └── module5_ar.html
 │
 ├── demos/              — Self-contained interactive demos (most have AR variants)
@@ -57,7 +57,7 @@ Drop the entire directory on any static web host (or open `index.html` in a brow
 
 ## Audience
 
-Anyone who must evaluate AI proposals, ask the right procurement questions, classify data correctly under PDPL & NDMO, and identify AI opportunities in their own work. **No prior programming or technical background required.**
+Anyone who must evaluate AI proposals, ask the right procurement questions, classify data correctly under data protection & classification standards, and identify AI opportunities in their own work. **No prior programming or technical background required.**
 
 ## License
 

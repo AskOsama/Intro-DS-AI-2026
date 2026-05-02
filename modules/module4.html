@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Module 4: How AI Reasons. Search and optimization, knowledge-based systems, machine learning, neural networks, and generative AI.">
-    <title>Day 4 — How AI Reasons | Introduction to DS &amp; AI</title>
+    <title>Module 4 — How AI Reasons | Introduction to DS &amp; AI</title>
     <link rel="stylesheet" href="../styles.css">
     <link rel="stylesheet" href="../landing.css">
 </head>
@@ -16,12 +16,12 @@
     <nav class="module-breadcrumb">
         <div class="crumbs">
             <a href="../index.html">Home</a><span class="sep">›</span>
-            <span>Day 4 — How AI Reasons</span>
+            <span>Module 4 — How AI Reasons</span>
         </div>
     </nav>
 
     <header class="module-header">
-        <div class="module-eyebrow">Day 4 · Module 4</div>
+        <div class="module-eyebrow">Module 4</div>
         <h1>How AI Reasons: Search, Knowledge, ML &amp; Generative AI</h1>
         <p class="module-lede">
             Today is about what's actually happening inside an AI system when it "reasons." You don't need to do
@@ -389,7 +389,7 @@
                 computing the gradient. Every modern ML training run does this, billions of times.
             </p>
             <p>
-                Notice the connection to Day 4's optimization material: the loss function is just an objective
+                Notice the connection to Module 4's optimization material: the loss function is just an objective
                 function the model is trying to minimize. The same idea, in a different costume.
             </p>
         </section>
@@ -422,7 +422,7 @@
         <section id="nn-are-dags" class="module-section">
             <h2>Neural networks ARE DAGs</h2>
             <p>
-                Recall from Day 3: a <em>directed acyclic graph</em> (DAG) is a flow of computation where each
+                Recall from Module 3: a <em>directed acyclic graph</em> (DAG) is a flow of computation where each
                 step depends on previous steps and there are no loops. Data pipelines are DAGs. Build systems
                 are DAGs. So is a neural network.
             </p>
@@ -438,9 +438,9 @@
             </p>
             <p>
                 The fact that neural networks are DAGs isn't a metaphor. It's why GPUs are good at running them
-                (DAGs parallelize beautifully, as we saw in Day 3). It's why frameworks like TensorFlow and
-                PyTorch use DAG-style "computational graphs" internally. And it's why a Day 3 concept
-                (parallel pipelines) shows up again in Day 4 (deep learning) &mdash; same shape, different
+                (DAGs parallelize beautifully, as we saw in Module 3). It's why frameworks like TensorFlow and
+                PyTorch use DAG-style "computational graphs" internally. And it's why a Module 3 concept
+                (parallel pipelines) shows up again in Module 4 (deep learning) &mdash; same shape, different
                 application.
             </p>
 
@@ -537,7 +537,7 @@
                 produces output that <em>looks</em> like it should be the right answer &mdash; same tone, same
                 shape, same confidence &mdash; but is fabricated. A made-up legal citation, an invented
                 academic paper, a confident but wrong number. This is not a bug; it's how the technology works.
-                The fix is verification, not better prompting. We covered this in Day 2 and you should hear it
+                The fix is verification, not better prompting. We covered this in Module 2 and you should hear it
                 again.
             </p>
 
@@ -571,7 +571,7 @@
 
             <p>
                 The model proposes the next action; the loop executes that action against a tool (read a file,
-                call an API, click a button); the result feeds back into the next prompt; repeat. Day 2 covered
+                call an API, click a button); the result feeds back into the next prompt; repeat. Module 2 covered
                 this loop in plain language; here we connect it to the model itself.
             </p>
 
@@ -590,7 +590,7 @@
 
             <p>
                 For a leader: computer-use agents make every legacy application "automatable" without a custom
-                integration. They also dramatically expand the threat surface (Day 3) because the agent now has
+                integration. They also dramatically expand the threat surface (Module 3) because the agent now has
                 the same access as a human at a keyboard. Treat them like temp staff with desktop access &mdash;
                 onboard, monitor, log, off-board.
             </p>
@@ -623,7 +623,7 @@
                 <li>Classification is drawing a line through a feature space. Different algorithms draw different lines on the same data.</li>
                 <li>Training is gradient descent: small steps downhill on a loss landscape.</li>
                 <li>Non-linearity (activation functions) is what lets neural networks do anything interesting beyond a single straight line.</li>
-                <li><strong>Neural networks ARE DAGs.</strong> The Day 3 thread returns. Same shape, same parallelism, same logic.</li>
+                <li><strong>Neural networks ARE DAGs.</strong> The Module 3 thread returns. Same shape, same parallelism, same logic.</li>
                 <li>Layered abstraction: each layer learns more abstract features. Edges &rarr; shapes &rarr; parts &rarr; objects.</li>
                 <li>Generative AI &mdash; LLMs, image, video &mdash; is fluent and useful but hallucinates. Verify everything load-bearing.</li>
                 <li><strong>Agent = LLM + tools + memory + a loop.</strong> The 2025–2026 leap is wrapping the generator with a loop that can act. Computer-use agents extend that loop to the desktop. Treat them like temp staff with full keyboard access.</li>
@@ -633,11 +633,11 @@
         <nav class="module-nav" aria-label="Module navigation">
             <a href="module3.html" class="prev">
                 <span class="nav-label">← Previous</span>
-                <span class="nav-title">Day 3 — Privacy &amp; Sovereignty</span>
+                <span class="nav-title">Module 3 — Privacy &amp; Sovereignty</span>
             </a>
             <a href="module5.html" class="next">
                 <span class="nav-label">Next →</span>
-                <span class="nav-title">Day 5 — Capstone</span>
+                <span class="nav-title">Module 5 — Capstone</span>
             </a>
         </nav>
     </main>
@@ -646,16 +646,16 @@
         <div class="footer-content">
             <div>
                 <h3>About this module</h3>
-                <p>Day 4 of <a href="../index.html">Introduction to DS &amp; AI</a>. Materials adapted and condensed from the open DS-AI course under CC BY 4.0.</p>
+                <p>Module 4 of <a href="../index.html">Introduction to DS &amp; AI</a>. Materials adapted and condensed from the open DS-AI course under CC BY 4.0.</p>
             </div>
             <div class="footer-links">
                 <h3>The 5 days</h3>
                 <ul>
-                    <li><a href="module1.html">Day 1 &mdash; What AI Is</a></li>
-                    <li><a href="module2.html">Day 2 &mdash; Directing AI</a></li>
-                    <li><a href="module3.html">Day 3 &mdash; Privacy &amp; Sovereignty</a></li>
-                    <li><a href="module4.html"><strong>Day 4 &mdash; How AI Reasons</strong></a></li>
-                    <li><a href="module5.html">Day 5 &mdash; Capstone</a></li>
+                    <li><a href="module1.html">Module 1 &mdash; What AI Is</a></li>
+                    <li><a href="module2.html">Module 2 &mdash; Directing AI</a></li>
+                    <li><a href="module3.html">Module 3 &mdash; Privacy &amp; Sovereignty</a></li>
+                    <li><a href="module4.html"><strong>Module 4 &mdash; How AI Reasons</strong></a></li>
+                    <li><a href="module5.html">Module 5 &mdash; Capstone</a></li>
                 </ul>
             </div>
             <div>
