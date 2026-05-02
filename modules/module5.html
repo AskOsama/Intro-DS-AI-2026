@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Module 5: AI Opportunity Workshop. Identify one process in your work where AI can help, draft a one-page proposal, share, present, and cluster.">
-    <title>Day 5 — AI Opportunity Workshop (Capstone) | Introduction to DS &amp; AI</title>
+    <meta name="description" content="Module 5: Capstone. Synthesise the previous four days, see the anatomy of a composed agent, and draft a one-page AI opportunity proposal for a process in your own work.">
+    <title>Day 5 — Capstone: Composing Your Proposal | Introduction to DS &amp; AI</title>
     <link rel="stylesheet" href="../styles.css">
     <link rel="stylesheet" href="../landing.css">
 </head>
@@ -16,18 +16,18 @@
     <nav class="module-breadcrumb">
         <div class="crumbs">
             <a href="../index.html">Home</a><span class="sep">›</span>
-            <span>Day 5 — AI Opportunity Workshop (Capstone)</span>
+            <span>Day 5 — Capstone: Composing Your Proposal</span>
         </div>
     </nav>
 
     <header class="module-header">
-        <div class="module-eyebrow">Day 5 · Module 5 · Workshop</div>
-        <h1>AI Opportunity Workshop &mdash; Capstone</h1>
+        <div class="module-eyebrow">Day 5 · Module 5</div>
+        <h1>Capstone &mdash; Composing Your Proposal</h1>
         <p class="module-lede">
-            The four previous days built up vocabulary and judgment. Today you put them to work. By the end of
-            the session you will leave with a one-page proposal for an AI opportunity in your <em>actual</em>
-            work &mdash; not a hypothetical one &mdash; that you could put in front of your director or your
-            IT team next week.
+            The four previous days built up vocabulary and judgment. Today you put them to work, at your own
+            pace. The output is a one-page proposal for an AI opportunity in your <em>actual</em> work
+            &mdash; not a hypothetical one &mdash; that you could put in front of your director or your IT
+            team next week.
         </p>
     </header>
 
@@ -37,13 +37,9 @@
             <ol>
                 <li><a href="#recap">The four threads, recap</a></li>
                 <li><a href="#anatomy">Anatomy of a composed agent</a></li>
-                <li><a href="#workshop-frame">Workshop framing</a></li>
                 <li><a href="#template">The proposal template</a></li>
                 <li><a href="#worked-example">A worked example</a></li>
-                <li><a href="#draft">Individual drafting</a></li>
-                <li><a href="#pair-share">Pair-and-share</a></li>
-                <li><a href="#present">Short presentations</a></li>
-                <li><a href="#cluster">Cluster on the whiteboard</a></li>
+                <li><a href="#using-it">Putting the template to use</a></li>
                 <li><a href="#closing">Closing &mdash; what you can do now</a></li>
                 <li><a href="#further">Continued learning</a></li>
             </ol>
@@ -186,28 +182,6 @@
             </p>
         </section>
 
-        <section id="workshop-frame" class="module-section">
-            <h2>Workshop framing</h2>
-            <p>
-                Today is structured. Roughly:
-            </p>
-            <ul>
-                <li><strong>~30 minutes:</strong> recap (above) and template walk-through (below).</li>
-                <li><strong>~45 minutes:</strong> individual drafting time. Instructors circulate and coach.</li>
-                <li><strong>~30 minutes:</strong> pair-and-share with a partner. Each of you reads the other's
-                draft and gives one strengthening suggestion and one sharpening question.</li>
-                <li><strong>~45 minutes:</strong> short presentations. 2 minutes each, no slides. Just walk us
-                through your proposal.</li>
-                <li><strong>~30 minutes:</strong> cluster on the whiteboard by theme &mdash; automation, document
-                analysis, prediction, decision support &mdash; and discuss patterns.</li>
-                <li><strong>~10 minutes:</strong> closing reflections.</li>
-            </ul>
-            <p>
-                Pick a problem from <em>your real work</em>. Not what AI <em>could</em> do in some general sense
-                &mdash; what it could do for <em>you</em>, next month, on a process you actually own or influence.
-                Specificity is the test of whether you can use what you learned this week.
-            </p>
-        </section>
 
         <section id="template" class="module-section">
             <h2>The proposal template</h2>
@@ -315,73 +289,53 @@
             </p>
         </section>
 
-        <section id="draft" class="module-section">
-            <h2>Individual drafting</h2>
+        <section id="using-it" class="module-section">
+            <h2>Putting the template to use</h2>
+
             <p>
-                Now your turn. Pick one process from your work where the analysis above could apply. Use the
-                template. Aim for the level of specificity in the worked example. Don't over-engineer the
-                language &mdash; one or two paragraphs per field is right. Instructors will circulate and ask
-                sharpening questions.
+                The template is a checklist; the work is your judgment. A pragmatic order to fill it in:
             </p>
+
+            <ol>
+                <li><strong>Pick a real process you own or influence.</strong> Not a theoretical one. The test of whether you can use what you learned this week is whether the process is specific enough to put a number on its current pain.</li>
+                <li><strong>Sketch the agent first, fields second.</strong> Use the §anatomy section above. Decide which LLM tier (hosted/local), which tools (optimization, KBS, classifier, action), what memory it needs, what safety wrapper it lives inside. Then the template fields almost write themselves.</li>
+                <li><strong>One paragraph per field.</strong> Two if needed. The discipline is the work, not the prose. If a field needs three paragraphs you don't yet understand the field.</li>
+                <li><strong>Show the draft to one trusted peer outside this material.</strong> If they can repeat back what you're proposing without referring to your notes, you're ready. If not, the proposal is not ready &mdash; it's the proposal that needs sharpening, not your peer.</li>
+            </ol>
+
+            <h3>Sharpening questions to put to your own draft</h3>
 
             <div class="callout">
-                <h4>Coaching prompts the instructors will use</h4>
+                <h4>Use these as a self-review pass</h4>
                 <ul>
-                    <li>"What number would tell you this is working?"</li>
+                    <li>"What single number would tell me this is working?"</li>
                     <li>"Where does this data live today, physically?"</li>
-                    <li>"What's the worst-case mistake the model could make? Who would notice?"</li>
-                    <li>"Is this the kind of AI from Day 4 you actually need, or a different one?"</li>
-                    <li>"Who has to say yes for this to happen? Are they in this room?"</li>
+                    <li>"What's the worst-case mistake the agent could make? Who would notice, and how soon?"</li>
+                    <li>"Is this the kind of AI from Day 4 I actually need, or a different one?"</li>
+                    <li>"Who has to say yes for this to happen? Have I made it easy for them to say yes?"</li>
                 </ul>
             </div>
-        </section>
 
-        <section id="pair-share" class="module-section">
-            <h2>Pair-and-share</h2>
-            <p>Find a partner. You'll spend ~15 minutes per draft.</p>
-            <ol>
-                <li>Read the other person's proposal silently.</li>
-                <li>Give them <strong>one strengthening suggestion</strong> &mdash; what would make this proposal more likely to be approved?</li>
-                <li>Give them <strong>one sharpening question</strong> &mdash; what would you want them to clarify before you'd sign off?</li>
-                <li>Swap.</li>
-            </ol>
-            <p>
-                The partner is not a critic. They are the person you'd take this proposal to. Their feedback is
-                free and far cheaper than your director's.
-            </p>
-        </section>
+            <h3>Common patterns &mdash; what most proposals turn into</h3>
 
-        <section id="present" class="module-section">
-            <h2>Short presentations</h2>
             <p>
-                Each of you presents your proposal to the room. Two minutes each. No slides &mdash; just walk
-                through the six fields. Listeners hold questions to the end.
-            </p>
-            <p>
-                The reason for two minutes and no slides is not arbitrary. The discipline of fitting your
-                proposal into two minutes forces clarity. If you can't say it in two minutes, you don't yet
-                understand it well enough to ask anyone for resources.
-            </p>
-        </section>
-
-        <section id="cluster" class="module-section">
-            <h2>Cluster on the whiteboard</h2>
-            <p>
-                As proposals come in, the instructor groups them on a whiteboard by theme. The four most common
-                clusters in past cohorts:
+                Across cohorts, the proposals that come back successful tend to fall into one of four buckets.
+                Naming yours up front sharpens it:
             </p>
 
             <ul>
-                <li><strong>Automation.</strong> Repetitive document tasks &mdash; verification letters, form processing, simple Q&amp;A. Usually LLM-driven, often Confidential data, on-premises preferred.</li>
-                <li><strong>Document analysis.</strong> Triage, classification, extraction from incoming documents. Often a mix of CV (for scans) and NLP (for text).</li>
-                <li><strong>Prediction.</strong> Demand forecasting, no-show estimation, risk scoring. Classical ML &mdash; often the right tool, often less hyped than generative AI.</li>
-                <li><strong>Decision support.</strong> Eligibility checking, policy compliance, regulatory reasoning. Often KBS &mdash; sometimes hybridized with ML for the fuzzy parts.</li>
+                <li><strong>Automation.</strong> Repetitive document tasks &mdash; verification letters, form processing, simple Q&amp;A. Usually LLM-driven, often Confidential data, on-premises preferred. <em>Watch for:</em> the 5% of cases that aren't routine and need an escape hatch.</li>
+                <li><strong>Document analysis.</strong> Triage, classification, extraction from incoming documents. Often a mix of CV (for scans) and NLP (for text). <em>Watch for:</em> sample bias if your training documents come from one source.</li>
+                <li><strong>Prediction.</strong> Demand forecasting, no-show estimation, risk scoring. Classical ML &mdash; often the right tool, often less hyped than generative AI. <em>Watch for:</em> drift; the world that produced your training data is not the world your prediction lives in.</li>
+                <li><strong>Decision support.</strong> Eligibility checking, policy compliance, regulatory reasoning. Often KBS &mdash; sometimes hybridised with ML for the fuzzy parts. <em>Watch for:</em> the failure mode is "looks correct but applies the wrong rule" &mdash; only audit catches it.</li>
             </ul>
 
+            <h3>When you're ready to take it to the team</h3>
             <p>
-                As the patterns emerge, discuss: which cluster has the most proposals? Why? Which cluster has the
-                hardest sovereignty issues? Which cluster has the cleanest success metrics? Which cluster do
-                <em>you</em> want a peer's notes on?
+                A proposal is ready when (a) the seven fields are filled with specifics not generalities, (b) you
+                can explain it in two minutes without notes, (c) one trusted peer can repeat it back, and (d) you
+                know which person's "yes" makes it real. If any of those four are missing, iterate before
+                bringing it to your IT team or director &mdash; their time is the expensive part.
             </p>
         </section>
 
