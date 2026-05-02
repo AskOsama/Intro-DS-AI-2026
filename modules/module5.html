@@ -109,7 +109,7 @@
 
         <section id="template" class="module-section">
             <h2>The proposal template</h2>
-            <p>One page. Six fields. Aim for one or two paragraphs per field.</p>
+            <p>One page. Seven fields. Aim for one or two paragraphs per field.</p>
 
             <div class="capstone-fields">
                 <div class="field">
@@ -118,7 +118,7 @@
                 </div>
                 <div class="field">
                     <strong>2. AI Approach</strong>
-                    <span>Which kind of AI from this week? Chatbot drafting? ML prediction? Document classification? KBS over a policy book? Generative? Be precise &mdash; "use AI" is not an answer.</span>
+                    <span>Which kind of AI from this week? Chatbot drafting? ML prediction? Document classification? KBS over a policy book? Generative? Agent (Claude Code, OpenCode, custom MCP)? Be precise &mdash; "use AI" is not an answer.</span>
                 </div>
                 <div class="field">
                     <strong>3. Data Needed</strong>
@@ -126,14 +126,18 @@
                 </div>
                 <div class="field">
                     <strong>4. Classification &amp; Sovereignty</strong>
-                    <span>What NDMO classification level does this data carry? Does the proposed approach (hosted, local, hybrid) keep the data inside the right boundary under PDPL? Be specific.</span>
+                    <span>What NDMO classification level does this data carry? Does the proposed approach (hosted, local, hybrid) keep the data inside the right boundary under PDPL? If using MCP servers, where do they run?</span>
                 </div>
                 <div class="field">
-                    <strong>5. Privacy &amp; Risk</strong>
-                    <span>What could go wrong? Who's harmed if it does? Hallucination? Re-identification? Wrong classification of an edge case? What's your mitigation for each?</span>
+                    <strong>5. Autonomy Level</strong>
+                    <span><em>(New for 2026.)</em> If this involves an agent: suggestion-only, per-action approval, bounded autonomous, or fully autonomous? What's the kill-switch and the action-log? Tied to Day 2's autonomy spectrum and Day 3's agent procurement questions.</span>
                 </div>
                 <div class="field">
-                    <strong>6. Success Metric</strong>
+                    <strong>6. Privacy &amp; Risk</strong>
+                    <span>What could go wrong? Who's harmed if it does? Hallucination? Re-identification? Prompt injection (if agent)? Wrong action by the agent? What's your mitigation for each?</span>
+                </div>
+                <div class="field">
+                    <strong>7. Success Metric</strong>
                     <span>How would you know it worked? Time saved? Accuracy improved? Cost reduced? Be quantitative. "Improved" is not measurable.</span>
                 </div>
             </div>
@@ -141,9 +145,10 @@
             <div class="callout callout-warn">
                 <h4>Common mistakes to avoid</h4>
                 <ul>
-                    <li><strong>Generic "AI"</strong> in field 2. If you can't name which kind, you don't have a proposal yet.</li>
+                    <li><strong>Generic "AI"</strong> in field 2. If you can't name which kind &mdash; chatbot, ML, KBS, agent &mdash; you don't have a proposal yet.</li>
                     <li><strong>Skipping field 4.</strong> If you can't classify the data, you don't know whether your proposal is legal.</li>
-                    <li><strong>"Improved" or "better"</strong> in field 6. If the metric isn't a number, you can't tell whether it worked.</li>
+                    <li><strong>Skipping field 5.</strong> If the proposal involves an agent and you haven't named the autonomy level, you've handed the decision to a vendor.</li>
+                    <li><strong>"Improved" or "better"</strong> in field 7. If the metric isn't a number, you can't tell whether it worked.</li>
                     <li><strong>Solving someone else's problem.</strong> If you don't own or influence the process, the proposal goes nowhere.</li>
                 </ul>
             </div>
@@ -176,17 +181,27 @@
                 <p><strong>4. Classification &amp; Sovereignty.</strong> Letters contain employee personal data
                 &rarr; <em>Confidential</em> under NDMO. Hosted Tier-1 LLMs (e.g., Claude.ai) ruled out per
                 PDPL cross-border restrictions. Recommend on-premises deployment of an open-source model (e.g.,
-                Qwen-2.5) on existing infrastructure. Day 3 hosted/local trade-off accepted: slightly lower
-                quality, full sovereignty.</p>
+                Qwen-2.5 or Gemma 4) accessed via OpenCode + a custom on-prem MCP server that fronts the HR
+                database. Day 3 hosted/local trade-off accepted: slightly lower quality, full sovereignty.</p>
 
-                <p><strong>5. Privacy &amp; Risk.</strong> (a) Hallucination risk: model invents employment
+                <p><strong>5. Autonomy Level.</strong> <em>Supervised</em> in pilot &mdash; the agent drafts but
+                an analyst reviews and approves every routine response before send. After 90 days, evaluate
+                moving to <em>bounded autonomous</em> for the highest-confidence subset (response auto-sent if
+                confidence &gt; 95% AND date cross-check passes; everything else routes to human). Kill-switch:
+                disabling the MCP server stops all agent activity within seconds. Action log: every tool call
+                logged with timestamp, agent identity, requester, and outcome.</p>
+
+                <p><strong>6. Privacy &amp; Risk.</strong> (a) Hallucination risk: model invents employment
                 dates. <em>Mitigation:</em> all generated dates cross-checked against the source HR database
                 before send; analyst signs off on every routine response in pilot phase. (b) Misclassification
                 risk: exception treated as routine. <em>Mitigation:</em> conservative threshold; below-confidence
-                cases default to human. (c) Bias risk: certain employee categories systematically misclassified.
-                <em>Mitigation:</em> audit by employee category quarterly.</p>
+                cases default to human. (c) Prompt-injection risk: a malicious requester embeds instructions in
+                the letter body. <em>Mitigation:</em> the agent's MCP tools are restricted to read-only HR-database
+                queries and template-driven response composition; no tool can change records or send mail directly.
+                (d) Bias risk: certain employee categories systematically misclassified. <em>Mitigation:</em> audit
+                by employee category quarterly.</p>
 
-                <p><strong>6. Success Metric.</strong> Reduce average analyst time per request from 15 to &le; 5
+                <p><strong>7. Success Metric.</strong> Reduce average analyst time per request from 15 to &le; 5
                 minutes (66% reduction) at &ge; 99% accuracy on routine cases over a 90-day pilot. If achieved,
                 FTE saving = ~1.0 (60% of current 1.5).</p>
             </div>

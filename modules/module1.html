@@ -41,6 +41,7 @@
                 <li><a href="#landscape">The AI landscape</a></li>
                 <li><a href="#data-science">AI ↔ Data Science</a></li>
                 <li><a href="#tools">Using AI tools today</a></li>
+                <li><a href="#agentic-moment">The agentic AI moment (2025–2026)</a></li>
                 <li><a href="#prompt-patterns">Prompt patterns that work</a></li>
                 <li><a href="#takeaways">What to take away</a></li>
             </ol>
@@ -383,6 +384,93 @@
             </div>
         </section>
 
+        <section id="agentic-moment" class="module-section">
+            <h2>The agentic AI moment (2025–2026)</h2>
+            <p>
+                Until late 2024, "using AI" mostly meant <em>chatting</em> with one. You typed a question, it
+                produced an answer, you copied the answer somewhere useful. The AI never left the chat window.
+                In the eighteen months since, that shape changed. The current generation of AI &mdash; called
+                <span class="term">agentic AI</span> &mdash; is given a goal and works on it: reading files,
+                running code, calling APIs, opening apps on your desktop, driving a browser, sometimes for hours
+                at a time, often without a human in the loop for every step.
+            </p>
+            <p>
+                This is not a small distinction. The market has noticed. By the end of 2026, Gartner projects that
+                <strong>40% of enterprise applications will embed AI agents</strong>, and roughly
+                <strong>79% of organizations have already adopted them</strong> in some form. The infrastructure
+                that makes this possible &mdash; Anthropic's Model Context Protocol (MCP), released late 2024 and
+                governed by the Linux Foundation since December 2025 &mdash; crossed
+                <strong>97 million monthly SDK downloads</strong> in early 2026.
+            </p>
+
+            <h3>Old chatbot AI vs. new agentic AI</h3>
+            <p>
+                A short contrast you'll see reappear throughout this course. The vocabulary on the right is what
+                vendors will use; the vocabulary on the left is what the audience usually has in mind.
+            </p>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Old-school chatbot AI (≤ 2024)</th>
+                        <th>New agentic AI (2025–2026)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>You ask, it answers.</td>
+                        <td>You give a goal, it works on it.</td>
+                    </tr>
+                    <tr>
+                        <td>One turn, one response.</td>
+                        <td>Many turns, persistent state, can pause for hours.</td>
+                    </tr>
+                    <tr>
+                        <td>Reads only what you paste in.</td>
+                        <td>Reads files, calls APIs, browses the web, edits documents.</td>
+                    </tr>
+                    <tr>
+                        <td>Stops at the chat window.</td>
+                        <td>Opens apps on your computer; clicks; types.</td>
+                    </tr>
+                    <tr>
+                        <td>Copy-and-paste workflow.</td>
+                        <td>MCP servers connect it directly to your real systems.</td>
+                    </tr>
+                    <tr>
+                        <td>Vendor-locked &mdash; one model, one product.</td>
+                        <td>Open standards (MCP, A2A) &mdash; agents discover and call each other.</td>
+                    </tr>
+                    <tr>
+                        <td>You verify every word.</td>
+                        <td>You verify <em>boundaries</em>; the agent runs inside them.</td>
+                    </tr>
+                    <tr>
+                        <td>Risk: a confident wrong <em>answer</em>.</td>
+                        <td>Risk: a confident wrong <em>action</em> &mdash; much bigger blast radius.</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>What this looks like in the wild</h3>
+            <ul>
+                <li><strong>Computer-use agents.</strong> Anthropic's Claude Cowork (March 2026) and OpenAI's Codex desktop agent (April 2026) can open apps on your desktop, fill spreadsheets, navigate browsers, and continue working when you step away.</li>
+                <li><strong>Coding agents.</strong> Tools like Claude Code, OpenCode, OpenClaw, and Cursor take a description of what you want changed and modify a codebase across many files, running tests as they go.</li>
+                <li><strong>Browser agents.</strong> Operator, Comet, Nova Act &mdash; agents that drive a real browser to research, book, file, or extract information for you. Industry estimates suggest <strong>25–35% of operational web traffic at large companies will be agent-generated by end of 2026</strong>.</li>
+                <li><strong>Multi-agent systems.</strong> Frameworks like CrewAI, LangGraph, AutoGen, and OpenAgents orchestrate teams of agents that hand off subtasks to each other.</li>
+            </ul>
+
+            <div class="callout callout-warn">
+                <h4>The leader's translation</h4>
+                <p>
+                    When a vendor says "AI" in 2026 they almost always mean an <em>agent</em>, not a chatbot. The
+                    procurement, classification, and risk questions you'd ask about a chatbot are necessary but not
+                    sufficient for an agent. We will return to this on Day 2 (how to direct one) and Day 3 (how to
+                    secure one).
+                </p>
+            </div>
+        </section>
+
         <section id="prompt-patterns" class="module-section">
             <h2>Prompt patterns that work</h2>
             <p>
@@ -447,6 +535,7 @@
                 <li>Modern AI is best understood as <em>intelligent agents</em> with four parts: perceive, process, act, learn.</li>
                 <li>The field has had two winters. Some of today's wave will stick. Some will not. Your job as a leader is to bet on the durable parts.</li>
                 <li>You should be using ChatGPT, Claude, Gemini, or Copilot daily for the work that fits them &mdash; writing, summarizing, brainstorming, editing &mdash; with a cautious eye on hallucination.</li>
+                <li><strong>Agentic AI is the now</strong>, not the future. When vendors say "AI" they mean an agent that can take actions on your behalf. The risk profile shifts from "wrong answer" to "wrong action" &mdash; everything we cover Days 2–4 is built on that.</li>
             </ol>
 
             <div class="callout callout-demo">

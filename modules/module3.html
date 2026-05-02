@@ -46,6 +46,7 @@
                 <li><a href="#twenty-dollar">The $20 Attack</a></li>
                 <li><a href="#pdpl-ndmo">PDPL &amp; NDMO classification</a></li>
                 <li><a href="#hosted-vs-local">Hosted vs. local AI</a></li>
+                <li><a href="#agent-security">Agent-specific security threats</a></li>
                 <li><a href="#procurement">Procurement questions</a></li>
                 <li><a href="#takeaways">What to take away</a></li>
             </ol>
@@ -489,11 +490,53 @@
             </div>
         </section>
 
+        <section id="agent-security" class="module-section">
+            <h2>Agent-specific security threats</h2>
+            <p>
+                Everything in this module so far &mdash; classification, sovereignty, hosted-vs-local &mdash; was
+                written for the chatbot era, where the AI replied with text and a human decided what to do with
+                it. The 2025–2026 agentic shift adds a layer of risk that the old playbook does not cover:
+                <em>agents act</em>. They open files, send messages, hit APIs, modify records. A confident wrong
+                answer is bad. A confident wrong <em>action</em> is worse.
+            </p>
+
+            <h3>The numbers (early 2026)</h3>
+            <ul>
+                <li><strong>88% of organizations</strong> confirmed or suspected an agent-related security incident in the last year. The healthcare sector is at <strong>92.7%</strong>.</li>
+                <li>Only <strong>14.4% of agents</strong> reach production with full security/IT approval. <strong>80.9% of teams</strong> have moved past planning into testing or production anyway.</li>
+                <li>Over <strong>50% of agents</strong> run with no oversight or logging at all &mdash; "shadow AI."</li>
+                <li>Only <strong>22% of teams</strong> treat agents as independent identities. The rest share API keys, which means there's no log of which agent did which action.</li>
+            </ul>
+
+            <h3>The new threat vectors</h3>
+
+            <p>The NSA and allied cybersecurity agencies released formal guidance on securing agentic AI in May 2026. The high-level threats they call out:</p>
+
+            <ul>
+                <li><strong>Prompt injection.</strong> Malicious content in a document, email, or web page tells the agent to ignore its instructions and do something else &mdash; exfiltrate data, send a payment, delete a record. Because the agent reads everything in its context as instructions, the attack surface is huge.</li>
+                <li><strong>Tool misuse.</strong> An agent has access to ten tools. The attacker gets it to use the wrong one (use the production-database tool when only staging was authorized).</li>
+                <li><strong>Privilege escalation.</strong> An agent is connected to your CRM <em>and</em> your email <em>and</em> your filesystem. A compromise in one of those connections gives an attacker access to all three.</li>
+                <li><strong>Supply-chain attacks.</strong> Your agent uses an MCP server published by someone else. They push a malicious update. Your agent now exfiltrates data to them.</li>
+                <li><strong>Cascading failure.</strong> Agent A calls agent B which calls agent C. A bug or compromise in C affects everyone upstream. Multi-agent systems amplify single-point failures.</li>
+            </ul>
+
+            <div class="callout callout-warn">
+                <h4>Containment is the leader's responsibility</h4>
+                <p>
+                    The technical patterns to defend against these (least-privilege tool access, sandboxing, action
+                    logging, agent-as-identity authentication) exist. The reason most organizations don't have them
+                    is governance, not technology. As a leader your job is to refuse to approve agent deployments
+                    that don't include them &mdash; the same way you'd refuse to deploy a database without backups.
+                </p>
+            </div>
+        </section>
+
         <section id="procurement" class="module-section">
             <h2>Procurement questions to ask IT teams and vendors</h2>
             <p>
                 The single most useful thing you will leave today with: a list of questions to put to anyone
-                proposing an AI system that will touch your data. Print this list. Keep it on your desk.
+                proposing an AI system that will touch your data. Print this list. Keep it on your desk. The first
+                ten apply to any AI deployment; the last five are agent-specific and matter even more in 2026.
             </p>
 
             <ol>
@@ -513,6 +556,15 @@
                 A vendor who can answer all ten quickly and in writing is one you can probably trust. A vendor who
                 gets uncomfortable on Question 3 or Question 8 is telling you something important.
             </p>
+
+            <h3>Five more questions if the proposal is an agent (not a chatbot)</h3>
+            <ol start="11">
+                <li><strong>Does this use MCP, or a custom integration?</strong> See Day 2 &mdash; MCP is now the default expectation for portability and audit.</li>
+                <li><strong>What level of autonomy will it run at?</strong> Suggestion only? Per-action approval? Bounded autonomous? Fully autonomous? You should be deciding this, not the vendor.</li>
+                <li><strong>How does it authenticate to our systems?</strong> Does it have its own identity, or does it borrow a human user's credentials? Borrowed credentials make audit impossible.</li>
+                <li><strong>What's logged for every action?</strong> Specifically: which tool was called, with what arguments, by which agent, on whose behalf, and what came back. If the answer is "we log requests" but not "we log tool calls," the audit trail won't survive an incident review.</li>
+                <li><strong>What's the kill-switch?</strong> If we discover the agent is misbehaving at 3am, who can stop it, in what time, without breaking systems it's mid-action on?</li>
+            </ol>
         </section>
 
         <section id="takeaways" class="module-section">
@@ -527,6 +579,7 @@
                 <li>Match your AI tool tier to your data's classification level under PDPL/NDMO. Public data → any tool. Secret data → on-premises only.</li>
                 <li>Hosted AI is more capable but lives in another jurisdiction. Local AI is sovereign but currently weaker. The trade-off is the leader's call.</li>
                 <li>The procurement question list above is short, blunt, and works. Use it.</li>
+                <li><strong>Agents add new threat vectors</strong> &mdash; prompt injection, tool misuse, supply-chain attacks, cascading failures &mdash; and 88% of organizations have already had incidents. The fix is governance (least-privilege tools, agent-as-identity, action logs, kill-switches), not "smarter prompts."</li>
             </ol>
         </section>
 

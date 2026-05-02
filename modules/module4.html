@@ -551,6 +551,59 @@
                     much worse than slowly right.
                 </p>
             </div>
+
+            <h3>From generative model to agent: the 2026 layer</h3>
+            <p>
+                Everything above describes a model that <em>generates</em> output when called. The 2025–2026
+                shift is the <span class="term">agent layer</span> wrapped around it. Conceptually:
+            </p>
+
+            <blockquote>
+                <strong>Agent = LLM + tools + memory + a loop that runs them.</strong>
+            </blockquote>
+
+            <p>
+                The model proposes the next action; the loop executes that action against a tool (read a file,
+                call an API, click a button); the result feeds back into the next prompt; repeat. Day 2 covered
+                this loop in plain language; here we connect it to the model itself.
+            </p>
+
+            <h3>The new capability: computer use</h3>
+            <p>
+                In 2025, model providers added <span class="term">computer use</span> — the ability for an agent
+                to literally see a desktop screenshot, decide where to click, and emit mouse/keyboard events. This
+                turned every existing application (Excel, your CRM, your browser) into something an agent can
+                drive without an API.
+            </p>
+            <ul>
+                <li><strong>Anthropic Claude Cowork (March 2026)</strong> &mdash; controls macOS, runs as a persistent agent that keeps working when you step away.</li>
+                <li><strong>OpenAI Codex desktop (April 2026)</strong> &mdash; can open any app on your desktop and operate with a clicking/typing cursor.</li>
+                <li><strong>Browser-only agents</strong> (Operator, Comet, Nova Act) &mdash; a narrower form: drive a real browser to research, book, file, extract.</li>
+            </ul>
+
+            <p>
+                For a leader: computer-use agents make every legacy application "automatable" without a custom
+                integration. They also dramatically expand the threat surface (Day 3) because the agent now has
+                the same access as a human at a keyboard. Treat them like temp staff with desktop access &mdash;
+                onboard, monitor, log, off-board.
+            </p>
+
+            <h3>Frontier models worth knowing by name</h3>
+            <p>
+                Names will change every few months; this is May 2026. The current frontier:
+            </p>
+            <ul>
+                <li><strong>Anthropic Claude Opus 4.6 / 4.7</strong> &mdash; tops SWE-bench at 80.8%; the default behind Claude Code.</li>
+                <li><strong>OpenAI GPT-5.x</strong> family &mdash; behind ChatGPT, Codex, and Operator.</li>
+                <li><strong>Google Gemini 2.x and Gemma 4</strong> &mdash; Gemma 4 is open-source under Apache 2.0, optimized for agentic workflows.</li>
+                <li><strong>Meta Muse Spark</strong> &mdash; competitive multimodal performance at much lower compute cost than older Llama 4 mid-size variants.</li>
+            </ul>
+
+            <p>
+                You don't need to memorize the benchmarks. You do need to recognize that <em>"GPT-4 came out in
+                2023"</em> is now ancient history; if a vendor's pitch deck references models more than six months
+                old, ask why.
+            </p>
         </section>
 
         <section id="takeaways" class="module-section">
@@ -566,6 +619,7 @@
                 <li><strong>Neural networks ARE DAGs.</strong> The Day 3 thread returns. Same shape, same parallelism, same logic.</li>
                 <li>Layered abstraction: each layer learns more abstract features. Edges &rarr; shapes &rarr; parts &rarr; objects.</li>
                 <li>Generative AI &mdash; LLMs, image, video &mdash; is fluent and useful but hallucinates. Verify everything load-bearing.</li>
+                <li><strong>Agent = LLM + tools + memory + a loop.</strong> The 2025–2026 leap is wrapping the generator with a loop that can act. Computer-use agents extend that loop to the desktop. Treat them like temp staff with full keyboard access.</li>
             </ol>
         </section>
 

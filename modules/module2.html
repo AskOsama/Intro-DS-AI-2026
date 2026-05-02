@@ -43,6 +43,8 @@
                 <li><a href="#context-window">Managing the context window</a></li>
                 <li><a href="#responsibility">The responsibility checklist</a></li>
                 <li><a href="#agents">Agents in action</a></li>
+                <li><a href="#agent-toolbox">The 2026 agent toolbox</a></li>
+                <li><a href="#mcp">MCP — the USB-C for AI</a></li>
                 <li><a href="#nql">Natural Query Language &mdash; data work without code</a></li>
                 <li><a href="#pandas-vocab">Pandas vocabulary for better prompts</a></li>
                 <li><a href="#takeaways">What to take away</a></li>
@@ -265,6 +267,121 @@
             </div>
         </section>
 
+        <section id="agent-toolbox" class="module-section">
+            <h2>The 2026 agent toolbox</h2>
+            <p>
+                The "agent" most leaders will encounter first is a <em>coding agent</em>. Not because everyone in the
+                room writes code &mdash; most don't &mdash; but because the coding-agent ecosystem is where the
+                methodology, the tooling, and the safety patterns are being worked out fastest. Whatever lessons
+                land here will land in your domain agent (legal, HR, procurement, support) within a year.
+            </p>
+
+            <p>
+                Five tools you should be able to recognize by name when a vendor or technical team mentions them:
+            </p>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Tool</th>
+                        <th>What it is</th>
+                        <th>Why it matters to you</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Claude Code</strong></td>
+                        <td>Anthropic's CLI agent &mdash; runs in a terminal, talks to a project, edits files. Tops the SWE-bench coding benchmark.</td>
+                        <td>The "what good looks like" reference point. Hosted only.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>OpenCode</strong></td>
+                        <td>Open-source CLI agent that routes to 75+ LLM providers, including local models. <strong>140k+ GitHub stars in early 2026.</strong></td>
+                        <td>The sovereign alternative. Run it against a model that lives on your hardware &mdash; ties directly to the Day 3 hosted-vs-local trade-off.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>OpenClaw</strong></td>
+                        <td>Open-source agent harness that connects to OpenAI and Anthropic models; went viral in 2025.</td>
+                        <td>Where most of the open-source agent experimentation is happening; a name your IT team will use.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Cursor</strong></td>
+                        <td>A dedicated IDE built around an agent. Cursor 3 (April 2026) added isolated-VM cloud agents.</td>
+                        <td>The IDE-shaped form factor. Paid, hosted.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Cline / OpenHands</strong></td>
+                        <td>Open-source agents covering opposite ends of the autonomy spectrum &mdash; Cline approves every action, OpenHands runs autonomously.</td>
+                        <td>Together they bracket the choice every leader has to make: how much human-in-the-loop?</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>The autonomy spectrum</h3>
+            <p>
+                Whatever the tool, the most important leader-level question is <em>not</em> "which agent?" It's
+                <em>"how much autonomy are you giving it?"</em>. Four points along the spectrum:
+            </p>
+
+            <ol>
+                <li><strong>Suggestion.</strong> Agent proposes; human accepts or rejects every change. Slowest, safest. Cline default.</li>
+                <li><strong>Supervised.</strong> Agent acts; human reviews each action immediately. Most coding-agent default.</li>
+                <li><strong>Bounded autonomous.</strong> Agent runs an entire task end-to-end; human reviews the final result. Acceptable when the action's blast radius is small (sandbox, draft document, test environment).</li>
+                <li><strong>Fully autonomous.</strong> Agent runs continuously, no per-task review. Acceptable only inside very narrow domains with strong containment (think: warehouse robot inside a fenced zone).</li>
+            </ol>
+
+            <div class="callout">
+                <h4>Side-by-side live demo (instructor-led)</h4>
+                <p>
+                    The instructor will run the same task &mdash; the CSV anomaly check &mdash; on
+                    <strong>Claude Code</strong> (hosted) and <strong>OpenCode pointed at a local model</strong>
+                    (sovereign), side by side. The local one is visibly slower and slightly worse. <em>That contrast
+                    is the point.</em> Pairs with the hosted-vs-local discussion in Day 3.
+                </p>
+            </div>
+        </section>
+
+        <section id="mcp" class="module-section">
+            <h2>MCP — the USB-C for AI</h2>
+            <p>
+                For most of 2024 every agent connection was custom: write code to teach the agent how to read your
+                Slack, your filesystem, your CRM, your calendar. The result was hundreds of one-off integrations
+                that nobody could maintain.
+            </p>
+            <p>
+                The <span class="term">Model Context Protocol (MCP)</span>, released by Anthropic in late 2024 and
+                governed by the Linux Foundation since December 2025, fixes this. It's a simple open standard:
+                <em>any</em> MCP-compatible agent can talk to <em>any</em> MCP server. The same way USB-C lets one
+                cable serve laptops, phones, and headphones, MCP lets one agent connect to your filesystem, your
+                Slack, your databases, your in-house tools, and your vendors' APIs.
+            </p>
+
+            <h3>The numbers</h3>
+            <ul>
+                <li><strong>97 million monthly SDK downloads</strong> by early 2026.</li>
+                <li><strong>10,000+ MCP servers</strong> available; <strong>177,000+ registered tools</strong>.</li>
+                <li><strong>78% of enterprise AI teams</strong> have at least one MCP-backed agent in production (up from 31% a year earlier).</li>
+                <li>OpenAI, Google, Microsoft all natively support MCP. <strong>92% of new agent frameworks</strong> released in 2025-Q1 2026 ship with MCP built in.</li>
+            </ul>
+
+            <h3>Why a leader should care</h3>
+            <ul>
+                <li><strong>Procurement portability.</strong> If your tools and vendors expose MCP servers, you can change which agent (and which model) consumes them without rebuilding everything.</li>
+                <li><strong>Vendor leverage.</strong> When a vendor wants to lock you into their proprietary integration, ask "do you ship an MCP server?" The answer tells you whether you're being locked in.</li>
+                <li><strong>Sovereignty.</strong> An MCP server runs <em>where you put it</em>. Your data never has to leave the building for the agent to use it.</li>
+                <li><strong>Audit.</strong> Every MCP call is a discrete request you can log, rate-limit, and revoke. Much easier to govern than a hosted agent that pulls data through a black-box vendor pipeline.</li>
+            </ul>
+
+            <div class="callout callout-warn">
+                <h4>The procurement question</h4>
+                <p>
+                    Whenever your IT team or a vendor proposes an agent that connects to your systems, ask:
+                    <em>"Does this use MCP, or is it a custom integration?"</em> Custom is fine for prototypes. For
+                    anything that will live more than six months, MCP is now the default expectation.
+                </p>
+            </div>
+        </section>
+
         <section id="nql" class="module-section">
             <h2>Natural Query Language &mdash; data work without code</h2>
             <p>
@@ -403,6 +520,8 @@
                 <li>You are responsible for what ships. The AI did the typing.</li>
                 <li>Agents run the same loop, just much faster &mdash; which is the value <em>and</em> the risk.</li>
                 <li>Use precise data vocabulary (DataFrame, Series, groupby, NaN, iloc/loc, info/describe) in your prompts. The vocabulary is more important than the syntax.</li>
+                <li>Recognize the agent toolbox &mdash; Claude Code (hosted, top-of-bench), OpenCode (open-source, sovereign), OpenClaw, Cursor, Cline, OpenHands. The first leader-level question is rarely <em>which</em> tool but <em>how much autonomy</em>.</li>
+                <li><strong>MCP is the standard.</strong> Ask "does this use MCP?" of every agent your team or vendors propose. It's how you keep portability, sovereignty, and audit.</li>
             </ol>
         </section>
 
