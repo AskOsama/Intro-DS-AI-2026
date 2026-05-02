@@ -1017,6 +1017,20 @@ footer a:hover { color: var(--gold-deep); text-decoration-color: var(--gold); }
     max-width: 100%;
     height: auto;
     display: inline-block;
+    /* Diagrams keep their intrinsic direction even on RTL pages.
+       Most _ar.svg variants are translated-but-not-mirrored on purpose
+       (timelines, hierarchies follow the LTR-diagram convention even
+       in Arabic technical content). The few that ARE genuinely mirrored
+       — like implementation_workflow_ar and four_phases_cycle_ar —
+       were authored that way at the SVG level. */
+    direction: ltr;
+}
+
+/* Opt-in mirror flip for any SVG that ought to track page direction
+   but has no AR-mirrored variant. Apply via class on the figure. */
+[dir="rtl"] .diagram--mirror img,
+[dir="rtl"] .diagram--mirror svg {
+    transform: scaleX(-1);
 }
 
 .diagram figcaption {
