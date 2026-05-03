@@ -1325,6 +1325,50 @@ footer a:hover { color: var(--gold-deep); text-decoration-color: var(--gold); }
 
 .compare ul, .compare ol { margin-bottom: 0; }
 
+/* Code-style <pre> blocks inside compare cells and worked-example callouts —
+   wrap long prompt lines so columns don't overflow, give them a faint code
+   tint, and force LTR layout so XML tags + indentation read correctly even
+   when the surrounding text is Arabic. The Arabic glyphs themselves still
+   resolve RTL within their own bidi cluster. */
+.compare pre,
+.callout pre {
+    margin: 0;
+    padding: var(--s-3) var(--s-4);
+    background: var(--paper-2, #f4efe4);
+    border: 1px solid var(--rule);
+    border-radius: 2px;
+    font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+    font-size: 0.84rem;
+    line-height: 1.55;
+    font-style: normal;
+    color: var(--ink);
+    white-space: pre-wrap;
+    word-break: break-word;
+    overflow-wrap: break-word;
+    max-width: 100%;
+    overflow-x: auto;
+    direction: ltr;
+    text-align: start;
+}
+
+[dir="rtl"] .compare pre,
+[dir="rtl"] .callout pre {
+    /* On RTL pages, code-like <pre> still composes left-to-right (so indents
+       and XML tags sit on the left), but the actual Arabic glyphs flow RTL
+       within each line. text-align:right keeps the Arabic prose visually
+       anchored on the start (right) side. */
+    direction: ltr;
+    text-align: right;
+}
+
+/* Tone the AR module-header H1 down so the Cairo display weight doesn't
+   tower over the EN serif at the same nominal size. */
+[dir="rtl"] .module-header h1 {
+    font-size: clamp(1.6rem, 3.2vw, 2.4rem);
+    line-height: 1.35;
+    font-weight: 700;
+}
+
 /* Capstone proposal fields (Day 5) */
 .capstone-fields {
     display: grid;
