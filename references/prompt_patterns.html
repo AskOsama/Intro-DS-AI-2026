@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="A working catalogue of prompt patterns — eight techniques from Anthropic's prompting docs and Karpathy's LLM talk, each with a public-sector worked example you can copy.">
+    <title>Prompt Patterns — A working catalogue | DS-AI 2026</title>
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="../landing.css">
+</head>
+<body class="module module-1">
+    <div class="language-switcher">
+        <a href="prompt_patterns_ar.html" class="lang-button" title="Switch to Arabic">العربية</a>
+    </div>
+
+    <nav class="module-breadcrumb">
+        <div class="crumbs">
+            <a href="../index.html">Home</a><span class="sep">›</span>
+            <a href="../modules/module1.html">Module 1</a><span class="sep">›</span>
+            <span>Prompt patterns catalogue</span>
+        </div>
+    </nav>
+
+    <header class="module-header">
+        <div class="module-eyebrow">Module 1 &middot; Companion reading</div>
+        <h1>Prompt patterns &mdash; a working catalogue</h1>
+        <p class="module-lede">
+            Eight patterns the major model labs converge on, each shown as a side-by-side weak prompt &rarr;
+            stronger prompt with the kind of output you should expect. Patterns 1&ndash;5 deepen the five from
+            Module 1's <em>Prompt patterns that work</em>; patterns 6&ndash;8 add techniques that didn't fit in
+            the module body but are worth knowing.
+        </p>
+    </header>
+
+    <main>
+        <nav class="module-toc" aria-label="Table of contents">
+            <h4>On this page</h4>
+            <ol>
+                <li><a href="#role">1. Set the role and the audience</a></li>
+                <li><a href="#examples">2. Show, don't tell &mdash; multishot examples</a></li>
+                <li><a href="#outline">3. Ask for the structure first</a></li>
+                <li><a href="#feedback">4. Push back when you disagree</a></li>
+                <li><a href="#hallucination">5. Catch confident wrongness</a></li>
+                <li><a href="#cot">6. Let it think first &mdash; chain of thought</a></li>
+                <li><a href="#xml">7. Structure inputs with tags</a></li>
+                <li><a href="#chain">8. Chain prompts when one is too much</a></li>
+                <li><a href="#sources">Sources &amp; further reading</a></li>
+            </ol>
+        </nav>
+
+        <section id="role" class="module-section">
+            <h2>1. Set the role and the audience</h2>
+            <p>
+                Anthropic's term for this is <em>"give Claude a role"</em>. The model behaves measurably
+                differently depending on who it thinks it is talking to and as. State both, up front.
+            </p>
+
+            <div class="compare">
+                <div>
+                    <h4>Weak</h4>
+                    <pre>Write me a memo about the new data classification policy.</pre>
+                </div>
+                <div>
+                    <h4>Stronger</h4>
+                    <pre>You are a senior policy analyst at the Ministry of
+Communications. Your reader is a director who has 5
+minutes before a meeting. Write a one-page memo on the
+new data classification policy: what changes, who is
+affected, what they need to do this week.</pre>
+                </div>
+            </div>
+
+            <p>
+                The stronger prompt swapped <em>three words of vague intent</em> for <em>five sentences of
+                role, audience, length, and outcome</em>. The model's first draft is now usable instead of
+                generic.
+            </p>
+        </section>
+
+        <section id="examples" class="module-section">
+            <h2>2. Show, don't tell &mdash; multishot examples</h2>
+            <p>
+                Anthropic explicitly recommends <em>"using examples effectively"</em> and notes that examples
+                are "denser than rules." A model with one good example will usually outperform a model with
+                three pages of style guidelines.
+            </p>
+
+            <div class="callout callout-story">
+                <h4>Worked example &mdash; matching house style</h4>
+                <pre>Here are two acknowledgement letters in our standard
+house style:
+
+&lt;example&gt;
+Dear citizen,
+Thank you for your enquiry of 12 May. We have logged
+your case as #4471 and a specialist will respond within
+five working days. You can check status at sa.gov.sa/4471.
+Sincerely,
+Customer Service Team
+&lt;/example&gt;
+
+&lt;example&gt;
+Dear Mr. Al-Otaibi,
+We received your appeal of 08 May. Reference #4499. A
+review officer is assigned and will write within ten
+working days.
+Sincerely,
+Appeals Office
+&lt;/example&gt;
+
+Now write the acknowledgement letter for this new case:
+&lt;case&gt;
+Subject: complaint about delayed visa processing.
+Citizen name: Sarah Mohammed. Date received: 14 May.
+Case number: 4523. Expected response window: 7 working days.
+Department: Visa Services.
+&lt;/case&gt;</pre>
+            </div>
+
+            <p>
+                Two example letters teach the model the tone, the level of formality, the case-number
+                placement, and the closing. Without those examples the model would invent its own house
+                style and you'd spend ten exchanges correcting it.
+            </p>
+        </section>
+
+        <section id="outline" class="module-section">
+            <h2>3. Ask for the structure first</h2>
+            <p>
+                Cheap to course-correct an outline. Expensive to course-correct three pages of prose. The
+                pattern: stop the model before it generates the long thing, agree on the skeleton, then let
+                it expand.
+            </p>
+
+            <div class="compare">
+                <div>
+                    <h4>Weak</h4>
+                    <pre>Write a 4-page briefing on adopting MCP across our agency.</pre>
+                </div>
+                <div>
+                    <h4>Stronger</h4>
+                    <pre>Don't write the briefing yet. First propose an outline:
+4 sections, 1 sentence per section explaining what it
+will cover, ordered for a 15-minute reading time. I'll
+tell you which sections to expand and which to drop.</pre>
+                </div>
+            </div>
+        </section>
+
+        <section id="feedback" class="module-section">
+            <h2>4. Push back when you disagree</h2>
+            <p>
+                These tools are extraordinarily responsive to feedback. The sooner you treat them like a
+                junior colleague who needs direction (rather than a vending machine that produces a single
+                output), the more useful they become. Be specific about <em>which sentence</em> is wrong and
+                <em>why</em>.
+            </p>
+            <div class="compare">
+                <div>
+                    <h4>Weak</h4>
+                    <pre>This isn't quite right. Try again.</pre>
+                </div>
+                <div>
+                    <h4>Stronger</h4>
+                    <pre>Your second paragraph assumes the reader knows what
+the data classification standard is. They don't.
+Rewrite that paragraph as if explaining to a director
+who has never read the standard. Keep paragraphs 1
+and 3.</pre>
+                </div>
+            </div>
+        </section>
+
+        <section id="hallucination" class="module-section">
+            <h2>5. Catch confident wrongness</h2>
+            <p>
+                The single biggest failure mode of today's tools is producing fluent, confident text that is
+                plausible-sounding but factually wrong &mdash; <em>hallucination</em>. Two prompting moves
+                materially reduce it:
+            </p>
+            <ol>
+                <li><strong>Give the model the document and ask it to cite.</strong> &ldquo;Here is the policy
+                    PDF. Quote the exact sentence that supports each claim in your summary.&rdquo;</li>
+                <li><strong>Give it permission to say it doesn't know.</strong> &ldquo;If a question can't be
+                    answered from the attached document, say so explicitly &mdash; do not guess.&rdquo;</li>
+            </ol>
+            <p>
+                Both of these add what Anthropic calls "context to improve performance" &mdash; the model has a
+                ground truth to anchor against, and a permitted exit if it doesn't.
+            </p>
+        </section>
+
+        <section id="cot" class="module-section">
+            <h2>6. Let it think first &mdash; chain of thought</h2>
+            <p>
+                For any prompt that involves reasoning &mdash; comparing options, finding errors, doing math,
+                evaluating a trade-off &mdash; ask the model to <em>think before answering</em>. Anthropic
+                phrases this as &ldquo;letting Claude think&rdquo; in their prompting best practices; it is the
+                same idea as the chain-of-thought technique that put GPT-style reasoning on the map in 2022.
+            </p>
+
+            <div class="compare">
+                <div>
+                    <h4>Weak</h4>
+                    <pre>Which vendor (A, B, or C) gives us the best value?</pre>
+                </div>
+                <div>
+                    <h4>Stronger</h4>
+                    <pre>Compare vendors A, B, and C on five dimensions:
+price, sovereignty, integration cost, vendor lock-in,
+and 24-month roadmap. Think through each dimension
+out loud before recommending a vendor. Show your
+reasoning for each dimension, then give the
+recommendation in the last paragraph.</pre>
+                </div>
+            </div>
+
+            <p>
+                This isn't a prompt-engineering trick &mdash; it is how the model produces better answers.
+                Forcing it to lay out the steps reduces the failure mode where the first token committed to
+                an answer locks in a wrong one.
+            </p>
+        </section>
+
+        <section id="xml" class="module-section">
+            <h2>7. Structure inputs with tags</h2>
+            <p>
+                When a prompt mixes <em>instructions</em>, <em>context</em>, and <em>data</em>, separate them
+                with XML-style tags. Anthropic's models are explicitly trained to recognise this convention
+                and respond more accurately when it's used.
+            </p>
+
+            <div class="callout callout-story">
+                <h4>Worked example &mdash; tagged for clarity</h4>
+                <pre>You are reviewing draft government correspondence.
+
+&lt;policy&gt;
+Letters must address the recipient by their full name
+on first mention, then by family name only thereafter.
+Avoid hedging phrases ("we think", "perhaps").
+&lt;/policy&gt;
+
+&lt;letter&gt;
+[paste the draft letter here]
+&lt;/letter&gt;
+
+Review the letter against the policy. Quote each
+sentence that violates a rule and suggest a fix.
+Output format:
+&lt;findings&gt;
+&lt;issue&gt;...&lt;/issue&gt;
+&lt;/findings&gt;</pre>
+            </div>
+
+            <p>
+                The model now knows precisely which block is the rule, which is the data, and how the answer
+                should look. This pattern scales: when prompts grow, structure prevents them from collapsing.
+            </p>
+        </section>
+
+        <section id="chain" class="module-section">
+            <h2>8. Chain prompts when one is too much</h2>
+            <p>
+                If a single prompt has to do three things, do them in three prompts. Anthropic's
+                <em>"chain complex prompts"</em> guidance and the prompt-chaining workflow pattern from
+                <a href="agent_patterns.html#prompt-chaining">our agent patterns page</a> are the same idea
+                at different scale: split the work, gate between steps.
+            </p>
+
+            <div class="callout callout-warn">
+                <h4>The leader's heuristic</h4>
+                <p>
+                    If you find yourself adding a fifth instruction to a prompt that already has four, stop
+                    and ask: <em>could the first three be a separate prompt whose output feeds the next?</em>
+                    Almost always, yes &mdash; and the chained version is more reliable, easier to debug, and
+                    cheaper if you can use a smaller model for the easy steps.
+                </p>
+            </div>
+        </section>
+
+        <section id="sources" class="module-section">
+            <h2>Sources &amp; further reading</h2>
+            <ul>
+                <li>
+                    <strong>Primary source &mdash; Anthropic.</strong>
+                    <a href="https://docs.anthropic.com/en/docs/build-with-claude/prompt-engineering/overview" rel="noopener" target="_blank">Prompt engineering overview</a>
+                    and the deeper
+                    <a href="https://docs.anthropic.com/en/docs/build-with-claude/prompt-engineering/claude-prompting-best-practices" rel="noopener" target="_blank">Prompting best practices</a>
+                    page. Patterns 1&ndash;4, 6, and 7 above are paraphrases of the techniques those pages
+                    name (&ldquo;give Claude a role&rdquo;, &ldquo;use examples effectively&rdquo;, &ldquo;let
+                    Claude think&rdquo;, &ldquo;structure prompts with XML tags&rdquo;, &ldquo;chain complex
+                    prompts&rdquo;). Worked examples are our own.
+                </li>
+                <li>
+                    <strong>Karpathy, A.</strong>
+                    <a href="https://www.youtube.com/watch?v=zjkBMFhNj_g" rel="noopener" target="_blank">[1hr Talk] Intro to Large Language Models</a>
+                    (Nov 2023) &mdash; the single best one-hour orientation to <em>why</em> these prompting
+                    moves work, framed for non-engineers. Patterns 5 (hallucination) and 6 (chain of thought)
+                    are discussed in depth around the 30-minute mark.
+                </li>
+                <li>
+                    <strong>OpenAI Cookbook</strong> &mdash;
+                    <a href="https://cookbook.openai.com/" rel="noopener" target="_blank">cookbook.openai.com</a>
+                    is the equivalent reference for the OpenAI family. Most of the patterns above transfer
+                    1:1 between Claude, ChatGPT, and Gemini.
+                </li>
+                <li>
+                    <strong>Companion page on this course:</strong>
+                    <a href="agent_patterns.html"><em>Agent Patterns &mdash; a reader's digest</em></a>
+                    covers the bigger workflows that <em>compose</em> these single-prompt patterns into
+                    multi-step systems.
+                </li>
+            </ul>
+        </section>
+
+        <nav class="module-nav" aria-label="Module navigation">
+            <a href="agent_patterns.html" class="prev">
+                <span class="nav-label">← Previous</span>
+                <span class="nav-title">Agent patterns reader's digest</span>
+            </a>
+            <a href="../modules/module1.html#prompt-patterns" class="next">
+                <span class="nav-label">Back →</span>
+                <span class="nav-title">Module 1 &mdash; Prompt patterns that work</span>
+            </a>
+        </nav>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <p>&copy; 2026 Introduction to Data Science &amp; AI &mdash; companion reading for Module 1.</p>
+        </div>
+    </footer>
+</body>
+</html>

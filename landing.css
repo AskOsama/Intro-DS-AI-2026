@@ -1156,6 +1156,22 @@ footer a:hover { color: var(--gold-deep); text-decoration-color: var(--gold); }
     font-style: normal;
 }
 
+/* ASCII diagrams — used in companion-reading sub-pages where a hand-drawn SVG
+   would be overkill. Monospace, intentional, centered. */
+.diagram.diagram-ascii pre {
+    background: var(--paper-2, #f7f4ee);
+    border: 1px solid var(--rule);
+    padding: var(--s-5);
+    font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+    font-size: 0.82rem;
+    line-height: 1.4;
+    overflow-x: auto;
+    margin: 0 auto;
+    text-align: start;
+    /* ASCII art is composed left-to-right; keep that even on RTL pages */
+    direction: ltr;
+}
+
 /* Callouts — boxed editorial asides */
 .callout {
     margin: var(--s-6) 0;

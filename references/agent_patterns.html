@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="A reader's digest of Anthropic's Building Effective Agents — workflow vs. agent, the augmented LLM, and the five patterns every leader should be able to recognize in a vendor proposal.">
+    <title>Agent Patterns — A reader's digest of Anthropic's framework | DS-AI 2026</title>
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="../landing.css">
+</head>
+<body class="module module-1">
+    <div class="language-switcher">
+        <a href="agent_patterns_ar.html" class="lang-button" title="Switch to Arabic">العربية</a>
+    </div>
+
+    <nav class="module-breadcrumb">
+        <div class="crumbs">
+            <a href="../index.html">Home</a><span class="sep">›</span>
+            <a href="../modules/module1.html">Module 1</a><span class="sep">›</span>
+            <span>Agent patterns reader's digest</span>
+        </div>
+    </nav>
+
+    <header class="module-header">
+        <div class="module-eyebrow">Module 1 &middot; Companion reading</div>
+        <h1>Agent Patterns &mdash; a reader's digest</h1>
+        <p class="module-lede">
+            A distilled, leader-focused summary of Anthropic's December 2024 essay
+            <em>Building Effective Agents</em>. The essay was written for engineers; this page restates the same
+            ideas in the vocabulary the rest of the course uses, and reframes each pattern in a public-sector or
+            enterprise context. Read this once you've finished Module 1's <em>agentic AI moment</em> section.
+        </p>
+    </header>
+
+    <main>
+        <nav class="module-toc" aria-label="Table of contents">
+            <h4>On this page</h4>
+            <ol>
+                <li><a href="#augmented-llm">The augmented LLM &mdash; the building block</a></li>
+                <li><a href="#workflow-vs-agent">Workflow vs. agent &mdash; the key distinction</a></li>
+                <li><a href="#prompt-chaining">Pattern 1 &mdash; Prompt chaining</a></li>
+                <li><a href="#routing">Pattern 2 &mdash; Routing</a></li>
+                <li><a href="#parallelization">Pattern 3 &mdash; Parallelization</a></li>
+                <li><a href="#orchestrator-workers">Pattern 4 &mdash; Orchestrator-workers</a></li>
+                <li><a href="#evaluator-optimizer">Pattern 5 &mdash; Evaluator-optimizer</a></li>
+                <li><a href="#when-to-use">When to use an agent (and when not to)</a></li>
+                <li><a href="#sources">Sources &amp; further reading</a></li>
+            </ol>
+        </nav>
+
+        <section id="augmented-llm" class="module-section">
+            <h2>The augmented LLM &mdash; the building block</h2>
+            <p>
+                Every pattern below assumes one foundational thing: an <strong>augmented LLM</strong> &mdash; in
+                Anthropic's words, "an LLM enhanced with augmentations such as retrieval, tools, and memory."
+                The model can autonomously generate search queries, pick which tool to call, and decide what
+                information is worth keeping in working memory.
+            </p>
+            <p>
+                Without these augmentations, an LLM is a smart but isolated text processor. With them, it
+                becomes the brain of a system that can reach into the world. Every pattern that follows is just
+                a different way of <em>composing</em> augmented LLMs together.
+            </p>
+
+            <div class="callout callout-story">
+                <h4>Worked example &mdash; the augmented LLM in your daily life</h4>
+                <p>
+                    When you ask Claude or ChatGPT to summarise an attached PDF, three augmentations fire at
+                    once: <em>retrieval</em> (the file is loaded into context), <em>tools</em> (a code-runner
+                    parses the PDF), and <em>memory</em> (the model keeps track of what you've already
+                    asked). The "magic" is the combination, not any single ingredient.
+                </p>
+            </div>
+        </section>
+
+        <section id="workflow-vs-agent" class="module-section">
+            <h2>Workflow vs. agent &mdash; the key distinction</h2>
+            <p>
+                The single most important sentence in the essay is the one that draws this line:
+            </p>
+
+            <blockquote>
+                <p>
+                    <strong>Workflows</strong> are systems where LLMs and tools are orchestrated through
+                    <em>predefined code paths</em>. <strong>Agents</strong> are systems where LLMs
+                    <em>dynamically direct their own processes and tool usage</em>, maintaining control over
+                    how they accomplish tasks.
+                </p>
+                <cite>&mdash; Anthropic, <a href="https://www.anthropic.com/research/building-effective-agents" rel="noopener" target="_blank">Building Effective Agents</a> (2024)</cite>
+            </blockquote>
+
+            <p>
+                In a workflow, a human engineer wrote down the steps and the LLM fills in the blanks. In an
+                agent, the LLM <em>chooses</em> the steps. The five patterns on this page are workflows. The
+                last short section is about agents proper. The reason the distinction matters: workflows are
+                predictable and easy to audit; agents are powerful and hard to bound. Most production systems
+                today are workflows pretending to be agents in marketing copy.
+            </p>
+        </section>
+
+        <section id="prompt-chaining" class="module-section">
+            <h2>Pattern 1 &mdash; Prompt chaining</h2>
+            <p>
+                <strong>Definition.</strong> Decompose a task into sequential steps, where each LLM call
+                processes the output of the previous one. A simple gate (a regex check, a classifier, a human
+                review) can sit between steps to catch failures before they propagate.
+            </p>
+
+            <div class="diagram diagram-ascii">
+                <pre>
+   ┌────────┐    ┌────────┐    ┌────────┐    ┌─────────┐
+ → │  LLM 1 │ →  │  Gate  │ →  │  LLM 2 │ →  │  Output │
+   └────────┘    └────────┘    └────────┘    └─────────┘
+                                </pre>
+                <figcaption>Prompt chaining: each step's output is the next step's input. Gates between steps catch failures cheaply.</figcaption>
+            </div>
+
+            <p>
+                <strong>When to use.</strong> Whenever the task is naturally a multi-step pipeline and each
+                step is more reliable in isolation than as one big prompt. The classic example: write a draft,
+                then translate it, then check the translation against the original.
+            </p>
+
+            <div class="callout callout-story">
+                <h4>Public-sector example</h4>
+                <p>
+                    A ministry receives 200 complaint emails a day in mixed Arabic and English. A prompt-chain
+                    workflow: (1) detect language, (2) summarise the issue in 30 words, (3) classify the
+                    department it belongs to, (4) draft a one-line acknowledgement in the sender's language. A
+                    human approves before send. Each step is small enough that a less-capable, cheaper model
+                    can run it.
+                </p>
+            </div>
+        </section>
+
+        <section id="routing" class="module-section">
+            <h2>Pattern 2 &mdash; Routing</h2>
+            <p>
+                <strong>Definition.</strong> Classify the input first, then dispatch it to the prompt (or
+                model, or specialised pipeline) that handles that class best. The router itself is usually a
+                small, cheap LLM call.
+            </p>
+
+            <div class="diagram diagram-ascii">
+                <pre>
+                            ┌──────► [ Refund handler ]
+   ┌─────────┐              │
+ → │ Router  │ ─ classify ─►├──────► [ Technical-support handler ]
+   └─────────┘              │
+                            └──────► [ Account-closure handler ]
+                                </pre>
+                <figcaption>Routing: one cheap classifier, many specialised downstream prompts. Pay only for the path you take.</figcaption>
+            </div>
+
+            <p>
+                <strong>When to use.</strong> When inputs come in distinct flavours and a single
+                "do-everything" prompt would be muddled or wasteful. Routing also lets you mix model tiers:
+                use a cheap model for easy questions and reserve a frontier model for the hard ones.
+            </p>
+
+            <div class="callout callout-story">
+                <h4>Public-sector example</h4>
+                <p>
+                    A national tax helpdesk: the router sees the question, decides whether it's about
+                    individual income, corporate VAT, or a procedural refund, and routes to the prompt that
+                    has the right form numbers and references baked in. The handler prompt for VAT never has
+                    to know what an individual-income deduction is &mdash; cleaner prompts, fewer mistakes.
+                </p>
+            </div>
+        </section>
+
+        <section id="parallelization" class="module-section">
+            <h2>Pattern 3 &mdash; Parallelization</h2>
+            <p>
+                <strong>Definition.</strong> Run multiple LLM calls at the same time and combine their outputs.
+                Two flavours: <em>sectioning</em> (split a job into independent pieces) and <em>voting</em>
+                (run the same prompt several times and aggregate, e.g. majority-vote a classification).
+            </p>
+
+            <div class="diagram diagram-ascii">
+                <pre>
+                  ┌──► LLM (red-team) ──┐
+                  │                     │
+   ┌────────┐ ───┼──► LLM (legal) ─────┼──► [ Aggregator ] → Final review
+   │ Input  │    │                     │
+   └────────┘ ───┼──► LLM (security) ──┘
+                                </pre>
+                <figcaption>Parallelization: independent perspectives reviewed at once. Aggregation is a small final LLM call (or just code).</figcaption>
+            </div>
+
+            <p>
+                <strong>When to use.</strong> When you want multiple lenses on the same input (each
+                independent, no shared context), or when a single answer benefits from the wisdom of crowds.
+                Latency drops because the calls happen in parallel; quality often rises because the lenses
+                catch different failures.
+            </p>
+
+            <div class="callout callout-story">
+                <h4>Public-sector example</h4>
+                <p>
+                    Reviewing a draft policy document: one LLM call checks for legal issues, another for
+                    security implications, a third for plain-language clarity. They run in parallel, and a
+                    final aggregator (or a human) consolidates the three reports. None of the three reviewers
+                    needs to know about the others' findings.
+                </p>
+            </div>
+        </section>
+
+        <section id="orchestrator-workers" class="module-section">
+            <h2>Pattern 4 &mdash; Orchestrator-workers</h2>
+            <p>
+                <strong>Definition.</strong> A central LLM (the orchestrator) breaks the task into subtasks
+                <em>at runtime</em>, dispatches each to a worker LLM, then synthesises the workers' answers.
+                The difference from parallelization: the orchestrator decides what the subtasks even <em>are</em>,
+                so the structure isn't fixed in code.
+            </p>
+
+            <div class="diagram diagram-ascii">
+                <pre>
+                       ┌─────► Worker A ──┐
+                       │                  │
+   ┌──────────────┐ ──┼─────► Worker B ──┼──► [ Orchestrator ]
+   │ Orchestrator │   │                  │      synthesises
+   └──────────────┘ ──┴─────► Worker C ──┘
+                                </pre>
+                <figcaption>The orchestrator decides the workers and the questions on the fly &mdash; not hard-coded ahead of time.</figcaption>
+            </div>
+
+            <p>
+                <strong>When to use.</strong> For tasks where you don't know in advance how many subtasks
+                exist or what they look like. A research-style query ("compare these 12 vendors on five
+                dimensions") is a natural fit; a simple classification is not.
+            </p>
+        </section>
+
+        <section id="evaluator-optimizer" class="module-section">
+            <h2>Pattern 5 &mdash; Evaluator-optimizer</h2>
+            <p>
+                <strong>Definition.</strong> One LLM produces a draft. A second LLM (the evaluator) reads it
+                and writes feedback. The first LLM revises. Repeat until the evaluator is satisfied or a budget
+                is exhausted.
+            </p>
+
+            <div class="diagram diagram-ascii">
+                <pre>
+   ┌───────────┐    draft     ┌─────────────┐
+ → │ Generator │ ───────────► │  Evaluator  │
+   └───────────┘              └──────┬──────┘
+        ▲                            │
+        │           feedback         │
+        └────────────────────────────┘
+                                </pre>
+                <figcaption>Evaluator-optimizer: the same loop a human writer-and-editor pair runs &mdash; just automated.</figcaption>
+            </div>
+
+            <p>
+                <strong>When to use.</strong> When quality is the bottleneck and you have a clear way to
+                <em>judge</em> a draft. Translation that needs to preserve nuance, code that needs to pass
+                tests, a policy memo that needs to hit a tone &mdash; all benefit. If you can't write down what
+                "good" looks like, you can't build the evaluator.
+            </p>
+        </section>
+
+        <section id="when-to-use" class="module-section">
+            <h2>When to use an agent (and when not to)</h2>
+            <p>
+                The five patterns above are workflows: a human engineer chose the structure; the LLM fills it
+                in. <strong>Agents</strong> are different &mdash; the LLM itself decides what to do next, in
+                what order, with what tools.
+            </p>
+            <blockquote>
+                <p>
+                    Use agents for "open-ended problems where it's difficult or impossible to predict the
+                    required number of steps." But "you should consider adding complexity <em>only</em> when it
+                    demonstrably improves outcomes."
+                </p>
+                <cite>&mdash; Anthropic, <a href="https://www.anthropic.com/research/building-effective-agents" rel="noopener" target="_blank">Building Effective Agents</a></cite>
+            </blockquote>
+            <p>
+                Translated for a leader: most of the systems your vendors will pitch as "agents" are workflows
+                wearing an agent costume. That's usually a good thing &mdash; workflows are auditable and bounded.
+                Reach for a true agent only when the task genuinely cannot be scripted, and budget for the
+                guardrails (tool restrictions, rate limits, human-in-the-loop) that an autonomous loop demands.
+            </p>
+
+            <div class="callout callout-warn">
+                <h4>The leader's question</h4>
+                <p>
+                    When a vendor says "our agent does X", ask: <em>"Is the structure of X decided by your code,
+                    or by the model at runtime?"</em> The first answer is a workflow (good, predictable). The
+                    second is an agent (powerful, needs strong guardrails). Both are valid &mdash; but you
+                    should know which one you're buying.
+                </p>
+            </div>
+        </section>
+
+        <section id="sources" class="module-section">
+            <h2>Sources &amp; further reading</h2>
+            <ul>
+                <li>
+                    <strong>Primary source:</strong> Anthropic Engineering Team,
+                    <a href="https://www.anthropic.com/research/building-effective-agents" rel="noopener" target="_blank"><em>Building Effective Agents</em></a>
+                    (December 2024). All quotations and the workflow/agent distinction on this page are
+                    paraphrases or short quotes from this essay; the worked examples are our own.
+                </li>
+                <li>
+                    Anthropic resources hub:
+                    <a href="https://resources.anthropic.com/building-effective-ai-agents" rel="noopener" target="_blank">Building Effective AI Agents &mdash; Architecture Patterns &amp; Implementation Frameworks</a>
+                    (PDF deep-dive for engineers).
+                </li>
+                <li>
+                    Simon Willison's
+                    <a href="https://simonwillison.net/2024/Dec/20/building-effective-agents/" rel="noopener" target="_blank">annotated reaction</a>
+                    is a useful second-opinion read &mdash; same patterns, different framing.
+                </li>
+                <li>
+                    Module 5 of this course revisits the same five-part anatomy (LLM + tools + memory +
+                    safety + loop) when you compose your own agent. <a href="../modules/module5.html#anatomy">Jump there</a>.
+                </li>
+            </ul>
+        </section>
+
+        <nav class="module-nav" aria-label="Module navigation">
+            <a href="../modules/module1.html#agentic-moment" class="prev">
+                <span class="nav-label">← Back</span>
+                <span class="nav-title">Module 1 &mdash; The agentic AI moment</span>
+            </a>
+            <a href="prompt_patterns.html" class="next">
+                <span class="nav-label">Next →</span>
+                <span class="nav-title">Prompt patterns catalogue</span>
+            </a>
+        </nav>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <p>&copy; 2026 Introduction to Data Science &amp; AI &mdash; companion reading for Module 1.</p>
+        </div>
+    </footer>
+</body>
+</html>
